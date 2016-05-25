@@ -1,6 +1,6 @@
 "use strict";
 
-index = require('admin');
+index = require('./client_admin');
 
 module.exports = {
 

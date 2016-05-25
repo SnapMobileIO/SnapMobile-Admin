@@ -8,32 +8,38 @@ const app = angular.module('app');
 app.service('Admin', Admin);
 app.controller('AdminController', AdminController);
 
+require('./views/_form.js');
+require('./views/list.js');
+require('./views/edit.js');
+require('./views/new.js');
+require('./views/show.js');
+
 app.config($stateProvider => {
   $stateProvider
     .state('admin-list', {
       url: '/admin/:className',
-      templateUrl: 'app/admin/views/list.html',
+      templateUrl: 'admin/views/list.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-new', {
       url: '/admin/:className/new',
-      templateUrl: 'app/admin/views/new.html',
+      templateUrl: 'admin/views/new.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-show', {
       url: '/admin/:className/:id',
-      templateUrl: 'app/admin/views/show.html',
+      templateUrl: 'admin/views/show.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-edit', {
       url: '/admin/:className/:id/edit',
-      templateUrl: 'app/admin/views/edit.html',
+      templateUrl: 'admin/views/edit.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
