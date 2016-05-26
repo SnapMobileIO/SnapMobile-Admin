@@ -20,9 +20,9 @@ function handleError(error) {
 }
 
 gulp.task('babel', function() {
-  return gulp.src(['./admin/**/*.js', './admin/*'])
+  return gulp.src(['./src/admin/**/*.js', './src/admin/*'])
     .pipe(babel({ presets: ['es2015'] }))
-    .pipe(gulp.dest('./'))
+    .pipe(gulp.dest('./client_admin'))
     .on('error', handleError);
 });
 

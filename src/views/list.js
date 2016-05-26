@@ -1,4 +1,4 @@
-var module = angular.module('admin/views/list.html', []);
+var module = angular.module('adminApp');
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/list.html',
     '<div class="container-fluid" ng-init="ctrl.findAll()">\n' +

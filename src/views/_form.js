@@ -1,4 +1,4 @@
-var module = angular.module('admin/views/_form.html', []);
+var module = angular.module('adminApp');
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/_form.html',
     '<div ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance">\n' +

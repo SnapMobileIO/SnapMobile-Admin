@@ -43,10 +43,6 @@ class AdminController {
    * Retrieves items and item count and sets response to this.objects
    */
   findAll(params) {
-
-    var admin = require('snapmobile-admin');
-    alert(admin.equals([1, 2, 3], [1, 2, 3]))
-
     this.selectedItems = [];
     this.selectedAll = false;
     this.params = params || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };

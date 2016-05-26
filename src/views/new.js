@@ -1,4 +1,4 @@
-var module = angular.module('admin/views/new.html', []);
+var module = angular.module('adminApp');
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/new.html',
     '<div class="container-fluid">\n' +
@@ -14,7 +14,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '        <div class="panel-body">\n' +
     '          <form class="form-horizontal">\n' +
-    '            <div ng-include="\'app/admin/views/_form.html\'"></div>\n' +
+    '            <div ng-include="\'admin/views/_form.html\'"></div>\n' +
     '          \n' +
     '            <div class="form-group">\n' +
     '              <div class="col-sm-offset-2 col-sm-10">\n' +

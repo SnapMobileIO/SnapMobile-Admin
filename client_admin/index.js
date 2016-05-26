@@ -4,16 +4,16 @@ var _admin = require('./admin.controller');
 
 var _admin2 = require('./admin.service');
 
-var app = angular.module('adminApp', ["ui.router"]);
+var app = angular.module('adminApp', ['ui.router']);
+
+app.service('Admin', _admin2.Admin);
+app.controller('AdminController', _admin.AdminController);
 
 require('./views/_form.js');
 require('./views/list.js');
 require('./views/edit.js');
 require('./views/new.js');
 require('./views/show.js');
-
-app.service('Admin', _admin2.Admin);
-app.controller('AdminController', _admin.AdminController);
 
 app.config(function ($stateProvider) {
   $stateProvider.state('admin-list', {
