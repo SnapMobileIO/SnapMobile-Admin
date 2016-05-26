@@ -4,10 +4,9 @@
   "description": "",
   "main": "snapmobile-admin.js",
   "scripts": {
-    "test": "make test",
+    "test": "mocha --recursive",
     "build": "babel server -d dist/server",
     "serve": "node dist/server/app.js",
-    "test": "mocha --recursive",
     "babel-node": "babel-node"
   },
   "author": "Jack Cable",
@@ -31,6 +30,7 @@
     "gulp-jscs": "^3.0.2",
     "gulp-jsdoc3": "^0.2.1",
     "gulp-mocha": "^2.2.0",
+    "gulp-ng-html2js": "^0.2.2",
     "gulp-nodemon": "^2.0.6",
     "gulp-plumber": "^1.1.0",
     "gulp-ruby-sass": "^2.0.6",

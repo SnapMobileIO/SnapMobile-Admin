@@ -12,6 +12,7 @@ import mocha from 'gulp-mocha';
 import jsdoc from 'gulp-jsdoc3';
 import cssimport from 'gulp-cssimport';
 import jscs from 'gulp-jscs';
+import ngHtml2Js from 'gulp-ng-html2js';
 
 function handleError(error) {
   gutil.log(gutil.colors.magenta(error.message));
@@ -20,9 +21,19 @@ function handleError(error) {
 }
 
 gulp.task('babel', function() {
-  return gulp.src(['./src/admin/**/*.js', './src/admin/*'])
+  return gulp.src(['./src/admin/*.js'])
     .pipe(babel({ presets: ['es2015'] }))
-    .pipe(gulp.dest('./client_admin'))
+    .pipe(gulp.dest('./dist/admin'))
+    .on('error', handleError);
+});
+
+gulp.task('htmlify', function() {
+  return gulp.src("./src/admin/views/*.html")
+    .pipe(ngHtml2Js({
+      moduleName: "adminApp",
+      prefix: "admin/views/"
+    }))
+    .pipe(gulp.dest("./dist/admin/views"))
     .on('error', handleError);
 });
 
@@ -142,3 +153,4 @@ gulp.task('test', ['set-test-node-env', 'mocha']);
 gulp.task('default', ['watch']);
 gulp.task('dev', ['fonts', 'watch', 'start']);
 gulp.task('build', ['browserify', 'fonts', 'sass', 'babel', 'client-dist', 'server-html']);
+gulp.task('dist', ['babel', 'htmlify']);

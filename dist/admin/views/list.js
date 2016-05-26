@@ -1,4 +1,9 @@
-var module = angular.module('adminApp');
+(function(module) {
+try {
+  module = angular.module('adminApp');
+} catch (e) {
+  module = angular.module('adminApp', []);
+}
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/list.html',
     '<div class="container-fluid" ng-init="ctrl.findAll()">\n' +
@@ -6,6 +11,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <h1>{{ctrl.Admin.schema.displayName || ctrl.Admin.className}}</h1>\n' +
     '    <div class="actions">\n' +
     '      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>\n' +
+    '      <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>\n' +
     '      <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -88,3 +94,4 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '');
 }]);
+})();

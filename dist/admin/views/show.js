@@ -1,4 +1,9 @@
-var module = angular.module('adminApp');
+(function(module) {
+try {
+  module = angular.module('adminApp');
+} catch (e) {
+  module = angular.module('adminApp', []);
+}
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/show.html',
     '<div class="container-fluid" ng-init="ctrl.findOne()">\n' +
@@ -62,3 +67,4 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '');
 }]);
+})();

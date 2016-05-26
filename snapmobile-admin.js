@@ -1,6 +1,6 @@
 "use strict";
 
-require('./client_admin');
+require('./dist/admin');
 
 module.exports = {
 

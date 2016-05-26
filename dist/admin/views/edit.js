@@ -1,4 +1,9 @@
-var module = angular.module('adminApp');
+(function(module) {
+try {
+  module = angular.module('adminApp');
+} catch (e) {
+  module = angular.module('adminApp', []);
+}
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('admin/views/edit.html',
     '<div class="container-fluid" ng-init="ctrl.findOne()">\n' +
@@ -16,7 +21,7 @@ module.run(['$templateCache', function($templateCache) {
     '          <div ng-if="!ctrl.object"><i class="fa fa-spinner fa-spin"></i> Loading...</div>\n' +
     '\n' +
     '          <form ng-if="ctrl.object" class="form-horizontal">\n' +
-    '            <div ng-include="\'admin/views/_form.html\'"></div>\n' +
+    '            <div ng-include="\'app/admin/views/_form.html\'"></div>\n' +
     '            <div class="form-group">\n' +
     '              <div class="col-sm-offset-2 col-sm-10">\n' +
     '                <button type="submit" class="btn btn-primary" ng-click="ctrl.update()">Save Changes</button>\n' +
@@ -31,3 +36,4 @@ module.run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '');
 }]);
+})();
