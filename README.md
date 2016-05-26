@@ -12,3 +12,9 @@ To configure, add the following to `app.js`:
     import 'snapmobile-admin';
     
 Finally, add 'adminApp' as a dependency for the angular app.
+
+# Updating
+
+Make any changes in `/src`.
+
+Once changes are completed, run `gulp dist` to process JavaScript and HTML files and add to `/dist`.
