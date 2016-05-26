@@ -5,7 +5,7 @@ try {
   module = angular.module('adminApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('admin/views/list.html',
+  $templateCache.put('app/admin/views/list.html',
     '<div class="container-fluid" ng-init="ctrl.findAll()">\n' +
     '  <div class="page-header">\n' +
     '    <h1>{{ctrl.Admin.schema.displayName || ctrl.Admin.className}}</h1>\n' +

@@ -5,7 +5,7 @@ try {
   module = angular.module('adminApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('admin/views/_form.html',
+  $templateCache.put('app/admin/views/_form.html',
     '<div ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance">\n' +
     '\n' +
     '  <!-- Not an Array or an Image -->\n' +

@@ -5,7 +5,7 @@ try {
   module = angular.module('adminApp', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('admin/views/new.html',
+  $templateCache.put('app/admin/views/new.html',
     '<div class="container-fluid">\n' +
     '  <div class="page-header">\n' +
     '    <h1>Create Object</h1>\n' +

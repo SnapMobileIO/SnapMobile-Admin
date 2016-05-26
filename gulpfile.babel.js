@@ -31,7 +31,7 @@ gulp.task('htmlify', function() {
   return gulp.src("./src/admin/views/*.html")
     .pipe(ngHtml2Js({
       moduleName: "adminApp",
-      prefix: "admin/views/"
+      prefix: "app/admin/views/"
     }))
     .pipe(gulp.dest("./dist/admin/views"))
     .on('error', handleError);

@@ -18,28 +18,28 @@ app.config($stateProvider => {
   $stateProvider
     .state('admin-list', {
       url: '/admin/:className',
-      templateUrl: 'admin/views/list.html',
+      templateUrl: 'app/admin/views/list.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-new', {
       url: '/admin/:className/new',
-      templateUrl: 'admin/views/new.html',
+      templateUrl: 'app/admin/views/new.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-show', {
       url: '/admin/:className/:id',
-      templateUrl: 'admin/views/show.html',
+      templateUrl: 'app/admin/views/show.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
     })
     .state('admin-edit', {
       url: '/admin/:className/:id/edit',
-      templateUrl: 'admin/views/edit.html',
+      templateUrl: 'app/admin/views/edit.html',
       controller: 'AdminController',
       controllerAs: 'ctrl',
       authenticate: true
