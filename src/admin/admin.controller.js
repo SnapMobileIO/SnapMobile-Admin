@@ -2,14 +2,16 @@
 
 class AdminController {
 
-  constructor(Admin, $http, $stateParams, $state, $window, FlashMessage, Filter) {
+  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, FlashMessage, Filter) {
     this.$http = $http;
     this.$stateParams = $stateParams;
+    this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
     this.FlashMessage = FlashMessage;
     this.Admin = Admin;
     this.Filter = Filter;
+    this.Auth = Auth;
 
     this.objects = [];
     this.currentPage = 1;
@@ -178,6 +180,12 @@ class AdminController {
     if (!this.selectedAll) { this.selectedItems = [] };
   }
 
+  /**
+   * Direct user to URL that exports data to a CSV file
+   */
+  exportToCsv() {
+    this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
+  }
 }
 
 export { AdminController };

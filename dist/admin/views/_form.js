@@ -57,7 +57,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <img ng-src="https://test-aws-lamda-bucket.s3.amazonaws.com/{{ctrl.object[key].url}}" ng-if="ctrl.object[key]" style="max-width: 100%; max-height: 100%;">\n' +
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
-    '      <file-upload for-file="ctrl.object[key]" multiple="false" max-file-size="\'2MB\'">Drop new image here</file-upload>\n' +
+    '      <file-upload for-file="ctrl.object[key]" multiple="false" max-file-size="\'5MB\'">Drop new image here</file-upload>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +

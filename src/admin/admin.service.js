@@ -21,7 +21,6 @@ class Admin {
           this._.merge(this.schema, this.constant.ADMIN_SCHEMA_OPTIONS[this.className]);
 
           // Return updated schema to be used in promise if needed
-          console.log(this.schema);
           return this.schema;
         });
   }

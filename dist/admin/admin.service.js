@@ -33,7 +33,6 @@ var Admin = function () {
         _this._.merge(_this.schema, _this.constant.ADMIN_SCHEMA_OPTIONS[_this.className]);
 
         // Return updated schema to be used in promise if needed
-        console.log(_this.schema);
         return _this.schema;
       });
     }

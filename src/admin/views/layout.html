@@ -1,0 +1,68 @@
+<div class="admin-layout">
+  <div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="admin-list({ className: 'User' })">Brand</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-if="currentUser"><a>Logged in <span ng-if="currentUser.displayName">as {{currentUser.displayName}}</span></a></li>
+
+          <!-- These are only displayed when the nav is collapsed -->
+          <li class="collapsed-display"><a href="#">Link</a></li>
+          <li class="collapsed-display"><a href="#">Link</a></li>
+          <li class="collapsed-display"><a href="#">Link</a></li>
+          <li class="collapsed-display"><a href="#">Link</a></li>
+          <li class="collapsed-display"><a href="#">Link</a></li>
+          
+          <!-- Single button -->
+          <li class="dropdown" uib-dropdown>
+            <a id="single-button" type="button" class="dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+              Dropdown <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li role="menuitem"><a href="#">Action</a></li>
+              <li role="menuitem"><a href="#">Another action</a></li>
+              <li role="menuitem"><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li ng-if="currentUser" role="menuitem"><a ui-sref="logout">Logout</a></li>
+              <li ng-if="!currentUser" role="menuitem"><a ui-sref="login">Login</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li role="separator" class="divider">Navigation</li>
+      <li><a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i>&nbsp;&nbsp;Dashboard</a></li>
+      <li><a ui-sref="admin-list({ className: 'User' })"><i class="fa fa-users fa-fw"></i>&nbsp;&nbsp;Users</a></li>
+      <li><a ui-sref="admin-list({ className: 'Company' })"><i class="fa fa-mobile fa-fw"></i>&nbsp;&nbsp;Companies</a></li>
+      <li><a ui-sref="admin-list({ className: 'Product' })"><i class="fa fa-mobile fa-fw"></i>&nbsp;&nbsp;Products</a></li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div class="page-content-wrapper">
+    <div ui-view></div>
+  </div>
+
+</div>
+</div>
