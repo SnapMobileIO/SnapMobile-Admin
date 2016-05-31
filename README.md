@@ -5,7 +5,7 @@ A npm module to include the SnapMobile Admin Panel
 
 Include this private module by adding the following under `dependencies` in `package.json`, and run `npm install`.
 
-    "snapmobile-admin": "git+https://1e8b0a2166919016f0b18bdf4017d107dedb29af:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Admin.git",
+    "snapmobile-admin": "git+ssh://@github.com/SnapMobileIO/SnapMobile-Admin.git",
 
 To configure, add the following to `app.js`:
 
