@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-var admin = require('./dist/admin');
+require('./dist/admin');
