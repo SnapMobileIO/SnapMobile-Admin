@@ -246,9 +246,9 @@ var AdminController = function () {
     }
 
     /**
-     * Returns the class url for a given siderbar item if class exists
-     * or current state if not.
-     * @param {Object} sidebar item (as defined in config)
+     * Returns a url for ui-sref fora  sidebar item
+     * @param  {Object} sidebar item (as defined in config)
+     * @return {String} url for class, or current state if not
      */
 
   }, {

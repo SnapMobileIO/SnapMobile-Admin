@@ -187,11 +187,11 @@ class AdminController {
   exportToCsv() {
     this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
   }
-
+  
   /**
-   * Returns the class url for a given siderbar item if class exists
-   * or current state if not.
-   * @param {Object} sidebar item (as defined in config)
+   * Returns a url for ui-sref fora  sidebar item
+   * @param  {Object} sidebar item (as defined in config)
+   * @return {String} url for class, or current state if not
    */
   getClassUrl(item) {
     if(item.class) return 'admin-list({ className : \'' + item.class + '\' })';
