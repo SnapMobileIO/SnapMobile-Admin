@@ -2,6 +2,7 @@
 
 import gulp from 'gulp';
 import babel from 'gulp-babel';
+import gutil from 'gulp-util';
 import ngHtml2Js from 'gulp-ng-html2js';
 
 function handleError(error) {
