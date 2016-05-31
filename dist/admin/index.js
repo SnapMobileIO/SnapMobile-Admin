@@ -19,6 +19,8 @@ require('./views/show.js');
 app.config(function ($stateProvider) {
   $stateProvider.state('admin', {
     url: '/admin',
+    controller: 'AdminController',
+    controllerAs: 'ctrl',
     templateUrl: 'app/admin/views/layout.html'
   }).state('admin-list', {
     url: '/:className',

@@ -19,6 +19,8 @@ app.config($stateProvider => {
   $stateProvider
     .state('admin', {
       url: '/admin',
+      controller: 'AdminController',
+      controllerAs: 'ctrl',
       templateUrl: 'app/admin/views/layout.html'
     })
     .state('admin-list', {

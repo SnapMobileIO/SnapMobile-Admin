@@ -59,10 +59,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <div class="sidebar-wrapper">\n' +
     '    <ul class="sidebar-nav">\n' +
     '      <li role="separator" class="divider">Navigation</li>\n' +
-    '      <li><a href="#" class="active"><i class="fa fa-dashboard fa-fw"></i>&nbsp;&nbsp;Dashboard</a></li>\n' +
-    '      <li><a ui-sref="admin-list({ className: \'User\' })"><i class="fa fa-users fa-fw"></i>&nbsp;&nbsp;Users</a></li>\n' +
-    '      <li><a ui-sref="admin-list({ className: \'Company\' })"><i class="fa fa-mobile fa-fw"></i>&nbsp;&nbsp;Companies</a></li>\n' +
-    '      <li><a ui-sref="admin-list({ className: \'Product\' })"><i class="fa fa-mobile fa-fw"></i>&nbsp;&nbsp;Products</a></li>\n' +
+    '      <li ng-repeat="item in ctrl.sidebarItems"><a ui-sref="{{ ctrl.getClassUrl(item) }}"><i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}</a></li>\n' +
     '    </ul>\n' +
     '  </div>\n' +
     '  <!-- /#sidebar-wrapper -->\n' +

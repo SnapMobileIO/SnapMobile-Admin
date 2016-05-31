@@ -9,7 +9,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, FlashMessage, Filter) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter) {
     _classCallCheck(this, AdminController);
 
     this.$http = $http;
@@ -17,6 +17,7 @@ var AdminController = function () {
     this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
+    this.sidebarItems = basket.sidebarItems;
     this.FlashMessage = FlashMessage;
     this.Admin = Admin;
     this.Filter = Filter;
@@ -242,6 +243,18 @@ var AdminController = function () {
     key: 'exportToCsv',
     value: function exportToCsv() {
       this.$window.open('/api/admin/' + this.Admin.className + '/exportToCsv?access_token=' + this.Auth.token() + '&' + this.$httpParamSerializer(this.params));
+    }
+
+    /**
+     * Returns the class url for a given siderbar item if class exists
+     * or current state if not.
+     * @param {Object} sidebar item (as defined in config)
+     */
+
+  }, {
+    key: 'getClassUrl',
+    value: function getClassUrl(item) {
+      if (item.class) return 'admin-list({ className : \'' + item.class + '\' })';else return '.'; //returns current state
     }
   }]);
 

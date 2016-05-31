@@ -2,12 +2,13 @@
 
 class AdminController {
 
-  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, FlashMessage, Filter) {
+  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter) {
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
+    this.sidebarItems = basket.sidebarItems;
     this.FlashMessage = FlashMessage;
     this.Admin = Admin;
     this.Filter = Filter;
@@ -185,6 +186,16 @@ class AdminController {
    */
   exportToCsv() {
     this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
+  }
+
+  /**
+   * Returns the class url for a given siderbar item if class exists
+   * or current state if not.
+   * @param {Object} sidebar item (as defined in config)
+   */
+  getClassUrl(item) {
+    if(item.class) return 'admin-list({ className : \'' + item.class + '\' })';
+    else return '.'; //returns current state
   }
 }
 
