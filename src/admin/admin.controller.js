@@ -2,7 +2,7 @@
 
 class AdminController {
 
-  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter, _, moment) {
+  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, adminConfiguration, FlashMessage, Filter, _, moment) {
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.$httpParamSerializer = $httpParamSerializer;
