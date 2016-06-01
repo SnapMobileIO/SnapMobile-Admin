@@ -9,7 +9,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter, _, moment) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, adminConfiguration, FlashMessage, Filter, _, moment) {
     _classCallCheck(this, AdminController);
 
     this.$http = $http;
