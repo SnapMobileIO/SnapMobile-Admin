@@ -8,7 +8,7 @@ class AdminController {
     this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
-    this.sidebarItems = basket.sidebarItems;
+    this.sidebarItems = adminConfiguration.sidebarItems;
     this._ = _;
     this.FlashMessage = FlashMessage;
     this.Admin = Admin;
