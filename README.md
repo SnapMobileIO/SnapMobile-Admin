@@ -11,7 +11,16 @@ To configure, add the following to `app.js`:
 
     import 'snapmobile-admin';
     
-Finally, add 'adminApp' as a dependency for the angular app.
+Add 'adminApp' as a dependency for the angular app.
+
+Finally, configure the sidebar items:
+
+    .factory('adminConfiguration', function() {
+     var adminService = {
+         sidebarItems: constant.GLOBAL.SIDEBAR_ITEMS
+       };
+       return adminService;
+     +})
 
 # Updating
 
