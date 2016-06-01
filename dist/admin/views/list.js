@@ -12,6 +12,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="actions">\n' +
     '      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>\n' +
     '      <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>\n' +
+    '      <a ng-click="importToggle = !importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="importToggle"> Hide import</span><span ng-hide="importToggle"> Import from CSV</span></a>\n' +
     '      <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -20,6 +21,10 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="col-lg-12">\n' +
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
+    '          <div ng-if="importToggle">\n' +
+    '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'5MB\'">Drop csv file here</file-upload>\n' +
+    '            <a ng-click="ctrl.importFromCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
+    '          </div>\n' +
     '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +
     '          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>\n' +
     '          <table class="table table-hover"> \n' +

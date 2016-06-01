@@ -27,6 +27,7 @@ class AdminController {
     this.params.skip = 0;
     this.params.sort = '-createdAt';
     this.toggle = {};
+    this.uploadedUrl = "";
 
     // Load the schema for this class
     this.Admin.loadSchema();
@@ -195,6 +196,20 @@ class AdminController {
    */
   exportToCsv() {
     this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
+  }
+
+  importFromCsv() {
+    this.Admin.importFromCsv(this.uploadedUrl)
+      .then(response => {
+        this.objects.unshift(response.data);
+        this.object = {};
+        this.findAll();
+        this.$state.go('admin-list', { className: this.Admin.className });
+        this.FlashMessage.success('Successfully imported');
+      }, (error) => {
+        this.FlashMessage.errors(error);
+        console.error(error);
+      });
   }
 
   /**

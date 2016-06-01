@@ -69,6 +69,11 @@ var Admin = function () {
       var requestUrl = '/api/admin/' + this.className + '/deleteMultiple';
       return this.$http.post(requestUrl, { ids: ids });
     }
+  }, {
+    key: 'importFromCsv',
+    value: function importFromCsv(object) {
+      return this.$http.post('/api/admin/' + this.className + '/importFromCsv', object);
+    }
   }]);
 
   return Admin;
