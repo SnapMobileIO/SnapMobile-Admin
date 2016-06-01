@@ -20,7 +20,7 @@ Finally, configure the sidebar items:
          sidebarItems: constant.GLOBAL.SIDEBAR_ITEMS
        };
        return adminService;
-     +})
+     })
 
 # Updating
 
