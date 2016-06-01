@@ -28,7 +28,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <th class="wordwrap-none">\n' +
     '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
     '                </th>\n' +
-    '                <th ng-repeat="(key, schema) in ctrl.Admin.schema" class="wordwrap-none text-muted">\n' +
+    '                <th ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== \'Hidden\'" class="wordwrap-none text-muted">\n' +
     '                  <a ng-click="ctrl.updateSort(key)">\n' +
     '                    {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}\n' +
     '                    <i ng-class="ctrl.toggle[key] ? \'fa fa-caret-up\' : \'fa fa-caret-down\'"></i>\n' +
@@ -44,7 +44,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
     '\n' +
     '                <!-- Relationship -->\n' +
-    '                <td ng-repeat="(key, value) in ctrl.Admin.schema">\n' +
+    '                <td ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== \'Hidden\'">\n' +
     '                  <span ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</span>\n' +
     '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
     '                    <a ui-sref="admin-show({ \n' +
@@ -55,6 +55,9 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                  <!-- Mixed / Object -->\n' +
     '                  <span ng-if="value.instance == \'Mixed\'"><i class="text-muted">Mixed</i></span>\n' +
+    '\n' +
+    '                  <!-- Array -->\n' +
+    '                  <span ng-if="value.instance == \'Array\'">{{object[key].join(\', \')}}</span>\n' +
     '\n' +
     '                  <!-- Number -->\n' +
     '                  <span ng-if="value.instance == \'Number\'">{{object[key]}}</span>\n' +

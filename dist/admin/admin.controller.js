@@ -9,7 +9,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, basket, FlashMessage, Filter, _, moment) {
     _classCallCheck(this, AdminController);
 
     this.$http = $http;
@@ -18,10 +18,12 @@ var AdminController = function () {
     this.$state = $state;
     this.$window = $window;
     this.sidebarItems = basket.sidebarItems;
+    this._ = _;
     this.FlashMessage = FlashMessage;
     this.Admin = Admin;
     this.Filter = Filter;
     this.Auth = Auth;
+    this.moment = moment;
 
     this.objects = [];
     this.currentPage = 1;
@@ -99,6 +101,13 @@ var AdminController = function () {
       var adminId = this.$stateParams.id;
       this.Admin.find(adminId).then(function (response) {
         _this3.object = response.data;
+
+        // Loop through object's keys and format dates
+        _this3._.forEach(_this3.object, function (value, key) {
+          if (_this3.Admin.schema[key] && _this3.Admin.schema[key].instance === 'Date') {
+            _this3.object[key] = _this3.moment(_this3.object[key], 'YYYY-MM-DD h:mma Z').toDate();
+          }
+        });
       }, function (error) {
         console.error(error);
       });

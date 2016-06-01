@@ -19,14 +19,14 @@ module.run(['$templateCache', function($templateCache) {
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
     '          <ul class="list-group">\n' +
-    '            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance">\n' +
+    '            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance && value.instance !== \'Hidden\'">\n' +
     '\n' +
     '              <!-- String or ID -->\n' +
-    '              <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{key}}:</strong> {{ctrl.object[key]}}</span>\n' +
+    '              <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>\n' +
     '\n' +
     '              <!-- ObjectID that isn\'t the object ID -->\n' +
     '              <span ng-if="value.instance == \'ObjectID\' && key != \'_id\'">\n' +
-    '                <strong>{{key}}:</strong> \n' +
+    '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> \n' +
     '                <a ui-sref="admin-show({ \n' +
     '                              className: ctrl.Admin.schema[key].options.ref, \n' +
     '                              id: ctrl.object[key] \n' +
@@ -34,29 +34,40 @@ module.run(['$templateCache', function($templateCache) {
     '              </span>\n' +
     '\n' +
     '              <!-- Mixed -->\n' +
-    '              <span ng-if="value.instance == \'Mixed\'"><strong>{{key}}:</strong> <pre>{{ctrl.object[key]}}</pre></span>\n' +
+    '              <span ng-if="value.instance == \'Mixed\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> <pre>{{ctrl.object[key]}}</pre></span>\n' +
     '\n' +
     '              <!-- Number -->\n' +
-    '              <span ng-if="value.instance == \'Number\'"><strong>{{key}}:</strong> {{ctrl.object[key]}}</span>\n' +
+    '              <span ng-if="value.instance == \'Number\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>\n' +
     '\n' +
     '              <!-- Date -->\n' +
-    '              <span ng-if="value.instance == \'Date\'"><strong>{{key}}:</strong> {{ctrl.object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span> \n' +
+    '              <span ng-if="value.instance == \'Date\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span> \n' +
     '\n' +
     '              <!-- Array -->\n' +
-    '              <span ng-if="value.instance == \'Array\'"><strong>{{key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
+    '              <span ng-if="value.instance == \'Array\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
+    '\n' +
+    '              <!-- Relationships -->\n' +
+    '              <span ng-if="value.instance == \'Relationships\'">\n' +
+    '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>\n' +
+    '                <span ng-repeat="objectId in ctrl.object[key]">\n' +
+    '                  <a ui-sref="admin-show({\n' +
+    '                      className: ctrl.Admin.schema[ctrl.Admin.schema[key].relationshipKey].options.ref, \n' +
+    '                      id: objectId\n' +
+    '                    })" class="text-muted">{{objectId}}</a><span ng-if="!$last">,</span>\n' +
+    '                </span>\n' +
+    '              </span>\n' +
     '\n' +
     '              <!-- Image -->\n' +
     '              <span ng-if="value.instance == \'Image\'">\n' +
-    '                <strong>{{key}}:</strong> \n' +
+    '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> \n' +
     '                <img ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{ctrl.object[key].styles.thumb_square}}" ng-if="ctrl.object[key]" style="max-width: 200px; max-height: 200px;">\n' +
     '              </span>\n' +
     '\n' +
     '              <!-- Boolean -->\n' +
     '              <span ng-if="value.instance == \'Boolean\'">\n' +
-    '                <strong>{{key}}:</strong> \n' +
+    '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> \n' +
     '                <i ng-if="ctrl.object[key]" class="fa fa-check-circle"></i>\n' +
     '                <i ng-if="!ctrl.object[key]" class="fa fa-times-circle"></i>\n' +
-    '              </span>        \n' +
+    '              </span>   \n' +
     '            </li>\n' +
     '          </ul>\n' +
     '\n' +
