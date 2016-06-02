@@ -22,6 +22,16 @@ Finally, configure the sidebar items:
        return adminService;
      })
 
+SIDEBAR_ITEMS should be in the form:
+
+    [{
+        title: "Companies",
+        icon: "mobile",
+        class: "Company"
+      }...]
+      
+where `icon` is any Font Awesome icon class (without "fa").
+
 # Updating
 
 Make any changes in `/src`.
