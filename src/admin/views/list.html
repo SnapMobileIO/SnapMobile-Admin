@@ -15,7 +15,9 @@
         <div class="panel-body table-responsive">
           <div ng-if="importToggle">
             <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="'text/csv'" pattern="'text/csv'" max-file-size="'5MB'">Drop csv file here</file-upload>
-            <a ng-click="ctrl.importFromCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
+            <div class="pull-right">
+              <a ng-click="ctrl.importFromCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
+            </div>
           </div>
           <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>
           <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>

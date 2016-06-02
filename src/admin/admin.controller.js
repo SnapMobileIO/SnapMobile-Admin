@@ -198,6 +198,9 @@ class AdminController {
     this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
   }
 
+  /**
+   * Uploads the csv file and imports objects.
+   */
   importFromCsv() {
     this.Admin.importFromCsv(this.uploadedUrl)
       .then(response => {
