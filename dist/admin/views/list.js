@@ -21,10 +21,10 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="col-lg-12">\n' +
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
-    '          <div ng-if="importToggle">\n' +
+    '          <div ng-if="importToggle" class="col-md-12">\n' +
     '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'5MB\'">Drop csv file here</file-upload>\n' +
     '            <div class="pull-right">\n' +
-    '              <a ng-click="ctrl.importFromCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
+    '              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
     '            </div>\n' +
     '          </div>\n' +
     '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +

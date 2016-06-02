@@ -271,6 +271,9 @@ var AdminController = function () {
         _this9.$state.go('admin-list', { className: _this9.Admin.className });
         _this9.FlashMessage.success('Successfully imported');
       }, function (error) {
+        _this9.object = {};
+        _this9.findAll();
+        _this9.$state.go('admin-list', { className: _this9.Admin.className });
         _this9.FlashMessage.errors(error);
         console.error(error);
       });

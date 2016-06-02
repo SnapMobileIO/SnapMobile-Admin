@@ -210,6 +210,9 @@ class AdminController {
         this.$state.go('admin-list', { className: this.Admin.className });
         this.FlashMessage.success('Successfully imported');
       }, (error) => {
+        this.object = {};
+        this.findAll();
+        this.$state.go('admin-list', { className: this.Admin.className });
         this.FlashMessage.errors(error);
         console.error(error);
       });
