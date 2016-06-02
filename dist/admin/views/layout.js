@@ -59,7 +59,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <div class="sidebar-wrapper">\n' +
     '    <ul class="sidebar-nav">\n' +
     '      <li role="separator" class="divider">Navigation</li>\n' +
-    '      <li ng-repeat="item in ctrl.sidebarItems"><a ui-sref="{{ ctrl.getClassUrl(item) }}"><i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}</a></li>\n' +
+    '      <li ng-repeat="item in ctrl.sidebarItems"><a ui-sref="{{ ctrl.getClassUrl(item) }}" ng-class="{\'active\': ctrl.Admin.className == item.class}"><i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}</a></li>\n' +
     '    </ul>\n' +
     '  </div>\n' +
     '  <!-- /#sidebar-wrapper -->\n' +
