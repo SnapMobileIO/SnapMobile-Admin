@@ -11,6 +11,13 @@
   },
   "author": "Jack Cable",
   "license": "ISC",
+  "dependencies": {
+    "snapmobile-auth": "git+ssh://@github.com/SnapMobileIO/SnapMobile-Auth.git",
+    "snapmobile-adminserver": "git+ssh://@github.com/SnapMobileIO/SnapMobile-AdminServer.git",
+    "snapmobile-flashmessage": "git+ssh://@github.com/SnapMobileIO/SnapMobile-FlashMessage.git",
+    "snapmobile-filter": "git+ssh://@github.com/SnapMobileIO/SnapMobile-Filter.git",
+    "snapmobile-fileupload": "git+ssh://@github.com/SnapMobileIO/SnapMobile-FileUpload.git",
+  },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-core": "^6.7.4",
