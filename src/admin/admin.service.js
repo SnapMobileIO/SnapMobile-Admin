@@ -52,6 +52,10 @@ class Admin {
     return this.$http.post(requestUrl, { ids: ids });
   }
 
+  importFromCsv(object) {
+    return this.$http.post(`/api/admin/${this.className}/importFromCsv`, object);
+  }
+
 }
 
 export { Admin };
