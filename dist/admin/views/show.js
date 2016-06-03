@@ -19,7 +19,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
     '          <ul class="list-group">\n' +
-    '            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance && value.instance !== \'Hidden\'">\n' +
+    '            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
     '\n' +
     '              <!-- String or ID -->\n' +
     '              <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>\n' +
@@ -45,7 +45,7 @@ module.run(['$templateCache', function($templateCache) {
     '              <!-- Children -->\n' +
     '              <span ng-if="key == \'children\'">\n' +
     '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>\n' +
-    '                <span ng-repeat="classType in ctrl.object[key]">\n' +
+    '                <span ng-repeat="classType in value">\n' +
     '                  <a ui-sref="admin-list({\n' +
     '                      className: classType,\n' +
     '                      filter: ctrl.object._id,\n' +

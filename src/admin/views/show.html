@@ -11,7 +11,7 @@
       <div class="panel">
         <div class="panel-body table-responsive">
           <ul class="list-group">
-            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance && value.instance !== 'Hidden'">
+            <li class="list-group-item" ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="key !== 'displayName' && key !== 'displayKey' && value.instance !== 'Hidden'">
 
               <!-- String or ID -->
               <span ng-if="value.instance == 'String' || key == '_id'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>
@@ -37,7 +37,7 @@
               <!-- Children -->
               <span ng-if="key == 'children'">
                 <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>
-                <span ng-repeat="classType in ctrl.object[key]">
+                <span ng-repeat="classType in value">
                   <a ui-sref="admin-list({
                       className: classType,
                       filter: ctrl.object._id,
