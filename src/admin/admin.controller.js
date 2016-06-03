@@ -56,6 +56,9 @@ class AdminController {
       .then(response => {
         this.totalObjects = response.data.itemCount;
         this.objects = response.data.items;
+      }, (error) => {
+        this.FlashMessage.errors(error);
+        console.error(error);
       });
   }
 

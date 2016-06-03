@@ -74,6 +74,9 @@ var AdminController = function () {
       this.Admin.query(this.params).then(function (response) {
         _this2.totalObjects = response.data.itemCount;
         _this2.objects = response.data.items;
+      }, function (error) {
+        _this2.FlashMessage.errors(error);
+        console.error(error);
       });
     }
 
