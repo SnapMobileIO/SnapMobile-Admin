@@ -34,9 +34,9 @@ where `icon` is any Font Awesome icon class (without "fa").
 
 To display child objects of a Class, add `children:   { type: Array }` to its schema and implement the function `getChildren()`, which returns an array of children classes:
 
-  getChildren() {
-    return ["Product"];
-  }
+    getChildren() {
+      return ["Product"];
+    }
 
 # Updating
 
