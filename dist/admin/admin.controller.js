@@ -9,7 +9,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, adminConfiguration, FlashMessage, Filter, _, moment) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, adminConfiguration, FlashMessage, Filter, _, moment) {
+    var _this = this;
+
     _classCallCheck(this, AdminController);
 
     this.$http = $http;
@@ -17,6 +19,7 @@ var AdminController = function () {
     this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
+    this.$scope = $scope;
     this.sidebarItems = adminConfiguration.sidebarItems;
     this._ = _;
     this.FlashMessage = FlashMessage;
@@ -39,7 +42,18 @@ var AdminController = function () {
     this.uploadedUrl = "";
 
     // Load the schema for this class
-    this.Admin.loadSchema();
+    this.Admin.loadSchema().then(function (response) {
+      if (!_this.$stateParams.filterClass) return;
+      for (var key in _this.Admin.schema) {
+        var object = _this.Admin.schema[key];
+        if (object.hasOwnProperty('options') && object.options.hasOwnProperty('ref') && object.options.ref == _this.$stateParams.filterClass) {
+          _this.filters = [{ field: object.path, operator: 'equals', value: _this.$stateParams.filter }];
+          _this.query = _this.Filter.buildQuery(_this.filters, _this.itemsPerPage, _this.skip, _this.sort);
+          _this.findAll(_this.query);
+          _this.$scope.filterToggle = true;
+        }
+      }
+    });
   }
 
   /**
@@ -52,10 +66,10 @@ var AdminController = function () {
   _createClass(AdminController, [{
     key: 'findRelationshipObjects',
     value: function findRelationshipObjects(className, key) {
-      var _this = this;
+      var _this2 = this;
 
       this.Admin.query({ className: className }).then(function (response) {
-        _this.relationshipObjects[key] = response.data.items;
+        _this2.relationshipObjects[key] = response.data.items;
       });
     }
 
@@ -66,16 +80,16 @@ var AdminController = function () {
   }, {
     key: 'findAll',
     value: function findAll(params) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.selectedItems = [];
       this.selectedAll = false;
-      this.params = params || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
+      this.params = params || this.query || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
       this.Admin.query(this.params).then(function (response) {
-        _this2.totalObjects = response.data.itemCount;
-        _this2.objects = response.data.items;
+        _this3.totalObjects = response.data.itemCount;
+        _this3.objects = response.data.items;
       }, function (error) {
-        _this2.FlashMessage.errors(error);
+        _this3.FlashMessage.errors(error);
         console.error(error);
       });
     }
@@ -100,16 +114,16 @@ var AdminController = function () {
   }, {
     key: 'findOne',
     value: function findOne() {
-      var _this3 = this;
+      var _this4 = this;
 
       var adminId = this.$stateParams.id;
       this.Admin.find(adminId).then(function (response) {
-        _this3.object = response.data;
+        _this4.object = response.data;
 
         // Loop through object's keys and format dates
-        _this3._.forEach(_this3.object, function (value, key) {
-          if (_this3.Admin.schema[key] && _this3.Admin.schema[key].instance === 'Date') {
-            _this3.object[key] = _this3.moment(_this3.object[key], 'YYYY-MM-DD h:mma Z').toDate();
+        _this4._.forEach(_this4.object, function (value, key) {
+          if (_this4.Admin.schema[key] && _this4.Admin.schema[key].instance === 'Date') {
+            _this4.object[key] = _this4.moment(_this4.object[key], 'YYYY-MM-DD h:mma Z').toDate();
           }
         });
       }, function (error) {
@@ -124,16 +138,16 @@ var AdminController = function () {
   }, {
     key: 'add',
     value: function add() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.Admin.create(this.object).then(function (response) {
-        _this4.objects.unshift(response.data);
-        _this4.object = {};
-        _this4.findAll();
-        _this4.$state.go('admin-list', { className: _this4.Admin.className });
-        _this4.FlashMessage.success('Successfully created');
+        _this5.objects.unshift(response.data);
+        _this5.object = {};
+        _this5.findAll();
+        _this5.$state.go('admin-list', { className: _this5.Admin.className });
+        _this5.FlashMessage.success('Successfully created');
       }, function (error) {
-        _this4.FlashMessage.errors(error);
+        _this5.FlashMessage.errors(error);
         console.error(error);
       });
     }
@@ -145,14 +159,14 @@ var AdminController = function () {
   }, {
     key: 'update',
     value: function update() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (this.object) {
         this.Admin.update(this.object).then(function (response) {
-          _this5.$state.go('admin-show', { className: _this5.Admin.className, id: _this5.object._id });
-          _this5.FlashMessage.success('Successfully updated');
+          _this6.$state.go('admin-show', { className: _this6.Admin.className, id: _this6.object._id });
+          _this6.FlashMessage.success('Successfully updated');
         }, function (error) {
-          _this5.FlashMessage.errors(error);
+          _this6.FlashMessage.errors(error);
           console.error(error);
         });
       }
@@ -166,13 +180,13 @@ var AdminController = function () {
   }, {
     key: 'remove',
     value: function remove(object) {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this.$window.confirm('Are you sure?')) {
         this.Admin.delete(object._id).then(function () {
-          _this6.objects.splice(_this6.objects.indexOf(object), 1);
-          _this6.findAll();
-          _this6.FlashMessage.success('Successfully deleted');
+          _this7.objects.splice(_this7.objects.indexOf(object), 1);
+          _this7.findAll();
+          _this7.FlashMessage.success('Successfully deleted');
         }, function (error) {
           console.error(error);
         });
@@ -187,14 +201,14 @@ var AdminController = function () {
   }, {
     key: 'removeMultiple',
     value: function removeMultiple(objectIds) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.selectedAll = false;
       if (this.$window.confirm('Are you sure?')) {
         this.Admin.deleteMultiple(objectIds).then(function (response) {
-          _this7.selectedItems = [];
-          _this7.findAll();
-          _this7.FlashMessage.success('Successfully deleted');
+          _this8.selectedItems = [];
+          _this8.findAll();
+          _this8.FlashMessage.success('Successfully deleted');
         }, function (error) {
           console.error(error);
         });
@@ -237,10 +251,10 @@ var AdminController = function () {
      * Selects or deselects all items on the page
      */
     value: function toggleAllSelection() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.selectedItems = this.objects.map(function (object) {
-        object.Selected = _this8.selectedAll;
+        object.Selected = _this9.selectedAll;
         return object._id;
       });
       if (!this.selectedAll) {
@@ -265,14 +279,14 @@ var AdminController = function () {
   }, {
     key: 'importFromCsv',
     value: function importFromCsv() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.Admin.importFromCsv(this.uploadedUrl).then(function (response) {
-        _this9.findAll();
-        _this9.FlashMessage.success('Successfully imported');
+        _this10.findAll();
+        _this10.FlashMessage.success('Successfully imported');
       }, function (error) {
-        _this9.findAll();
-        _this9.FlashMessage.errors(error);
+        _this10.findAll();
+        _this10.FlashMessage.errors(error);
         console.error(error);
       });
     }

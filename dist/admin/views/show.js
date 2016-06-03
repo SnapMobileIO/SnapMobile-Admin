@@ -42,8 +42,20 @@ module.run(['$templateCache', function($templateCache) {
     '              <!-- Date -->\n' +
     '              <span ng-if="value.instance == \'Date\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span> \n' +
     '\n' +
+    '              <!-- Children -->\n' +
+    '              <span ng-if="key == \'children\'">\n' +
+    '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>\n' +
+    '                <span ng-repeat="classType in ctrl.object[key]">\n' +
+    '                  <a ui-sref="admin-list({\n' +
+    '                      className: classType,\n' +
+    '                      filter: ctrl.object._id,\n' +
+    '                      filterClass: ctrl.Admin.className\n' +
+    '                    })" class="text-muted">{{ classType }}</a><span ng-if="!$last">,</span>\n' +
+    '                </span>\n' +
+    '              </span>\n' +
+    '\n' +
     '              <!-- Array -->\n' +
-    '              <span ng-if="value.instance == \'Array\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
+    '              <span ng-if="key != \'children\' && value.instance == \'Array\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
     '\n' +
     '              <!-- Relationships -->\n' +
     '              <span ng-if="value.instance == \'Relationships\'">\n' +

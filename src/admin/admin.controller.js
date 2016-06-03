@@ -2,12 +2,13 @@
 
 class AdminController {
 
-  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, adminConfiguration, FlashMessage, Filter, _, moment) {
+  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, adminConfiguration, FlashMessage, Filter, _, moment) {
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.$httpParamSerializer = $httpParamSerializer;
     this.$state = $state;
     this.$window = $window;
+    this.$scope = $scope;
     this.sidebarItems = adminConfiguration.sidebarItems;
     this._ = _;
     this.FlashMessage = FlashMessage;
@@ -30,7 +31,21 @@ class AdminController {
     this.uploadedUrl = "";
 
     // Load the schema for this class
-    this.Admin.loadSchema();
+    this.Admin.loadSchema().then((response) => {
+      if(!this.$stateParams.filterClass) return;
+      for (var key in this.Admin.schema) {
+        var object = this.Admin.schema[key];
+        if (object.hasOwnProperty('options') &&
+            object.options.hasOwnProperty('ref') &&
+            object.options.ref == this.$stateParams.filterClass) {
+          this.filters = [{field: object.path, operator: 'equals', value: this.$stateParams.filter}];
+          this.query = this.Filter.buildQuery(this.filters, this.itemsPerPage, this.skip, this.sort);
+          this.findAll(this.query);
+          this.$scope.filterToggle = true;
+        }
+      }
+    });
+
   }
 
   /**
@@ -51,7 +66,7 @@ class AdminController {
   findAll(params) {
     this.selectedItems = [];
     this.selectedAll = false;
-    this.params = params || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
+    this.params = params || this.query || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
     this.Admin.query(this.params)
       .then(response => {
         this.totalObjects = response.data.itemCount;

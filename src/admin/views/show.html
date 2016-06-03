@@ -34,8 +34,20 @@
               <!-- Date -->
               <span ng-if="value.instance == 'Date'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</span> 
 
+              <!-- Children -->
+              <span ng-if="key == 'children'">
+                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>
+                <span ng-repeat="classType in ctrl.object[key]">
+                  <a ui-sref="admin-list({
+                      className: classType,
+                      filter: ctrl.object._id,
+                      filterClass: ctrl.Admin.className
+                    })" class="text-muted">{{ classType }}</a><span ng-if="!$last">,</span>
+                </span>
+              </span>
+
               <!-- Array -->
-              <span ng-if="value.instance == 'Array'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(', ')}}</span>
+              <span ng-if="key != 'children' && value.instance == 'Array'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(', ')}}</span>
 
               <!-- Relationships -->
               <span ng-if="value.instance == 'Relationships'">

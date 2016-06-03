@@ -23,7 +23,7 @@ app.config(function ($stateProvider) {
     controllerAs: 'ctrl',
     templateUrl: 'app/admin/views/layout.html'
   }).state('admin-list', {
-    url: '/:className',
+    url: '/:className?filter&filterClass',
     authenticate: true,
     authenticateRole: 'admin',
     templateUrl: 'app/admin/views/list.html',
