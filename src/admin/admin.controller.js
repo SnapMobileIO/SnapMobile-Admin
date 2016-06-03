@@ -204,15 +204,10 @@ class AdminController {
   importFromCsv() {
     this.Admin.importFromCsv(this.uploadedUrl)
       .then(response => {
-        this.objects.unshift(response.data);
-        this.object = {};
         this.findAll();
-        this.$state.go('admin-list', { className: this.Admin.className });
         this.FlashMessage.success('Successfully imported');
       }, (error) => {
-        this.object = {};
         this.findAll();
-        this.$state.go('admin-list', { className: this.Admin.className });
         this.FlashMessage.errors(error);
         console.error(error);
       });

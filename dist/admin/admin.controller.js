@@ -265,15 +265,10 @@ var AdminController = function () {
       var _this9 = this;
 
       this.Admin.importFromCsv(this.uploadedUrl).then(function (response) {
-        _this9.objects.unshift(response.data);
-        _this9.object = {};
         _this9.findAll();
-        _this9.$state.go('admin-list', { className: _this9.Admin.className });
         _this9.FlashMessage.success('Successfully imported');
       }, function (error) {
-        _this9.object = {};
         _this9.findAll();
-        _this9.$state.go('admin-list', { className: _this9.Admin.className });
         _this9.FlashMessage.errors(error);
         console.error(error);
       });
