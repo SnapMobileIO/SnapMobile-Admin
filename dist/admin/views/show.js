@@ -34,7 +34,7 @@ module.run(['$templateCache', function($templateCache) {
     '              </span>\n' +
     '\n' +
     '              <!-- Mixed -->\n' +
-    '              <span ng-if="value.instance == \'Mixed\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> <pre>{{ctrl.object[key]}}</pre></span>\n' +
+    '              <span ng-if="value.instance == \'Mixed\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> <pre>{{ctrl.object[key] | json}}</pre></span>\n' +
     '\n' +
     '              <!-- Number -->\n' +
     '              <span ng-if="value.instance == \'Number\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>\n' +
