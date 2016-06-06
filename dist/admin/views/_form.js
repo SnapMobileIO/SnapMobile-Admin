@@ -81,7 +81,8 @@ module.run(['$templateCache', function($templateCache) {
     '  <div class="form-group" ng-if="value.instance == \'Image\'">\n' +
     '    <label class="col-sm-2 control-label">{{ctrl.Admin.schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-2" ng-if="ctrl.object[key]">\n' +
-    '      <img ng-src="https://test-aws-lamda-bucket.s3.amazonaws.com/{{ctrl.object[key].url}}" ng-if="ctrl.object[key]" style="max-width: 100%; max-height: 100%;">\n' +
+    '      <img ng-if="ctrl.object[key].hostedType && ctrl.object[key].hostedType == \'external\'" ng-src="{{ctrl.object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '      <img ng-if="ctrl.object[key] && (!ctrl.object[key].hostedType || ctrl.object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{ctrl.object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
     '      <file-upload for-file="ctrl.object[key]" multiple="false" max-file-size="\'5MB\'">Drop new image here</file-upload>\n' +

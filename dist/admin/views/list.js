@@ -22,7 +22,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
     '          <div ng-if="importToggle" class="col-md-12">\n' +
-    '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'5MB\'">Drop csv file here</file-upload>\n' +
+    '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'100MB\'">Drop csv file here</file-upload>\n' +
     '            <div class="pull-right">\n' +
     '              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
     '            </div>\n' +
@@ -80,7 +80,8 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                  <!-- Image -->\n' +
     '                  <span ng-if="value.instance == \'Image\'">\n' +
-    '                    <img ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" ng-if="object[key]" style="max-width: 200px; max-height: 200px;">\n' +
+    '                    <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                    <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                  </span>\n' +
     '                </td>\n' +
     '                \n' +

@@ -71,7 +71,8 @@ module.run(['$templateCache', function($templateCache) {
     '              <!-- Image -->\n' +
     '              <span ng-if="value.instance == \'Image\'">\n' +
     '                <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> \n' +
-    '                <img ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{ctrl.object[key].styles.thumb_square}}" ng-if="ctrl.object[key]" style="max-width: 200px; max-height: 200px;">\n' +
+    '                <img ng-if="ctrl.object[key].hostedType && ctrl.object[key].hostedType == \'external\'" ng-src="{{ctrl.object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                <img ng-if="ctrl.object[key] && (!ctrl.object[key].hostedType || ctrl.object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{ctrl.object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '              </span>\n' +
     '\n' +
     '              <!-- Boolean -->\n' +
