@@ -42,18 +42,21 @@ var AdminController = function () {
     this.uploadedUrl = "";
 
     // Load the schema for this class
-    this.Admin.loadSchema().then(function (response) {
-      if (!_this.$stateParams.filterClass) return;
-      for (var key in _this.Admin.schema) {
-        var object = _this.Admin.schema[key];
-        if (object.hasOwnProperty('options') && object.options.hasOwnProperty('ref') && object.options.ref == _this.$stateParams.filterClass) {
-          _this.filters = [{ field: object.path, operator: 'equals', value: _this.$stateParams.filter }];
-          _this.query = _this.Filter.buildQuery(_this.filters, _this.itemsPerPage, _this.skip, _this.sort);
-          _this.findAll(_this.query);
-          _this.$scope.filterToggle = true;
+
+    if (this.Admin.className != null) {
+      this.Admin.loadSchema().then(function (response) {
+        if (!_this.$stateParams.filterClass) return;
+        for (var key in _this.Admin.schema) {
+          var object = _this.Admin.schema[key];
+          if (object.hasOwnProperty('options') && object.options.hasOwnProperty('ref') && object.options.ref == _this.$stateParams.filterClass) {
+            _this.filters = [{ field: object.path, operator: 'equals', value: _this.$stateParams.filter }];
+            _this.query = _this.Filter.buildQuery(_this.filters, _this.itemsPerPage, _this.skip, _this.sort);
+            _this.findAll(_this.query);
+            _this.$scope.filterToggle = true;
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   /**

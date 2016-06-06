@@ -31,20 +31,23 @@ class AdminController {
     this.uploadedUrl = "";
 
     // Load the schema for this class
-    this.Admin.loadSchema().then((response) => {
-      if(!this.$stateParams.filterClass) return;
-      for (var key in this.Admin.schema) {
-        var object = this.Admin.schema[key];
-        if (object.hasOwnProperty('options') &&
-            object.options.hasOwnProperty('ref') &&
-            object.options.ref == this.$stateParams.filterClass) {
-          this.filters = [{field: object.path, operator: 'equals', value: this.$stateParams.filter}];
-          this.query = this.Filter.buildQuery(this.filters, this.itemsPerPage, this.skip, this.sort);
-          this.findAll(this.query);
-          this.$scope.filterToggle = true;
+    
+    if(this.Admin.className != null) {
+      this.Admin.loadSchema().then((response) => {
+        if(!this.$stateParams.filterClass) return;
+        for (var key in this.Admin.schema) {
+          var object = this.Admin.schema[key];
+          if (object.hasOwnProperty('options') &&
+              object.options.hasOwnProperty('ref') &&
+              object.options.ref == this.$stateParams.filterClass) {
+            this.filters = [{field: object.path, operator: 'equals', value: this.$stateParams.filter}];
+            this.query = this.Filter.buildQuery(this.filters, this.itemsPerPage, this.skip, this.sort);
+            this.findAll(this.query);
+            this.$scope.filterToggle = true;
+          }
         }
-      }
     });
+    }
 
   }
 
