@@ -2,7 +2,7 @@
 
 class AdminController {
 
-  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, adminConfiguration, FlashMessage, Filter, _, moment) {
+  constructor(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, $sce, adminConfiguration, FlashMessage, Filter, _, moment) {
     this.$http = $http;
     this.$stateParams = $stateParams;
     this.$httpParamSerializer = $httpParamSerializer;
@@ -16,6 +16,7 @@ class AdminController {
     this.Filter = Filter;
     this.Auth = Auth;
     this.moment = moment;
+    this.$sce = $sce;
 
     this.objects = [];
     this.currentPage = 1;
@@ -48,6 +49,12 @@ class AdminController {
         }
     });
     }
+
+    setTimeout(() => {
+      for(var i = 0; i < $(".summernote").length; i++) {
+        $(".summernote").eq(i).summernote('code', this.object[$(".summernote").eq(i).attr("id")]);
+      }
+    }, 100);
 
   }
 
@@ -131,7 +138,13 @@ class AdminController {
    * Updates a admin
    */
   update() {
+
+    for(var i = 0; i < $(".summernote").length; i++) {
+      this.object[$(".summernote").eq(i).attr("id")] = $(".summernote").eq(i).summernote('code');
+    }
+
     if (this.object) {
+      console.log(this.object)
       this.Admin.update(this.object)
         .then(response => {
           this.$state.go('admin-show', { className: this.Admin.className, id: this.object._id });
@@ -243,7 +256,12 @@ class AdminController {
     if(item.class) return 'admin-list({ className : \'' + item.class + '\' })';
     else return '.'; //returns current state
   }
-  
+
+  renderHtml(html) {
+    return this.$sce.trustAsHtml(html);
+  }
+
+
 }
 
 export { AdminController };

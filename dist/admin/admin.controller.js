@@ -9,7 +9,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, adminConfiguration, FlashMessage, Filter, _, moment) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, $sce, adminConfiguration, FlashMessage, Filter, _, moment) {
     var _this = this;
 
     _classCallCheck(this, AdminController);
@@ -27,6 +27,7 @@ var AdminController = function () {
     this.Filter = Filter;
     this.Auth = Auth;
     this.moment = moment;
+    this.$sce = $sce;
 
     this.objects = [];
     this.currentPage = 1;
@@ -57,6 +58,12 @@ var AdminController = function () {
         }
       });
     }
+
+    setTimeout(function () {
+      for (var i = 0; i < $(".summernote").length; i++) {
+        $(".summernote").eq(i).summernote('code', _this.object[$(".summernote").eq(i).attr("id")]);
+      }
+    }, 100);
   }
 
   /**
@@ -164,7 +171,12 @@ var AdminController = function () {
     value: function update() {
       var _this6 = this;
 
+      for (var i = 0; i < $(".summernote").length; i++) {
+        this.object[$(".summernote").eq(i).attr("id")] = $(".summernote").eq(i).summernote('code');
+      }
+
       if (this.object) {
+        console.log(this.object);
         this.Admin.update(this.object).then(function (response) {
           _this6.$state.go('admin-show', { className: _this6.Admin.className, id: _this6.object._id });
           _this6.FlashMessage.success('Successfully updated');
@@ -304,6 +316,11 @@ var AdminController = function () {
     key: 'getClassUrl',
     value: function getClassUrl(item) {
       if (item.class) return 'admin-list({ className : \'' + item.class + '\' })';else return '.'; //returns current state
+    }
+  }, {
+    key: 'renderHtml',
+    value: function renderHtml(html) {
+      return this.$sce.trustAsHtml(html);
     }
   }]);
 

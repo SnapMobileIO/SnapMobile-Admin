@@ -6,6 +6,10 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/edit.html',
+    '<script src=\'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-rangy.min.js\'></script>\n' +
+    '<script src=\'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular-sanitize.min.js\'></script>\n' +
+    '<script src=\'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js\'></script>\n' +
+    '\n' +
     '<div class="container-fluid" ng-init="ctrl.findOne()">\n' +
     '  <div class="page-header">\n' +
     '    <h1>{{ctrl.object[ctrl.Admin.schema.displayKey] || \'Object\'}}</h1>\n' +
