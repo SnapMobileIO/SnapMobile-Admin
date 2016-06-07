@@ -18,7 +18,8 @@
 
   <span ng-if="value.instance == 'wysiwyg'">
     <label for="{{key}}" class="col-sm-2 control-label">{{ctrl.Admin.schema[key].displayName || key}}</label>
-    <div id="{{key}}" class="summernote" ng-model="ctrl.object[key]"></div>
+    <textarea ui-tinymce="{}"
+      ng-model="ctrl.object[key]"></textarea>
   </span>
 
   <!-- Date type -->

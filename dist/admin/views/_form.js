@@ -26,7 +26,8 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '  <span ng-if="value.instance == \'wysiwyg\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{ctrl.Admin.schema[key].displayName || key}}</label>\n' +
-    '    <div id="{{key}}" class="summernote" ng-model="ctrl.object[key]"></div>\n' +
+    '    <textarea ui-tinymce="{}"\n' +
+    '      ng-model="ctrl.object[key]"></textarea>\n' +
     '  </span>\n' +
     '\n' +
     '  <!-- Date type -->\n' +

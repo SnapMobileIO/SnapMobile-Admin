@@ -58,12 +58,6 @@ var AdminController = function () {
         }
       });
     }
-
-    setTimeout(function () {
-      for (var i = 0; i < $(".summernote").length; i++) {
-        $(".summernote").eq(i).summernote('code', _this.object[$(".summernote").eq(i).attr("id")]);
-      }
-    }, 100);
   }
 
   /**
@@ -170,10 +164,6 @@ var AdminController = function () {
     key: 'update',
     value: function update() {
       var _this6 = this;
-
-      for (var i = 0; i < $(".summernote").length; i++) {
-        this.object[$(".summernote").eq(i).attr("id")] = $(".summernote").eq(i).summernote('code');
-      }
 
       if (this.object) {
         console.log(this.object);

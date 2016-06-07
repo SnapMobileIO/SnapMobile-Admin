@@ -50,12 +50,6 @@ class AdminController {
     });
     }
 
-    setTimeout(() => {
-      for(var i = 0; i < $(".summernote").length; i++) {
-        $(".summernote").eq(i).summernote('code', this.object[$(".summernote").eq(i).attr("id")]);
-      }
-    }, 100);
-
   }
 
   /**
@@ -138,11 +132,6 @@ class AdminController {
    * Updates a admin
    */
   update() {
-
-    for(var i = 0; i < $(".summernote").length; i++) {
-      this.object[$(".summernote").eq(i).attr("id")] = $(".summernote").eq(i).summernote('code');
-    }
-
     if (this.object) {
       console.log(this.object)
       this.Admin.update(this.object)
