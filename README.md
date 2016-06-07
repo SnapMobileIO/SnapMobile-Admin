@@ -13,7 +13,9 @@ To configure, add the following to `app.js`:
     
 Add 'adminApp' as a dependency for the angular app.
 
-Finally, configure the sidebar items:
+### Configuring sidebar
+
+Add the following to `app.js`:
 
     .factory('adminConfiguration', function() {
      var adminService = {
@@ -22,7 +24,7 @@ Finally, configure the sidebar items:
        return adminService;
      })
 
-SIDEBAR_ITEMS should be in the form:
+SIDEBAR_ITEMS should be a constant in the form:
 
     [{
         title: "Companies",
@@ -32,7 +34,17 @@ SIDEBAR_ITEMS should be in the form:
       
 where `icon` is any Font Awesome icon class (without "fa").
 
+#### Display child objects
+
 To display child objects of a Class, add `children:  ['ClassName'...]` to its schema in `ADMIN_SCHEMA_OPTIONS`.
+
+#### Using wysiwyg
+
+To use the wysiwyg editor, add the following to `index.html`:
+
+    <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    
+To use the editor for a class property, add `field: { instance: 'wysiwyg' }` to its schema in `ADMIN_SCHEMA_OPTIONS`.
 
 # Updating
 
