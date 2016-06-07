@@ -166,7 +166,6 @@ var AdminController = function () {
       var _this6 = this;
 
       if (this.object) {
-        console.log(this.object);
         this.Admin.update(this.object).then(function (response) {
           _this6.$state.go('admin-show', { className: _this6.Admin.className, id: _this6.object._id });
           _this6.FlashMessage.success('Successfully updated');

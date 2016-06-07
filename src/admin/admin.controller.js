@@ -133,7 +133,6 @@ class AdminController {
    */
   update() {
     if (this.object) {
-      console.log(this.object)
       this.Admin.update(this.object)
         .then(response => {
           this.$state.go('admin-show', { className: this.Admin.className, id: this.object._id });
