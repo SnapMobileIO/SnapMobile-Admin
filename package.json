@@ -12,12 +12,13 @@
   "author": "Jack Cable",
   "license": "ISC",
   "dependencies": {
-    "snapmobile-auth": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Auth.git",
+    "angular-recursion": "^1.0.5",
+    "angular-ui-tinymce": "0.0.16",
     "snapmobile-adminserver": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-AdminServer.git",
-    "snapmobile-flashmessage": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FlashMessage.git",
-    "snapmobile-filter": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Filter.git",
+    "snapmobile-auth": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Auth.git",
     "snapmobile-fileupload": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FileUpload.git",
-    "angular-ui-tinymce": "0.0.16"
+    "snapmobile-filter": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Filter.git",
+    "snapmobile-flashmessage": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FlashMessage.git"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",

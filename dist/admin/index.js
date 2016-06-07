@@ -4,7 +4,9 @@ var _admin = require('./admin.controller');
 
 var _admin2 = require('./admin.service');
 
-var app = angular.module('adminApp', ['ui.router', 'ui.tinymce']);
+require('angular-recursion');
+
+var app = angular.module('adminApp', ['ui.router', 'ui.tinymce', 'RecursionHelper']);
 
 app.service('Admin', _admin2.Admin);
 app.controller('AdminController', _admin.AdminController);
@@ -15,6 +17,24 @@ require('./views/layout.js');
 require('./views/list.js');
 require('./views/new.js');
 require('./views/show.js');
+require('./views/_schemaEdit.js');
+
+app.directive('schemaEdit', function (RecursionHelper) {
+  return {
+    templateUrl: 'app/admin/views/_schemaEdit.html',
+    scope: {
+      object: '=',
+      admin: '=',
+      relationshipobjects: '=',
+      schema: '=',
+      parent: '='
+    }, compile: function compile(element) {
+      // Use the compile function from the RecursionHelper,
+      // And return the linking function(s) which it returns
+      return RecursionHelper.compile(element);
+    }
+  };
+});
 
 app.config(function ($stateProvider) {
   $stateProvider.state('admin', {
