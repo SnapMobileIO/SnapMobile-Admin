@@ -1,6 +1,6 @@
 {
   "name": "snapmobile-admin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "snapmobile-admin.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "snapmobile-adminserver": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-AdminServer.git",
     "snapmobile-flashmessage": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FlashMessage.git",
     "snapmobile-filter": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-Filter.git",
-    "snapmobile-fileupload": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FileUpload.git"
+    "snapmobile-fileupload": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-FileUpload.git",
+    "angular-ui-tinymce": "0.0.16"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
