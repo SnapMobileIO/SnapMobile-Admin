@@ -3,7 +3,7 @@
 import { AdminController } from './admin.controller';
 import { Admin } from './admin.service';
 
-const app = angular.module('adminApp', ['ui.router']);
+const app = angular.module('adminApp', ['ui.router', 'ui.tinymce']);
 
 app.service('Admin', Admin);
 app.controller('AdminController', AdminController);

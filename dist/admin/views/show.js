@@ -54,6 +54,13 @@ module.run(['$templateCache', function($templateCache) {
     '                </span>\n' +
     '              </span>\n' +
     '\n' +
+    '              <!-- wysiwyg -->\n' +
+    '\n' +
+    '              <span ng-if="value.instance == \'wysiwyg\'">\n' +
+    '              <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>\n' +
+    '              <div ng-bind-html="ctrl.renderHtml(ctrl.object[key])"></div>\n' +
+    '              </span>\n' +
+    '\n' +
     '              <!-- Array -->\n' +
     '              <span ng-if="key != \'children\' && value.instance == \'Array\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
     '\n' +

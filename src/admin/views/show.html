@@ -46,6 +46,13 @@
                 </span>
               </span>
 
+              <!-- wysiwyg -->
+
+              <span ng-if="value.instance == 'wysiwyg'">
+              <strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong>
+              <div ng-bind-html="ctrl.renderHtml(ctrl.object[key])"></div>
+              </span>
+
               <!-- Array -->
               <span ng-if="key != 'children' && value.instance == 'Array'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(', ')}}</span>
 

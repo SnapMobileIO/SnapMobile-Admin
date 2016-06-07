@@ -14,12 +14,21 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance != \'ObjectID\' && \n' +
     '                                 value.instance != \'Array\' && \n' +
     '                                 value.instance != \'Date\' && \n' +
-    '                                 value.instance != \'Image\'">\n' +
+    '                                 value.instance != \'Image\' &&\n' +
+    '                                 value.instance != \'wysiwyg\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{ctrl.Admin.schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <input type="text" ng-model="ctrl.object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
     '    </div>\n' +
     '  </div>\n' +
+    '\n' +
+    '  <!-- wysiwyg -->\n' +
+    '\n' +
+    '  <span ng-if="value.instance == \'wysiwyg\'">\n' +
+    '    <label for="{{key}}" class="col-sm-2 control-label">{{ctrl.Admin.schema[key].displayName || key}}</label>\n' +
+    '    <textarea ui-tinymce="{}"\n' +
+    '      ng-model="ctrl.object[key]"></textarea>\n' +
+    '  </span>\n' +
     '\n' +
     '  <!-- Date type -->\n' +
     '  <div class="form-group" ng-if="value.instance == \'Date\'">\n' +

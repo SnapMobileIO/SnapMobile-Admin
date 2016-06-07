@@ -9,7 +9,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var AdminController = function () {
-  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, adminConfiguration, FlashMessage, Filter, _, moment) {
+  function AdminController(Admin, Auth, $http, $httpParamSerializer, $stateParams, $state, $window, $scope, $sce, adminConfiguration, FlashMessage, Filter, _, moment) {
     var _this = this;
 
     _classCallCheck(this, AdminController);
@@ -27,6 +27,7 @@ var AdminController = function () {
     this.Filter = Filter;
     this.Auth = Auth;
     this.moment = moment;
+    this.$sce = $sce;
 
     this.objects = [];
     this.currentPage = 1;
@@ -304,6 +305,11 @@ var AdminController = function () {
     key: 'getClassUrl',
     value: function getClassUrl(item) {
       if (item.class) return 'admin-list({ className : \'' + item.class + '\' })';else return '.'; //returns current state
+    }
+  }, {
+    key: 'renderHtml',
+    value: function renderHtml(html) {
+      return this.$sce.trustAsHtml(html);
     }
   }]);
 

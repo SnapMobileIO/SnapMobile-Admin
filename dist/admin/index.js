@@ -4,7 +4,7 @@ var _admin = require('./admin.controller');
 
 var _admin2 = require('./admin.service');
 
-var app = angular.module('adminApp', ['ui.router']);
+var app = angular.module('adminApp', ['ui.router', 'ui.tinymce']);
 
 app.service('Admin', _admin2.Admin);
 app.controller('AdminController', _admin.AdminController);
