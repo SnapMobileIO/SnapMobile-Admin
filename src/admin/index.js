@@ -1,5 +1,6 @@
 'use strict';
 
+import 'angular-ui-tinymce';
 import { AdminController } from './admin.controller';
 import { Admin } from './admin.service';
 
