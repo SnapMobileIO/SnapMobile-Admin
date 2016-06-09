@@ -56,7 +56,7 @@ module.run(['$templateCache', function($templateCache) {
     '      </div>\n' +
     '      <button type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)">Delete this</button>\n' +
     '    </div>\n' +
-    '    <button type="submit" class="btn btn-primary" ng-click="object[key].push([])">Add another</button>\n' +
+    '    <button type="submit" class="btn btn-primary" ng-click="object[key].push({})">Add another</button>\n' +
     '  </div>\n' +
     '\n' +
     '  <!-- An Array type -->\n' +
