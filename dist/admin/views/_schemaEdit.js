@@ -15,12 +15,12 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance != \'Array\' && \n' +
     '                                 value.instance != \'Date\' && \n' +
     '                                 value.instance != \'Image\' &&\n' +
-    '                                 value.instance != \'wysiwyg\'">\n' +
+    '                                 value.instance != \'wysiwyg\' &&\n' +
+    '                                 value.instance != \'Mixed\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
-    '      <input type="text" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
-    '\n' +
-    '      <input type="text" ng-if="parent" ng-model="parent[object][key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
+    '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
+    '      <input type="text" ng-if="parent" ng-model="object[parent][index][key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
@@ -48,12 +48,15 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
-    '  <!-- An odd type -->\n' +
-    '  <div class="form-group" ng-if="key == \'myArray\'">\n' +
+    '  <!-- A Mixed type -->\n' +
+    '  <div class="form-group" ng-if="value.instance == \'Mixed\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
-    '    <div ng-repeat="customObject in value.schema">\n' +
-    '      <div class="col-sm-8" schema-edit object="object" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" parent="object[key]"></div>\n' +
+    '    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">\n' +
+    '      <div ng-repeat="customObject in value.schema track by $index">\n' +
+    '        <div class="col-sm-8" schema-edit object="object" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" parent="key" index="dataIndex"></div>\n' +
+    '      </div>\n' +
     '    </div>\n' +
+    '    <button type="submit" class="btn btn-primary" ng-click="object[key].push([])">Add another</button>\n' +
     '  </div>\n' +
     '\n' +
     '  <!-- An Array type -->\n' +
