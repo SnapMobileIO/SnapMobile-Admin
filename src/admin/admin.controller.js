@@ -32,7 +32,7 @@ class AdminController {
     this.uploadedUrl = "";
 
     // Load the schema for this class
-    
+
     if(this.Admin.className != null) {
       this.Admin.loadSchema().then((response) => {
         if(!this.$stateParams.filterClass) return;
@@ -58,7 +58,8 @@ class AdminController {
    * @param  {String} key       Key name of the object
    */
   findRelationshipObjects(className, key) {
-    this.Admin.query({ className: className })
+    let params = { className: className, limit: 10000};
+    this.Admin.query(params)
       .then((response) => {
         this.relationshipObjects[key] = response.data.items;
       });
@@ -101,7 +102,7 @@ class AdminController {
         this.object = response.data;
 
         // Loop through object's keys and format dates
-        this._.forEach(this.object, (value, key) => {          
+        this._.forEach(this.object, (value, key) => {
           if (this.Admin.schema[key] && this.Admin.schema[key].instance === 'Date') {
             this.object[key] = this.moment(this.object[key], 'YYYY-MM-DD h:mma Z').toDate();
           }
