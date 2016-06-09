@@ -249,7 +249,6 @@ class AdminController {
     return this.$sce.trustAsHtml(html);
   }
 
-
 }
 
 export { AdminController };

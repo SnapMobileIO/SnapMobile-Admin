@@ -12,7 +12,6 @@
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
       <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">
-      <input type="text" ng-if="parent" ng-model="object[parent][index][key]" id="{{key}}" placeholder="{{key}}" class="form-control">
     </div>
   </div>
 
@@ -45,8 +44,9 @@
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">
       <div ng-repeat="customObject in value.schema track by $index">
-        <div class="col-sm-8" schema-edit object="object" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" parent="key" index="dataIndex"></div>
+        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects"></div>
       </div>
+      <button type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)">Delete this</button>
     </div>
     <button type="submit" class="btn btn-primary" ng-click="object[key].push([])">Add another</button>
   </div>

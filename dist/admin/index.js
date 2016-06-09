@@ -26,9 +26,7 @@ app.directive('schemaEdit', function (RecursionHelper) {
       object: '=',
       admin: '=',
       relationshipobjects: '=',
-      schema: '=',
-      parent: '=',
-      index: '='
+      schema: '='
     }, compile: function compile(element) {
       // Use the compile function from the RecursionHelper,
       // And return the linking function(s) which it returns

@@ -20,7 +20,6 @@ module.run(['$templateCache', function($templateCache) {
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
-    '      <input type="text" ng-if="parent" ng-model="object[parent][index][key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
@@ -53,8 +52,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">\n' +
     '      <div ng-repeat="customObject in value.schema track by $index">\n' +
-    '        <div class="col-sm-8" schema-edit object="object" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" parent="key" index="dataIndex"></div>\n' +
+    '        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects"></div>\n' +
     '      </div>\n' +
+    '      <button type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)">Delete this</button>\n' +
     '    </div>\n' +
     '    <button type="submit" class="btn btn-primary" ng-click="object[key].push([])">Add another</button>\n' +
     '  </div>\n' +
