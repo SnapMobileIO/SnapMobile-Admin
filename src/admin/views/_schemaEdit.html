@@ -39,20 +39,23 @@
     </div>
   </div>
 
-  <!-- A Mixed type -->
-  <div class="form-group" ng-if="value.instance == 'Mixed'">
+  <!-- An array of custom objects type -->
+  <div class="form-group" ng-if="value.instance == 'Array' && value.schema">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">
-      <div ng-repeat="customObject in value.schema track by $index">
+      <table style="width:100%">
+      <td><div ng-repeat="customObject in value.schema track by $index" style="margin-left:150px">
         <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects"></div>
-      </div>
-      <button type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)">Delete this</button>
+      </div></td>
+      <button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>
+      </table>
+      <hr>
     </div>
-    <button type="submit" class="btn btn-primary" ng-click="object[key].push({})">Add another</button>
+    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="object[key].push({})"><i class="fa fa-plus-circle"></i></button>
   </div>
 
   <!-- An Array type -->
-  <div class="form-group" ng-if="value.instance == 'Array'">
+  <div class="form-group" ng-if="value.instance == 'Array' && !value.schema">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
       <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" sortable="true" title="Add {{key}}">

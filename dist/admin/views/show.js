@@ -34,7 +34,7 @@ module.run(['$templateCache', function($templateCache) {
     '              </span>\n' +
     '\n' +
     '              <!-- Mixed -->\n' +
-    '              <span ng-if="value.instance == \'Mixed\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> <pre>{{ctrl.object[key] | json}}</pre></span>\n' +
+    '              <span ng-if="value.instance == \'Array\' && value.schema"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> <pre>{{ctrl.object[key] | json}}</pre></span>\n' +
     '\n' +
     '              <!-- Number -->\n' +
     '              <span ng-if="value.instance == \'Number\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key]}}</span>\n' +
@@ -62,7 +62,7 @@ module.run(['$templateCache', function($templateCache) {
     '              </span>\n' +
     '\n' +
     '              <!-- Array -->\n' +
-    '              <span ng-if="key != \'children\' && value.instance == \'Array\'"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
+    '              <span ng-if="key != \'children\' && value.instance == \'Array\' && !value.schema"><strong>{{ctrl.Admin.schema[key].displayName || key}}:</strong> {{ctrl.object[key].join(\', \')}}</span>\n' +
     '\n' +
     '              <!-- Relationships -->\n' +
     '              <span ng-if="value.instance == \'Relationships\'">\n' +
