@@ -3,18 +3,52 @@
 import 'angular-ui-tinymce';
 import { AdminController } from './admin.controller';
 import { Admin } from './admin.service';
+require('angular-recursion');
 
-const app = angular.module('adminApp', ['ui.router', 'ui.tinymce']);
+const app = angular.module('adminApp', ['ui.router', 'ui.tinymce', 'RecursionHelper']);
 
 app.service('Admin', Admin);
 app.controller('AdminController', AdminController);
 
-require('./views/_form.js');
+/*let views = ['edit', 'layout', 'list', 'new', 'show', '_schemaForm', '_schemaShow'];
+
+for (var  i = 0; i < views.length; i++) {
+  require('./views/' + views[i] + '.js');
+}*/
+
 require('./views/edit.js');
 require('./views/layout.js');
 require('./views/list.js');
 require('./views/new.js');
 require('./views/show.js');
+require('./views/_schemaForm.js');
+require('./views/_schemaShow.js');
+
+app.directive('schemaForm', () => {
+  return {
+    templateUrl: 'app/admin/views/_schemaForm.html',
+    scope: {
+      object: '=',
+      admin: '=',
+      relationshipobjects: '=',
+      schema: '=',
+      ctrl: '='
+    }
+  };
+});
+
+app.directive('schemaShow', () => {
+  return {
+    templateUrl: 'app/admin/views/_schemaShow.html',
+    scope: {
+      object: '=',
+      admin: '=',
+      relationshipobjects: '=',
+      schema: '=',
+      ctrl: '='
+    }
+  };
+});
 
 app.config($stateProvider => {
   $stateProvider

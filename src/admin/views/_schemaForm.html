@@ -1,0 +1,120 @@
+<div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== 'Hidden'" class="custom-form">
+
+  <!-- Not an Array or an Image -->
+  <div class="form-group" ng-if="value.instance != 'Relationships' && 
+                                 value.instance != 'Boolean' && 
+                                 value.instance != 'ObjectID' && 
+                                 value.instance != 'Array' && 
+                                 value.instance != 'Date' && 
+                                 value.instance != 'Image' &&
+                                 value.instance != 'wysiwyg' &&
+                                 value.instance != 'Mixed'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-10">
+      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">
+    </div>
+  </div>
+
+  <!-- wysiwyg -->
+
+  <span ng-if="value.instance == 'wysiwyg'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <textarea ui-tinymce="{}"
+      ng-model="object[key]"></textarea>
+  </span>
+
+  <!-- Date type -->
+  <div class="form-group" ng-if="value.instance == 'Date'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-4">
+      <input type="datetime-local" ng-model="object[key]" id="{{key}}" class="form-control">
+    </div>
+  </div>
+
+  <!-- Boolean type -->
+  <div class="form-group" ng-if="value.instance == 'Boolean'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <input type="checkbox" ng-model="object[key]" id="{{key}}">
+    </div>
+  </div>
+
+  <!-- An array of custom objects type -->
+  <div ng-if="value.instance == 'Array' && value.schema">
+    <div class="row">
+      <div class="col-sm-2 text-right">
+        <label for="{{key}}">{{schema[key].displayName || key}}</label>
+      </div>
+      <div class="col-sm-10">
+        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object"> 
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-link pull-right" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle text-danger"></i></button>
+            </div>
+            <div ng-repeat="customObject in [value.schema.paths] track by $index">
+              <div class="col-sm-11" schema-form object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-link pull-right" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle text-success"></i></button>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+  <!-- An Array type -->
+  <div class="form-group" ng-if="value.instance == 'Array' && !value.schema">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" sortable="true" title="Add {{key}}">
+        <ui-select-match placeholder="Add {{key}}...">{{$item}}</ui-select-match>
+        <ui-select-choices repeat="choice in [] | filter:$select.search">
+          {{choice}}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+
+  <!-- Relationship ObjectID type -->
+  <div class="form-group" ng-if="value.instance == 'ObjectID' && key != '_id'" ng-init="findRelationshipObjects(schema[key].options.ref, key)">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <ui-select ng-model="object[key]" title="Add {{key}}">
+        <ui-select-match>{{$select.selected[(schema[key].searchBy || 'displayName')]}}</ui-select-match>
+        <ui-select-choices repeat="choice._id as choice in relationshipobjects[key] | filter: { {{(schema[key].searchBy || 'displayName')}}: $select.search }">
+          <div ng-bind-html="choice[(schema[key].searchBy || 'displayName')] | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+      <a ng-click="object[key]=null">Clear</a>
+    </div>
+  </div>
+
+  <!-- Multiple Relationships - Array of relationship IDs -->
+  <div class="form-group" ng-if="value.instance == 'Relationships'" ng-init="findRelationshipObjects(schema[schema[key].relationshipKey].options.ref, key)">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" title="Add {{key}}">
+        <ui-select-match placeholder="Add {{key}}...">{{$item[(schema[key].searchBy || 'displayName')]}}</ui-select-match>
+        <ui-select-choices repeat="choice._id as choice in relationshipObjects[schema[key].relationshipKey] | filter: { {{(schema[key].searchBy || 'displayName')}}: $select.search }">
+          <div ng-bind-html="choice[(schema[key].searchBy || 'displayName')] | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+
+  <!--  An Image type -->
+  <div class="form-group" ng-if="value.instance == 'Image'">
+    <label class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-2" ng-if="object[key]">
+      <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
+      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
+    </div>
+    <div class="col-sm-2">
+      <file-upload for-file="object[key]" multiple="false" max-file-size="'5MB'">Drop new image here</file-upload>
+    </div>
+  </div>
+
+</div>

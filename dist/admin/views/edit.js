@@ -21,7 +21,7 @@ module.run(['$templateCache', function($templateCache) {
     '          <div ng-if="!ctrl.object"><i class="fa fa-spinner fa-spin"></i> Loading...</div>\n' +
     '\n' +
     '          <form ng-if="ctrl.object" class="form-horizontal">\n' +
-    '            <div ng-include="\'app/admin/views/_form.html\'"></div>\n' +
+    '            <div schema-form object="ctrl.object" Admin="ctrl.Admin" relationshipObjects="ctrl.relationshipObjects" schema="ctrl.Admin.schema" ctrl="ctrl"></div>\n' +
     '            <div class="form-group">\n' +
     '              <div class="col-sm-offset-2 col-sm-10">\n' +
     '                <button type="submit" class="btn btn-primary" ng-click="ctrl.update()">Save Changes</button>\n' +
