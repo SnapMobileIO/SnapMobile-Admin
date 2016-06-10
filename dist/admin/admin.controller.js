@@ -73,7 +73,8 @@ var AdminController = function () {
     value: function findRelationshipObjects(className, key) {
       var _this2 = this;
 
-      this.Admin.query({ className: className }).then(function (response) {
+      var params = { className: className, limit: 10000 };
+      this.Admin.query(params).then(function (response) {
         _this2.relationshipObjects[key] = response.data.items;
       });
     }

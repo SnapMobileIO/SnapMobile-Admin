@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group custom-form">
   <li class="list-group-item" ng-repeat="(key, value) in schema" ng-if="key !== 'displayName' && key !== 'displayKey' && value.instance !== 'Hidden'">
 
     <!-- String or ID -->
@@ -14,14 +14,20 @@
     </span>
 
     <!-- Mixed -->
-    <span ng-if="value.instance == 'Array' && value.schema"><strong>{{schema[key].displayName || key}}:</strong>
-    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">
-      <table style="width:100%">
-      <td><div ng-repeat="customObject in [value.schema.paths] track by $index" style="margin-left:150px">
-        <div class="col-sm-8" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
-      </div></td>
-      </table>
-      <hr>
+    <span ng-if="value.instance == 'Array' && value.schema">
+    <div class="row">
+        <div class="col-sm-1">
+          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>
+        </div>
+        <div class="col-sm-11">
+          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
+            <div class="row">
+              <div ng-repeat="customObject in [value.schema.paths] track by $index">
+                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
     </span>
 

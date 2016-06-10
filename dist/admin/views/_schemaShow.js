@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/_schemaShow.html',
-    '<ul class="list-group">\n' +
+    '<ul class="list-group custom-form">\n' +
     '  <li class="list-group-item" ng-repeat="(key, value) in schema" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
     '\n' +
     '    <!-- String or ID -->\n' +
@@ -22,14 +22,20 @@ module.run(['$templateCache', function($templateCache) {
     '    </span>\n' +
     '\n' +
     '    <!-- Mixed -->\n' +
-    '    <span ng-if="value.instance == \'Array\' && value.schema"><strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">\n' +
-    '      <table style="width:100%">\n' +
-    '      <td><div ng-repeat="customObject in [value.schema.paths] track by $index" style="margin-left:150px">\n' +
-    '        <div class="col-sm-8" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
-    '      </div></td>\n' +
-    '      </table>\n' +
-    '      <hr>\n' +
+    '    <span ng-if="value.instance == \'Array\' && value.schema">\n' +
+    '    <div class="row">\n' +
+    '        <div class="col-sm-1">\n' +
+    '          <strong style="word-wrap: break-word;">{{schema[key].displayName || key}}:</strong>\n' +
+    '        </div>\n' +
+    '        <div class="col-sm-11">\n' +
+    '          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
+    '            <div class="row">\n' +
+    '              <div ng-repeat="customObject in [value.schema.paths] track by $index">\n' +
+    '                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
+    '              </div>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
     '    </div>\n' +
     '    </span>\n' +
     '\n' +

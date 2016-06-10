@@ -1,5 +1,7 @@
 'use strict';
 
+require('angular-ui-tinymce');
+
 var _admin = require('./admin.controller');
 
 var _admin2 = require('./admin.service');
@@ -17,7 +19,6 @@ for (var  i = 0; i < views.length; i++) {
   require('./views/' + views[i] + '.js');
 }*/
 
-require('./views/_form.js');
 require('./views/edit.js');
 require('./views/layout.js');
 require('./views/list.js');

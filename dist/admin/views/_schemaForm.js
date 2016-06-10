@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/_schemaForm.html',
-    '<div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== \'Hidden\'">\n' +
+    '<div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== \'Hidden\'" class="custom-form">\n' +
     '\n' +
     '  <!-- Not an Array or an Image -->\n' +
     '  <div class="form-group" ng-if="value.instance != \'Relationships\' && \n' +
@@ -18,7 +18,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance != \'wysiwyg\' &&\n' +
     '                                 value.instance != \'Mixed\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
-    '    <div class="col-sm-8">\n' +
+    '    <div class="col-sm-10">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -48,18 +48,29 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- An array of custom objects type -->\n' +
-    '  <div class="form-group" ng-if="value.instance == \'Array\' && value.schema">\n' +
-    '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
-    '    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">\n' +
-    '      <table style="width:100%">\n' +
-    '      <td><div ng-repeat="customObject in [value.schema.paths] track by $index" style="margin-left:150px">\n' +
-    '        <div class="col-sm-8" schema-form object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
-    '      </div></td>\n' +
-    '      <td><button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>\n' +
-    '      </table>\n' +
-    '      <hr>\n' +
+    '  <div ng-if="value.instance == \'Array\' && value.schema">\n' +
+    '    <div class="row">\n' +
+    '      <div class="col-sm-2 text-right">\n' +
+    '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '      </div>\n' +
+    '      <div class="col-sm-10">\n' +
+    '        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object"> \n' +
+    '          <div class="row">\n' +
+    '            <div class="col-sm-12">\n' +
+    '              <button type="submit" class="btn btn-link pull-right" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle text-danger"></i></button>\n' +
+    '            </div>\n' +
+    '            <div ng-repeat="customObject in [value.schema.paths] track by $index">\n' +
+    '              <div class="col-sm-11" schema-form object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '        <div class="row">\n' +
+    '          <div class="col-sm-12">\n' +
+    '            <button type="submit" class="btn btn-link pull-right" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle text-success"></i></button>\n' +
+    '          </div>\n' +
+    '        </div> \n' +
+    '      </div>\n' +
     '    </div>\n' +
-    '    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle"></i></button>\n' +
     '  </div>\n' +
     '\n' +
     '  <!-- An Array type -->\n' +

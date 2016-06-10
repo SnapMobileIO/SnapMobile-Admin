@@ -1,5 +1,6 @@
 'use strict';
 
+import 'angular-ui-tinymce';
 import { AdminController } from './admin.controller';
 import { Admin } from './admin.service';
 require('angular-recursion');
@@ -15,7 +16,6 @@ for (var  i = 0; i < views.length; i++) {
   require('./views/' + views[i] + '.js');
 }*/
 
-require('./views/_form.js');
 require('./views/edit.js');
 require('./views/layout.js');
 require('./views/list.js');
