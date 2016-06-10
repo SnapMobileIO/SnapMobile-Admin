@@ -13,7 +13,7 @@
           <div ng-if="!ctrl.object"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
 
           <form ng-if="ctrl.object" class="form-horizontal">
-            <div schema-edit object="ctrl.object" Admin="ctrl.Admin" relationshipObjects="ctrl.relationshipObjects" schema="ctrl.Admin.schema" ctrl="ctrl"></div>
+            <div schema-form object="ctrl.object" Admin="ctrl.Admin" relationshipObjects="ctrl.relationshipObjects" schema="ctrl.Admin.schema" ctrl="ctrl"></div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary" ng-click="ctrl.update()">Save Changes</button>

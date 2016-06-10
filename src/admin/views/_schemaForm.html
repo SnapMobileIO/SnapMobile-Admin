@@ -44,10 +44,10 @@
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">
       <table style="width:100%">
-      <td><div ng-repeat="customObject in value.schema track by $index" style="margin-left:150px">
-        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
+      <td><div ng-repeat="customObject in [value.schema.paths] track by $index" style="margin-left:150px">
+        <div class="col-sm-8" schema-form object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
       </div></td>
-      <button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>
+      <td><button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>
       </table>
       <hr>
     </div>
