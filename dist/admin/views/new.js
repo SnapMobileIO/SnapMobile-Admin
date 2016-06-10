@@ -23,7 +23,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <div class="form-group">\n' +
     '              <div class="col-sm-offset-2 col-sm-10">\n' +
     '                <button type="submit" class="btn btn-primary" ng-click="ctrl.add()">Save Changes</button>\n' +
-    '                <button type="submit" class="btn btn-default" ui-sref="admin-list">Cancel</button>\n' +
+    '                <button type="submit" class="btn btn-default" ui-sref="admin-list({className: ctrl.Admin.className})">Cancel</button>\n' +
     '              </div>\n' +
     '            </div>\n' +
     '          </form>\n' +

@@ -19,7 +19,7 @@ require('./views/new.js');
 require('./views/show.js');
 require('./views/_schemaEdit.js');
 
-app.directive('schemaEdit', function (RecursionHelper) {
+app.directive('schemaEdit', function () {
   return {
     templateUrl: 'app/admin/views/_schemaEdit.html',
     scope: {
@@ -28,10 +28,6 @@ app.directive('schemaEdit', function (RecursionHelper) {
       relationshipobjects: '=',
       schema: '=',
       ctrl: '='
-    }, compile: function compile(element) {
-      // Use the compile function from the RecursionHelper,
-      // And return the linking function(s) which it returns
-      return RecursionHelper.compile(element);
     }
   };
 });
