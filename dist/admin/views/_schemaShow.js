@@ -25,7 +25,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <span ng-if="value.instance == \'Array\' && value.schema">\n' +
     '    <div class="row">\n' +
     '        <div class="col-sm-1">\n' +
-    '          <strong style="word-wrap: break-word;">{{schema[key].displayName || key}}:</strong>\n' +
+    '          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>\n' +
     '        </div>\n' +
     '        <div class="col-sm-11">\n' +
     '          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
