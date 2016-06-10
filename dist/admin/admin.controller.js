@@ -30,6 +30,7 @@ var AdminController = function () {
     this.$sce = $sce;
 
     this.objects = [];
+    this.object = {};
     this.currentPage = 1;
     this.itemsPerPage = 20;
     this.relationshipObjects = [];
@@ -310,6 +311,14 @@ var AdminController = function () {
     key: 'renderHtml',
     value: function renderHtml(html) {
       return this.$sce.trustAsHtml(html);
+    }
+  }, {
+    key: 'addCustomObject',
+    value: function addCustomObject(object, key) {
+      if (!object[key]) {
+        object[key] = [];
+      };
+      object[key].push({});
     }
   }]);
 

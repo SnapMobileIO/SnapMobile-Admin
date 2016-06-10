@@ -19,6 +19,7 @@ class AdminController {
     this.$sce = $sce;
 
     this.objects = [];
+    this.object = {};
     this.currentPage = 1;
     this.itemsPerPage = 20;
     this.relationshipObjects = [];
@@ -247,6 +248,11 @@ class AdminController {
 
   renderHtml(html) {
     return this.$sce.trustAsHtml(html);
+  }
+
+  addCustomObject(object, key) {
+    if(!object[key]) { object[key] = [] };
+    object[key].push({})
   }
 
 }

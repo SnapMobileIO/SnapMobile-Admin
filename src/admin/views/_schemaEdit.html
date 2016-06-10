@@ -45,13 +45,13 @@
     <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">
       <table style="width:100%">
       <td><div ng-repeat="customObject in value.schema track by $index" style="margin-left:150px">
-        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects"></div>
+        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
       </div></td>
       <button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>
       </table>
       <hr>
     </div>
-    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="object[key].push({})"><i class="fa fa-plus-circle"></i></button>
+    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle"></i></button>
   </div>
 
   <!-- An Array type -->

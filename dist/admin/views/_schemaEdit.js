@@ -53,13 +53,13 @@ module.run(['$templateCache', function($templateCache) {
     '    <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index">\n' +
     '      <table style="width:100%">\n' +
     '      <td><div ng-repeat="customObject in value.schema track by $index" style="margin-left:150px">\n' +
-    '        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects"></div>\n' +
+    '        <div class="col-sm-8" schema-edit object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
     '      </div></td>\n' +
     '      <button style="float:right" type="submit" class="btn btn-primary" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle"></i></button></td>\n' +
     '      </table>\n' +
     '      <hr>\n' +
     '    </div>\n' +
-    '    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="object[key].push({})"><i class="fa fa-plus-circle"></i></button>\n' +
+    '    <button type="submit" style="float:right"  class="btn btn-primary" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle"></i></button>\n' +
     '  </div>\n' +
     '\n' +
     '  <!-- An Array type -->\n' +
