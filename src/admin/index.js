@@ -30,7 +30,6 @@ app.directive('schemaForm', () => {
     scope: {
       object: '=',
       admin: '=',
-      relationshipobjects: '=',
       schema: '=',
       ctrl: '='
     }
@@ -43,7 +42,6 @@ app.directive('schemaShow', () => {
     scope: {
       object: '=',
       admin: '=',
-      relationshipobjects: '=',
       schema: '=',
       ctrl: '='
     }

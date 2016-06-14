@@ -18,7 +18,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="col-lg-12">\n' +
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
-    '        <div schema-show object="ctrl.object" Admin="ctrl.Admin" relationshipObjects="ctrl.relationshipObjects" schema="ctrl.Admin.schema" ctrl="ctrl"></div>\n' +
+    '        <div schema-show object="ctrl.object" Admin="ctrl.Admin" schema="ctrl.Admin.schema" ctrl="ctrl"></div>\n' +
     '        </div>\n' +
     '      </div>\n' +
     '    </div>\n' +

@@ -23,7 +23,7 @@
           <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
             <div class="row">
               <div ng-repeat="customObject in [value.schema.paths] track by $index">
-                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>
+                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>
               </div>
             </div>
           </div>

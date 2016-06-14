@@ -31,7 +31,7 @@ module.run(['$templateCache', function($templateCache) {
     '          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
     '            <div class="row">\n' +
     '              <div ng-repeat="customObject in [value.schema.paths] track by $index">\n' +
-    '                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" relationshipObjects="relationshipobjects" ctrl="ctrl"></div>\n' +
+    '                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>\n' +
     '              </div>\n' +
     '            </div>\n' +
     '          </div>\n' +
