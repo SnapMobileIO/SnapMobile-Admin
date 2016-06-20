@@ -91,9 +91,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <ui-select ng-model="object[key]" title="Add {{key}}">\n' +
-    '        <ui-select-match>{{$select.selected[(schema[key].searchBy || \'displayName\')]}}</ui-select-match>\n' +
-    '        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || \'displayName\')}}: $select.search }">\n' +
-    '          <div ng-bind-html="choice[(schema[key].searchBy || \'displayName\')] | highlight: $select.search"></div>\n' +
+    '        <ui-select-match>{{$select.selected[(schema[key].searchBy || schema[key].options.searchBy || \'displayName\')]}}</ui-select-match>\n' +
+    '        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || schema[key].options.searchBy || \'displayName\')}}: $select.search }">\n' +
+    '          <div ng-bind-html="choice[(schema[key].searchBy || schema[key].options.searchBy || \'displayName\')] | highlight: $select.search"></div>\n' +
     '        </ui-select-choices>\n' +
     '      </ui-select>\n' +
     '      <a ng-click="object[key]=null">Clear</a>\n' +

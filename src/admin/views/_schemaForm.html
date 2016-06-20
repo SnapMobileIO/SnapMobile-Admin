@@ -83,9 +83,9 @@
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
       <ui-select ng-model="object[key]" title="Add {{key}}">
-        <ui-select-match>{{$select.selected[(schema[key].searchBy || 'displayName')]}}</ui-select-match>
-        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || 'displayName')}}: $select.search }">
-          <div ng-bind-html="choice[(schema[key].searchBy || 'displayName')] | highlight: $select.search"></div>
+        <ui-select-match>{{$select.selected[(schema[key].searchBy || schema[key].options.searchBy || 'displayName')]}}</ui-select-match>
+        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || schema[key].options.searchBy || 'displayName')}}: $select.search }">
+          <div ng-bind-html="choice[(schema[key].searchBy || schema[key].options.searchBy || 'displayName')] | highlight: $select.search"></div>
         </ui-select-choices>
       </ui-select>
       <a ng-click="object[key]=null">Clear</a>
