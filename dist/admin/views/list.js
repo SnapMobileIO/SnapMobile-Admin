@@ -56,8 +56,8 @@ module.run(['$templateCache', function($templateCache) {
     '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
     '                    <a ui-sref="admin-show({ \n' +
     '                                  className: ctrl.Admin.schema[key].options.ref, \n' +
-    '                                  id: object[key] \n' +
-    '                                })">{{object[key]}}</a>\n' +
+    '                                  id: (object[key]._id || object[key])\n' +
+    '                                })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>\n' +
     '                  </span>\n' +
     '\n' +
     '                  <!-- Mixed / Object -->\n' +

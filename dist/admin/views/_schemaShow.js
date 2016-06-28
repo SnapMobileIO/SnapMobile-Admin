@@ -17,8 +17,8 @@ module.run(['$templateCache', function($templateCache) {
     '      <strong>{{schema[key].displayName || key}}:</strong> \n' +
     '      <a ui-sref="admin-show({ \n' +
     '                    className: schema[key].options.ref, \n' +
-    '                    id: object[key] \n' +
-    '                  })" class="text-muted">{{object[key]}}</a>\n' +
+    '                    id: (ctrl.object[key]._id || ctrl.object[key])\n' +
+    '                  })">{{(ctrl.object[key][ctrl.Admin.schema[key].displayKey] || ctrl.object[key])}}</a>\n' +
     '    </span>\n' +
     '\n' +
     '    <!-- Mixed -->\n' +
