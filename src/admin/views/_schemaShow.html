@@ -14,21 +14,26 @@
     </span>
 
     <!-- Mixed -->
+    <span ng-if="value.instance == 'Mixed'">
+      <pre>{{object[key] | json}}</pre>
+    </span>
+
+    <!-- Array -->
     <span ng-if="value.instance == 'Array' && value.schema">
-    <div class="row">
-        <div class="col-sm-1">
-          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>
-        </div>
-        <div class="col-sm-11">
-          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
-            <div class="row">
-              <div ng-repeat="customObject in [value.schema.paths] track by $index">
-                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>
+      <div class="row">
+          <div class="col-sm-1">
+            <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>
+          </div>
+          <div class="col-sm-11">
+            <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
+              <div class="row">
+                <div ng-repeat="customObject in [value.schema.paths] track by $index">
+                  <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-    </div>
+      </div>
     </span>
 
     <!-- Number -->
