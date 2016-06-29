@@ -219,7 +219,7 @@ class AdminController {
    * Direct user to URL that exports data to a CSV file
    */
   exportToCsv() {
-    this.$window.open(`/api/admin/${this.Admin.className}/exportToCsv?access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
+    this.$window.open(`/api/admin/${this.Admin.className}?export=true&access_token=${this.Auth.token()}&` + this.$httpParamSerializer(this.params))
   }
 
   /**
