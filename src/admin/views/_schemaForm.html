@@ -1,14 +1,15 @@
 <div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== 'Hidden'" class="custom-form">
 
   <!-- Not an Array or an Image -->
-  <div class="form-group" ng-if="value.instance != 'Relationships' && 
-                                 value.instance != 'Boolean' && 
-                                 value.instance != 'ObjectID' && 
-                                 value.instance != 'Array' && 
-                                 value.instance != 'Date' && 
+  <div class="form-group" ng-if="value.instance != 'Relationships' &&
+                                 value.instance != 'Boolean' &&
+                                 value.instance != 'ObjectID' &&
+                                 value.instance != 'Array' &&
+                                 value.instance != 'Date' &&
                                  value.instance != 'Image' &&
                                  value.instance != 'wysiwyg' &&
-                                 value.instance != 'Mixed'">
+                                 value.instance != 'Mixed' &&
+                                 value.instance != 'File'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-10">
       <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">
@@ -46,7 +47,7 @@
         <label for="{{key}}">{{schema[key].displayName || key}}</label>
       </div>
       <div class="col-sm-10">
-        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object"> 
+        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
           <div class="row">
             <div class="col-sm-12">
               <button type="submit" class="btn btn-link pull-right" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle text-danger"></i></button>
@@ -60,7 +61,7 @@
           <div class="col-sm-12">
             <button type="submit" class="btn btn-link pull-right" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle text-success"></i></button>
           </div>
-        </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -114,6 +115,22 @@
     </div>
     <div class="col-sm-2">
       <file-upload for-file="object[key]" multiple="false" max-file-size="'5MB'">Drop new image here</file-upload>
+    </div>
+  </div>
+
+  <!--  A File type -->
+  <div class="form-group" ng-if="value.instance == 'File'">
+    <label class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-4" ng-if="object[key]">
+      <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
+      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
+      <p ng-if="object[key].type" class="text-wordwrap">file type: {{object[key].type}}</p>
+      <p ng-if="object[key].name" class="text-wordwrap">file name: {{object[key].name}}</p>
+      <p ng-if="object[key].url" class="text-wordwrap">url: {{object[key].url}}</p>
+      <p ng-if="object[key].size" class="text-wordwrap">size: {{object[key].size}}</p>
+    </div>
+    <div class="col-sm-2">
+      <file-upload for-file="object[key]" accept="'*'" pattern="'*'" multiple="false" max-file-size="'5MB'">Drop new file here</file-upload>
     </div>
   </div>
 
