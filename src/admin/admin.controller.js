@@ -238,14 +238,19 @@ class AdminController {
   }
 
   /**
-   * Returns a url for ui-sref fora  sidebar item
-   * @param  {Object} sidebar item (as defined in config)
-   * @return {String} url for class, or current state if not
+   * Goes to the appropriate url after checking if the sidebar item has a URL or a class property
+   * @param  {Object} item sidebar item (as defined in config)
    */
-  getClassUrl(item) {
-    if(item.class) return 'admin-list({ className : \'' + item.class + '\' })';
-    else return '.'; //returns current state
+  goToUrl(item) {
+    if (item.url) {
+      return this.$window.location.href = item.url;
+    } else if (item.class) {
+      return this.$state.go('admin-list', { className: item.class });
+    } else {
+      return this.$state.go('.'); // returns current state
+    };
   }
+
 
   renderHtml(html) {
     return this.$sce.trustAsHtml(html);
