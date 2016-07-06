@@ -52,6 +52,16 @@
                                 })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>
                   </span>
 
+                  <!-- Relationships -->
+                  <span ng-if="value.instance == 'Relationships'">
+                    <span ng-repeat="object in object[key]">
+                      <a ui-sref="admin-show({
+                          className: ctrl.Admin.schema[key].relationshipClass,
+                          id: (object._id || object)
+                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>
+                    </span>
+                  </span>
+
                   <!-- Mixed / Object -->
                   <span ng-if="value.instance == 'Mixed'"><i class="text-muted">Mixed</i></span>
 
