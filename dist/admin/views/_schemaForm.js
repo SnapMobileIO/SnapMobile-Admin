@@ -102,12 +102,12 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- Multiple Relationships - Array of relationship IDs -->\n' +
-    '  <div class="form-group" ng-if="value.instance == \'Relationships\'" ng-init="ctrl.findRelationshipObjects(schema[schema[key].relationshipKey].options.ref, key)">\n' +
+    '  <div class="form-group" ng-if="value.instance == \'Relationships\'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipKey, key)">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" title="Add {{key}}">\n' +
     '        <ui-select-match placeholder="Add {{key}}...">{{$item[(schema[key].searchBy || \'displayName\')]}}</ui-select-match>\n' +
-    '        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[schema[key].relationshipKey] | filter: { {{(schema[key].searchBy || \'displayName\')}}: $select.search }">\n' +
+    '        <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || \'displayName\')}}: $select.search }">\n' +
     '          <div ng-bind-html="choice[(schema[key].searchBy || \'displayName\')] | highlight: $select.search"></div>\n' +
     '        </ui-select-choices>\n' +
     '      </ui-select>\n' +
