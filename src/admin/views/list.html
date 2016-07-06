@@ -21,8 +21,8 @@
           </div>
           <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>
           <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>
-          <table class="table table-hover"> 
-            <thead> 
+          <table class="table table-hover">
+            <thead>
               <tr>
                 <th class="wordwrap-none">
                   <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>
@@ -34,11 +34,11 @@
                   </a>
                 </th>
                 <th></th>
-                <th></th> 
+                <th></th>
                 <th></th>
               </tr>
             </thead>
-            <tbody> 
+            <tbody>
               <tr ng-repeat="object in ctrl.objects">
                 <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>
 
@@ -46,8 +46,8 @@
                 <td ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema">
                   <span ng-if="value.instance == 'String' || key == '_id'">{{object[key]}}</span>
                   <span ng-if="key != '_id' && value.instance == 'ObjectID'">
-                    <a ui-sref="admin-show({ 
-                                  className: ctrl.Admin.schema[key].options.ref, 
+                    <a ui-sref="admin-show({
+                                  className: ctrl.Admin.schema[key].options.ref,
                                   id: (object[key]._id || object[key])
                                 })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>
                   </span>
@@ -63,7 +63,7 @@
 
                   <!-- Date -->
                   <span ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</span>
-                
+
                   <!-- Boolean -->
                   <span ng-if="value.instance == 'Boolean'">
                     <i ng-if="object[key]" class="fa fa-check-circle"></i>
@@ -75,8 +75,13 @@
                     <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
                     <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
                   </span>
+
+                  <!-- File -->
+                  <span ng-if="value.instance == 'File'">
+                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>
+                  </span>
                 </td>
-                
+
                 <td>
                   <button ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</button>
                 </td>
