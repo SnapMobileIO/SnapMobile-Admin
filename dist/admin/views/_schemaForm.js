@@ -9,14 +9,15 @@ module.run(['$templateCache', function($templateCache) {
     '<div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== \'Hidden\'" class="custom-form">\n' +
     '\n' +
     '  <!-- Not an Array or an Image -->\n' +
-    '  <div class="form-group" ng-if="value.instance != \'Relationships\' && \n' +
-    '                                 value.instance != \'Boolean\' && \n' +
-    '                                 value.instance != \'ObjectID\' && \n' +
-    '                                 value.instance != \'Array\' && \n' +
-    '                                 value.instance != \'Date\' && \n' +
+    '  <div class="form-group" ng-if="value.instance != \'Relationships\' &&\n' +
+    '                                 value.instance != \'Boolean\' &&\n' +
+    '                                 value.instance != \'ObjectID\' &&\n' +
+    '                                 value.instance != \'Array\' &&\n' +
+    '                                 value.instance != \'Date\' &&\n' +
     '                                 value.instance != \'Image\' &&\n' +
     '                                 value.instance != \'wysiwyg\' &&\n' +
-    '                                 value.instance != \'Mixed\'">\n' +
+    '                                 value.instance != \'Mixed\' &&\n' +
+    '                                 value.instance != \'File\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
@@ -54,7 +55,7 @@ module.run(['$templateCache', function($templateCache) {
     '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
     '      </div>\n' +
     '      <div class="col-sm-10">\n' +
-    '        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object"> \n' +
+    '        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
     '          <div class="row">\n' +
     '            <div class="col-sm-12">\n' +
     '              <button type="submit" class="btn btn-link pull-right" ng-click="object[key].splice(dataIndex, 1)"><i class="fa fa-times-circle text-danger"></i></button>\n' +
@@ -68,7 +69,7 @@ module.run(['$templateCache', function($templateCache) {
     '          <div class="col-sm-12">\n' +
     '            <button type="submit" class="btn btn-link pull-right" ng-click="ctrl.addCustomObject(object, key)"><i class="fa fa-plus-circle text-success"></i></button>\n' +
     '          </div>\n' +
-    '        </div> \n' +
+    '        </div>\n' +
     '      </div>\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -122,6 +123,22 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
     '      <file-upload for-file="object[key]" multiple="false" max-file-size="\'5MB\'">Drop new image here</file-upload>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <!--  A File type -->\n' +
+    '  <div class="form-group" ng-if="value.instance == \'File\'">\n' +
+    '    <label class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
+    '    <div class="col-sm-4" ng-if="object[key]">\n' +
+    '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '      <p ng-if="object[key].type" class="text-wordwrap">file type: {{object[key].type}}</p>\n' +
+    '      <p ng-if="object[key].name" class="text-wordwrap">file name: {{object[key].name}}</p>\n' +
+    '      <p ng-if="object[key].url" class="text-wordwrap">url: {{object[key].url}}</p>\n' +
+    '      <p ng-if="object[key].size" class="text-wordwrap">size: {{object[key].size}}</p>\n' +
+    '    </div>\n' +
+    '    <div class="col-sm-2">\n' +
+    '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="false" max-file-size="\'5MB\'">Drop new file here</file-upload>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +

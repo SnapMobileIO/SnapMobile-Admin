@@ -14,9 +14,9 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '    <!-- ObjectID that isn\'t the object ID -->\n' +
     '    <span ng-if="value.instance == \'ObjectID\' && key != \'_id\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong> \n' +
-    '      <a ui-sref="admin-show({ \n' +
-    '                    className: schema[key].options.ref, \n' +
+    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
+    '      <a ui-sref="admin-show({\n' +
+    '                    className: schema[key].options.ref,\n' +
     '                    id: (ctrl.object[key]._id || ctrl.object[key])\n' +
     '                  })">{{(ctrl.object[key][ctrl.Admin.schema[key].displayKey] || ctrl.object[key])}}</a>\n' +
     '    </span>\n' +
@@ -48,7 +48,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <span ng-if="value.instance == \'Number\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
     '\n' +
     '    <!-- Date -->\n' +
-    '    <span ng-if="value.instance == \'Date\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span> \n' +
+    '    <span ng-if="value.instance == \'Date\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
     '\n' +
     '    <!-- Children -->\n' +
     '    <span ng-if="key == \'children\'">\n' +
@@ -77,7 +77,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
     '      <span ng-repeat="objectId in object[key]">\n' +
     '        <a ui-sref="admin-show({\n' +
-    '            className: schema[schema[key].relationshipKey].options.ref, \n' +
+    '            className: schema[schema[key].relationshipKey].options.ref,\n' +
     '            id: objectId\n' +
     '          })" class="text-muted">{{objectId}}</a><span ng-if="!$last">,</span>\n' +
     '      </span>\n' +
@@ -85,17 +85,29 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '    <!-- Image -->\n' +
     '    <span ng-if="value.instance == \'Image\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong> \n' +
+    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
     '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '    </span>\n' +
     '\n' +
+    '    <!-- File -->\n' +
+    '    <span ng-if="value.instance == \'File\'">\n' +
+    '      <strong>{{schema[key].displayName || key}}:</strong><br>\n' +
+    '      <span ng-if="object[key].type" class="text-wordwrap"><strong>type:</strong> {{object[key].type}}</span>\n' +
+    '      <br>\n' +
+    '      <span ng-if="object[key].name" class="text-wordwrap"><strong>name:</strong> {{object[key].name}}</span>\n' +
+    '      <br>\n' +
+    '      <span ng-if="object[key].url" class="text-wordwrap"><strong>url: </strong> {{object[key].url}}</span>\n' +
+    '      <br>\n' +
+    '      <span ng-if="object[key].size" class="text-wordwrap"><strong>size: </strong> {{object[key].size}}</span>\n' +
+    '    </span>\n' +
+    '\n' +
     '    <!-- Boolean -->\n' +
     '    <span ng-if="value.instance == \'Boolean\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong> \n' +
+    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
     '      <i ng-if="object[key]" class="fa fa-check-circle"></i>\n' +
     '      <i ng-if="!object[key]" class="fa fa-times-circle"></i>\n' +
-    '    </span>   \n' +
+    '    </span>\n' +
     '  </li>\n' +
     '</ul>');
 }]);

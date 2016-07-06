@@ -6,9 +6,9 @@
 
     <!-- ObjectID that isn't the object ID -->
     <span ng-if="value.instance == 'ObjectID' && key != '_id'">
-      <strong>{{schema[key].displayName || key}}:</strong> 
-      <a ui-sref="admin-show({ 
-                    className: schema[key].options.ref, 
+      <strong>{{schema[key].displayName || key}}:</strong>
+      <a ui-sref="admin-show({
+                    className: schema[key].options.ref,
                     id: (ctrl.object[key]._id || ctrl.object[key])
                   })">{{(ctrl.object[key][ctrl.Admin.schema[key].displayKey] || ctrl.object[key])}}</a>
     </span>
@@ -40,7 +40,7 @@
     <span ng-if="value.instance == 'Number'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>
 
     <!-- Date -->
-    <span ng-if="value.instance == 'Date'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</span> 
+    <span ng-if="value.instance == 'Date'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</span>
 
     <!-- Children -->
     <span ng-if="key == 'children'">
@@ -69,7 +69,7 @@
       <strong>{{schema[key].displayName || key}}:</strong>
       <span ng-repeat="objectId in object[key]">
         <a ui-sref="admin-show({
-            className: schema[schema[key].relationshipKey].options.ref, 
+            className: schema[schema[key].relationshipKey].options.ref,
             id: objectId
           })" class="text-muted">{{objectId}}</a><span ng-if="!$last">,</span>
       </span>
@@ -77,16 +77,28 @@
 
     <!-- Image -->
     <span ng-if="value.instance == 'Image'">
-      <strong>{{schema[key].displayName || key}}:</strong> 
+      <strong>{{schema[key].displayName || key}}:</strong>
       <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
       <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
     </span>
 
+    <!-- File -->
+    <span ng-if="value.instance == 'File'">
+      <strong>{{schema[key].displayName || key}}:</strong><br>
+      <span ng-if="object[key].type" class="text-wordwrap"><strong>type:</strong> {{object[key].type}}</span>
+      <br>
+      <span ng-if="object[key].name" class="text-wordwrap"><strong>name:</strong> {{object[key].name}}</span>
+      <br>
+      <span ng-if="object[key].url" class="text-wordwrap"><strong>url: </strong> {{object[key].url}}</span>
+      <br>
+      <span ng-if="object[key].size" class="text-wordwrap"><strong>size: </strong> {{object[key].size}}</span>
+    </span>
+
     <!-- Boolean -->
     <span ng-if="value.instance == 'Boolean'">
-      <strong>{{schema[key].displayName || key}}:</strong> 
+      <strong>{{schema[key].displayName || key}}:</strong>
       <i ng-if="object[key]" class="fa fa-check-circle"></i>
       <i ng-if="!object[key]" class="fa fa-times-circle"></i>
-    </span>   
+    </span>
   </li>
 </ul>
