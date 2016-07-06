@@ -75,11 +75,11 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- Relationships -->\n' +
     '    <span ng-if="value.instance == \'Relationships\'">\n' +
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <span ng-repeat="objectId in object[key]">\n' +
+    '      <span ng-repeat="object in object[key]">\n' +
     '        <a ui-sref="admin-show({\n' +
-    '            className: schema[schema[key].relationshipKey].options.ref,\n' +
-    '            id: objectId\n' +
-    '          })" class="text-muted">{{objectId}}</a><span ng-if="!$last">,</span>\n' +
+    '            className: schema[key].relationshipKey,\n' +
+    '            id: object\n' +
+    '          })" class="text-muted">{{object[schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
     '      </span>\n' +
     '    </span>\n' +
     '\n' +

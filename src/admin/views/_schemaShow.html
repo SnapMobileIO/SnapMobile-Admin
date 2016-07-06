@@ -67,11 +67,11 @@
     <!-- Relationships -->
     <span ng-if="value.instance == 'Relationships'">
       <strong>{{schema[key].displayName || key}}:</strong>
-      <span ng-repeat="objectId in object[key]">
+      <span ng-repeat="object in object[key]">
         <a ui-sref="admin-show({
-            className: schema[schema[key].relationshipKey].options.ref,
-            id: objectId
-          })" class="text-muted">{{objectId}}</a><span ng-if="!$last">,</span>
+            className: schema[key].relationshipKey,
+            id: object
+          })" class="text-muted">{{object[schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>
       </span>
     </span>
 
