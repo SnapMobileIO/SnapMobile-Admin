@@ -102,7 +102,7 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- Multiple Relationships - Array of relationship IDs -->\n' +
-    '  <div class="form-group" ng-if="value.instance == \'Relationships\'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipKey, key)">\n' +
+    '  <div class="form-group" ng-if="value.instance == \'Relationships\'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipClass, key)">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" title="Add {{key}}">\n' +

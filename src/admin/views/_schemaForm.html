@@ -94,7 +94,7 @@
   </div>
 
   <!-- Multiple Relationships - Array of relationship IDs -->
-  <div class="form-group" ng-if="value.instance == 'Relationships'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipKey, key)">
+  <div class="form-group" ng-if="value.instance == 'Relationships'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipClass, key)">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
       <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" title="Add {{key}}">

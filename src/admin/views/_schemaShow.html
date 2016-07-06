@@ -69,8 +69,8 @@
       <strong>{{schema[key].displayName || key}}:</strong>
       <span ng-repeat="object in object[key]">
         <a ui-sref="admin-show({
-            className: schema[key].relationshipKey,
-            id: object
+            className: schema[key].relationshipClass,
+            id: (object._id || object)
           })" class="text-muted">{{object[schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>
       </span>
     </span>

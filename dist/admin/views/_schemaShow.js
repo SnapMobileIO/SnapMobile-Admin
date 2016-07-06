@@ -77,8 +77,8 @@ module.run(['$templateCache', function($templateCache) {
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
     '      <span ng-repeat="object in object[key]">\n' +
     '        <a ui-sref="admin-show({\n' +
-    '            className: schema[key].relationshipKey,\n' +
-    '            id: object\n' +
+    '            className: schema[key].relationshipClass,\n' +
+    '            id: (object._id || object)\n' +
     '          })" class="text-muted">{{object[schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
     '      </span>\n' +
     '    </span>\n' +

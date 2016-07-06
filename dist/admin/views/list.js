@@ -64,8 +64,8 @@ module.run(['$templateCache', function($templateCache) {
     '                  <span ng-if="value.instance == \'Relationships\'">\n' +
     '                    <span ng-repeat="object in object[key]">\n' +
     '                      <a ui-sref="admin-show({\n' +
-    '                          className: ctrl.Admin.schema[key].relationshipKey,\n' +
-    '                          id: object\n' +
+    '                          className: ctrl.Admin.schema[key].relationshipClass,\n' +
+    '                          id: (object._id || object)\n' +
     '                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
     '                    </span>\n' +
     '                  </span>\n' +
