@@ -93,11 +93,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- File -->\n' +
     '    <span ng-if="value.instance == \'File\'">\n' +
     '      <strong>{{schema[key].displayName || key}}:</strong><br>\n' +
-    '      <span ng-if="object[key].type" class="text-wordwrap"><strong>type:</strong> {{object[key].type}}</span>\n' +
+    '      <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><strong>Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
     '      <br>\n' +
-    '      <span ng-if="object[key].name" class="text-wordwrap"><strong>name:</strong> {{object[key].name}}</span>\n' +
-    '      <br>\n' +
-    '      <span ng-if="object[key].url" class="text-wordwrap"><strong>url: </strong> {{object[key].url}}</span>\n' +
+    '      <span ng-if="object[key].type" class="text-wordwrap"><strong>Type:</strong> {{object[key].type}}</span>\n' +
     '      <br>\n' +
     '      <span ng-if="object[key].size" class="text-wordwrap"><strong>size: </strong> {{object[key].size}}</span>\n' +
     '    </span>\n' +

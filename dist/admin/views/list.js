@@ -29,8 +29,8 @@ module.run(['$templateCache', function($templateCache) {
     '          </div>\n' +
     '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +
     '          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>\n' +
-    '          <table class="table table-hover"> \n' +
-    '            <thead> \n' +
+    '          <table class="table table-hover">\n' +
+    '            <thead>\n' +
     '              <tr>\n' +
     '                <th class="wordwrap-none">\n' +
     '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
@@ -42,11 +42,11 @@ module.run(['$templateCache', function($templateCache) {
     '                  </a>\n' +
     '                </th>\n' +
     '                <th></th>\n' +
-    '                <th></th> \n' +
+    '                <th></th>\n' +
     '                <th></th>\n' +
     '              </tr>\n' +
     '            </thead>\n' +
-    '            <tbody> \n' +
+    '            <tbody>\n' +
     '              <tr ng-repeat="object in ctrl.objects">\n' +
     '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
     '\n' +
@@ -54,8 +54,8 @@ module.run(['$templateCache', function($templateCache) {
     '                <td ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
     '                  <span ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</span>\n' +
     '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
-    '                    <a ui-sref="admin-show({ \n' +
-    '                                  className: ctrl.Admin.schema[key].options.ref, \n' +
+    '                    <a ui-sref="admin-show({\n' +
+    '                                  className: ctrl.Admin.schema[key].options.ref,\n' +
     '                                  id: (object[key]._id || object[key])\n' +
     '                                })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>\n' +
     '                  </span>\n' +
@@ -81,7 +81,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                  <!-- Date -->\n' +
     '                  <span ng-if="value.instance == \'Date\'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
-    '                \n' +
+    '\n' +
     '                  <!-- Boolean -->\n' +
     '                  <span ng-if="value.instance == \'Boolean\'">\n' +
     '                    <i ng-if="object[key]" class="fa fa-check-circle"></i>\n' +
@@ -93,8 +93,13 @@ module.run(['$templateCache', function($templateCache) {
     '                    <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                    <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                  </span>\n' +
+    '\n' +
+    '                  <!-- File -->\n' +
+    '                  <span ng-if="value.instance == \'File\'">\n' +
+    '                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
+    '                  </span>\n' +
     '                </td>\n' +
-    '                \n' +
+    '\n' +
     '                <td>\n' +
     '                  <button ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</button>\n' +
     '                </td>\n' +

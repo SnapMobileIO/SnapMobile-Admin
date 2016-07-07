@@ -132,10 +132,9 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="col-sm-4" ng-if="object[key]">\n' +
     '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '      <p ng-if="object[key].type" class="text-wordwrap">file type: {{object[key].type}}</p>\n' +
-    '      <p ng-if="object[key].name" class="text-wordwrap">file name: {{object[key].name}}</p>\n' +
-    '      <p ng-if="object[key].url" class="text-wordwrap">url: {{object[key].url}}</p>\n' +
-    '      <p ng-if="object[key].size" class="text-wordwrap">size: {{object[key].size}}</p>\n' +
+    '      <p ng-if="object[key].name && object[key].url" class="text-wordwrap"><strong>File Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></p>\n' +
+    '      <p ng-if="object[key].type" class="text-wordwrap">File Type: {{object[key].type}}</p>\n' +
+    '      <p ng-if="object[key].size" class="text-wordwrap">File Size: {{object[key].size}}</p>\n' +
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
     '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="false" max-file-size="\'5MB\'">Drop new file here</file-upload>\n' +
