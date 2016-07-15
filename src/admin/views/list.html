@@ -4,7 +4,7 @@
     <div class="actions">
       <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>
       <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>
-      <a ng-click="importToggle = !importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="importToggle"> Hide import</span><span ng-hide="importToggle"> Import from CSV</span></a>
+      <a ng-click="ctrl.importToggle = !ctrl.importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="ctrl.importToggle"> Hide import</span><span ng-hide="ctrl.importToggle"> Import from CSV</span></a>
       <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>
     </div>
   </div>
@@ -13,10 +13,11 @@
     <div class="col-lg-12">
       <div class="panel">
         <div class="panel-body table-responsive">
-          <div ng-if="importToggle" class="col-md-12">
+          <div ng-if="ctrl.importToggle" class="col-md-12">
             <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="'text/csv'" pattern="'text/csv'" max-file-size="'100MB'">Drop csv file here</file-upload>
             <div class="pull-right">
-              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
+              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary" ng-disabled="ctrl.importLoading"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
+              <div ng-if="ctrl.importLoading"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
             </div>
           </div>
           <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>

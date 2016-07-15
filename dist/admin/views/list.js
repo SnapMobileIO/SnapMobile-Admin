@@ -12,7 +12,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="actions">\n' +
     '      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>\n' +
     '      <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>\n' +
-    '      <a ng-click="importToggle = !importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="importToggle"> Hide import</span><span ng-hide="importToggle"> Import from CSV</span></a>\n' +
+    '      <a ng-click="ctrl.importToggle = !ctrl.importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="ctrl.importToggle"> Hide import</span><span ng-hide="ctrl.importToggle"> Import from CSV</span></a>\n' +
     '      <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>\n' +
     '    </div>\n' +
     '  </div>\n' +
@@ -21,10 +21,11 @@ module.run(['$templateCache', function($templateCache) {
     '    <div class="col-lg-12">\n' +
     '      <div class="panel">\n' +
     '        <div class="panel-body table-responsive">\n' +
-    '          <div ng-if="importToggle" class="col-md-12">\n' +
+    '          <div ng-if="ctrl.importToggle" class="col-md-12">\n' +
     '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'100MB\'">Drop csv file here</file-upload>\n' +
     '            <div class="pull-right">\n' +
-    '              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
+    '              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary" ng-disabled="ctrl.importLoading"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
+    '              <div ng-if="ctrl.importLoading"><i class="fa fa-spinner fa-spin"></i> Loading...</div>\n' +
     '            </div>\n' +
     '          </div>\n' +
     '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +

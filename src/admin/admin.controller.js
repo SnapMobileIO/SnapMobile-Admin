@@ -226,13 +226,18 @@ class AdminController {
    * Uploads the csv file and imports objects.
    */
   importFromCsv() {
+    this.importLoading = true;
     this.Admin.importFromCsv(this.uploadedUrl)
       .then(response => {
         this.findAll();
+        this.importLoading = false;
+        this.importToggle = false;
         this.FlashMessage.success('Successfully imported');
       }, (error) => {
         this.findAll();
+        this.importLoading = false;
         this.FlashMessage.errors(error);
+        this.importToggle = false;
         console.error(error);
       });
   }

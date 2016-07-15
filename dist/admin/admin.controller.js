@@ -287,12 +287,17 @@ var AdminController = function () {
     value: function importFromCsv() {
       var _this10 = this;
 
+      this.importLoading = true;
       this.Admin.importFromCsv(this.uploadedUrl).then(function (response) {
         _this10.findAll();
+        _this10.importLoading = false;
+        _this10.importToggle = false;
         _this10.FlashMessage.success('Successfully imported');
       }, function (error) {
         _this10.findAll();
+        _this10.importLoading = false;
         _this10.FlashMessage.errors(error);
+        _this10.importToggle = false;
         console.error(error);
       });
     }
