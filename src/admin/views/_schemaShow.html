@@ -9,8 +9,8 @@
       <strong>{{schema[key].displayName || key}}:</strong>
       <a ui-sref="admin-show({
                     className: schema[key].options.ref,
-                    id: (ctrl.object[key]._id || ctrl.object[key])
-                  })">{{(ctrl.object[key][ctrl.Admin.schema[key].displayKey] || ctrl.object[key])}}</a>
+                    id: (object[key]._id || object[key])
+                  })">{{(object[key][schema[key].displayKey] || object[key] )}}</a>
     </span>
 
     <!-- Mixed -->
