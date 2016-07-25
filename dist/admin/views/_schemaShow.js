@@ -7,7 +7,7 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/_schemaShow.html',
     '<ul class="list-group custom-form">\n' +
-    '  <li class="list-group-item" ng-repeat="(key, value) in schema" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
+    '  <li class="list-group-item" ng-repeat="(key, value) in schema track by $index" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
     '\n' +
     '    <!-- String or ID -->\n' +
     '    <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
@@ -53,7 +53,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- Children -->\n' +
     '    <span ng-if="key == \'children\'">\n' +
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <span ng-repeat="classType in value">\n' +
+    '      <span ng-repeat="classType in value track by $index">\n' +
     '        <a ui-sref="admin-list({\n' +
     '            className: classType,\n' +
     '            filter: object._id,\n' +
@@ -75,7 +75,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- Relationships -->\n' +
     '    <span ng-if="value.instance == \'Relationships\'">\n' +
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <span ng-repeat="object in object[key]">\n' +
+    '      <span ng-repeat="object in object[key] track by $index">\n' +
     '        <a ui-sref="admin-show({\n' +
     '            className: schema[key].relationshipClass,\n' +
     '            id: (object._id || object)\n' +

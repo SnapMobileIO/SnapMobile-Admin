@@ -10,7 +10,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <div class="page-header">\n' +
     '    <h1>{{ctrl.object[ctrl.Admin.schema.displayKey] || \'Object\'}}</h1>\n' +
     '  </div>\n' +
-    '  \n' +
+    '\n' +
     '  <div class="row">\n' +
     '    <div class="col-lg-12">\n' +
     '      <div class="panel">\n' +
