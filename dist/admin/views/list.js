@@ -36,7 +36,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <th class="wordwrap-none">\n' +
     '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
     '                </th>\n' +
-    '                <th ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema" class="wordwrap-none text-muted">\n' +
+    '                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema" class="wordwrap-none text-muted">\n' +
     '                  <a ng-click="ctrl.updateSort(key)">\n' +
     '                    {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}\n' +
     '                    <i ng-class="ctrl.toggle[key] ? \'fa fa-caret-up\' : \'fa fa-caret-down\'"></i>\n' +
@@ -48,11 +48,11 @@ module.run(['$templateCache', function($templateCache) {
     '              </tr>\n' +
     '            </thead>\n' +
     '            <tbody>\n' +
-    '              <tr ng-repeat="object in ctrl.objects">\n' +
+    '              <tr ng-repeat="object in ctrl.objects track by $index">\n' +
     '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
     '\n' +
     '                <!-- Relationship -->\n' +
-    '                <td ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
+    '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
     '                  <span ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</span>\n' +
     '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
     '                    <a ui-sref="admin-show({\n' +
@@ -63,7 +63,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                  <!-- Relationships -->\n' +
     '                  <span ng-if="value.instance == \'Relationships\'">\n' +
-    '                    <span ng-repeat="object in object[key]">\n' +
+    '                    <span ng-repeat="object in object[key] track by $index">\n' +
     '                      <a ui-sref="admin-show({\n' +
     '                          className: ctrl.Admin.schema[key].relationshipClass,\n' +
     '                          id: (object._id || object)\n' +
