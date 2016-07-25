@@ -20,7 +20,7 @@
         <ul class="nav navbar-nav navbar-right">
 
           <!-- These are only displayed when the nav is collapsed -->
-          <li ng-repeat="item in ctrl.sidebarItems" class="collapsed-display">
+          <li ng-repeat="item in ctrl.sidebarItems track by $index" class="collapsed-display">
             <a ng-click="ctrl.goToUrl(item)" ng-class="{'active': ctrl.Admin.className == item.class}">
               <i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}
             </a>
@@ -47,7 +47,7 @@
   <div class="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li role="separator" class="divider">Navigation</li>
-      <li ng-repeat="item in ctrl.sidebarItems">
+      <li ng-repeat="item in ctrl.sidebarItems track by $index">
         <a ng-click="ctrl.goToUrl(item)" ng-class="{'active': ctrl.Admin.className == item.class}">
           <i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}
         </a>

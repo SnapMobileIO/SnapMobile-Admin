@@ -28,7 +28,7 @@
                 <th class="wordwrap-none">
                   <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>
                 </th>
-                <th ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema" class="wordwrap-none text-muted">
+                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema" class="wordwrap-none text-muted">
                   <a ng-click="ctrl.updateSort(key)">
                     {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}
                     <i ng-class="ctrl.toggle[key] ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i>
@@ -40,11 +40,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="object in ctrl.objects">
+              <tr ng-repeat="object in ctrl.objects track by $index">
                 <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>
 
                 <!-- Relationship -->
-                <td ng-repeat="(key, value) in ctrl.Admin.schema" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema">
+                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema">
                   <span ng-if="value.instance == 'String' || key == '_id'">{{object[key]}}</span>
                   <span ng-if="key != '_id' && value.instance == 'ObjectID'">
                     <a ui-sref="admin-show({
@@ -55,7 +55,7 @@
 
                   <!-- Relationships -->
                   <span ng-if="value.instance == 'Relationships'">
-                    <span ng-repeat="object in object[key]">
+                    <span ng-repeat="object in object[key] track by $index">
                       <a ui-sref="admin-show({
                           className: ctrl.Admin.schema[key].relationshipClass,
                           id: (object._id || object)
