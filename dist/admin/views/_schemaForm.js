@@ -137,7 +137,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <p ng-if="object[key].size" class="text-wordwrap">File Size: {{object[key].size}}</p>\n' +
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
-    '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="false" max-file-size="\'5MB\'">Drop new file here</file-upload>\n' +
+    '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="false" max-file-size="\'300MB\'">Drop new file here</file-upload>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
