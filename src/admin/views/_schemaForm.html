@@ -20,7 +20,7 @@
 
   <span ng-if="value.instance == 'wysiwyg'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
-    <textarea ui-tinymce="{}"
+    <textarea ui-tinymce="ctrl.tinymceOptions"
       ng-model="object[key]"></textarea>
   </span>
 
