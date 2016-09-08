@@ -17,6 +17,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance != \'Image\' &&\n' +
     '                                 value.instance != \'wysiwyg\' &&\n' +
     '                                 value.instance != \'Mixed\' &&\n' +
+    '                                 value.instance != \'CustomObject\' &&\n' +
     '                                 value.instance != \'File\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
@@ -48,8 +49,22 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
+    '  <!-- Custom object type -->\n' +
+    '  <div ng-if="value.instance === \'CustomObject\'">\n' +
+    '    <div class="row">\n' +
+    '      <div class="col-sm-2 text-right">\n' +
+    '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '      </div>\n' +
+    '      <div class="col-sm-10">\n' +
+    '        <div class="row">\n' +
+    '          <div class="col-sm-11 custom-object" schema-form object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
     '  <!-- An array of custom objects type -->\n' +
-    '  <div ng-if="value.instance == \'Array\' && value.schema">\n' +
+    '  <div ng-if="value.instance === \'Array\' && value.schema">\n' +
     '    <div class="row">\n' +
     '      <div class="col-sm-2 text-right">\n' +
     '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +

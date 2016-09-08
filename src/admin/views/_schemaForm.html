@@ -9,6 +9,7 @@
                                  value.instance != 'Image' &&
                                  value.instance != 'wysiwyg' &&
                                  value.instance != 'Mixed' &&
+                                 value.instance != 'CustomObject' &&
                                  value.instance != 'File'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-10">
@@ -40,8 +41,22 @@
     </div>
   </div>
 
+  <!-- Custom object type -->
+  <div ng-if="value.instance === 'CustomObject'">
+    <div class="row">
+      <div class="col-sm-2 text-right">
+        <label for="{{key}}">{{schema[key].displayName || key}}</label>
+      </div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-sm-11 custom-object" schema-form object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- An array of custom objects type -->
-  <div ng-if="value.instance == 'Array' && value.schema">
+  <div ng-if="value.instance === 'Array' && value.schema">
     <div class="row">
       <div class="col-sm-2 text-right">
         <label for="{{key}}">{{schema[key].displayName || key}}</label>
