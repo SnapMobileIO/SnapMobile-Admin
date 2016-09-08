@@ -26,6 +26,20 @@ module.run(['$templateCache', function($templateCache) {
     '      <pre>{{object[key] | json}}</pre>\n' +
     '    </span>\n' +
     '\n' +
+    '    <!-- Custom object type -->\n' +
+    '    <div ng-if="value.instance === \'CustomObject\'">\n' +
+    '      <div class="row">\n' +
+    '        <div class="col-sm-1">\n' +
+    '          <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '        </div>\n' +
+    '        <div class="col-sm-11">\n' +
+    '          <div class="row">\n' +
+    '            <div class="col-sm-12 custom-object" schema-show object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '\n' +
     '    <!-- Array -->\n' +
     '    <span ng-if="value.instance == \'Array\' && value.schema">\n' +
     '      <div class="row">\n' +

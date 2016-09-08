@@ -18,6 +18,20 @@
       <pre>{{object[key] | json}}</pre>
     </span>
 
+    <!-- Custom object type -->
+    <div ng-if="value.instance === 'CustomObject'">
+      <div class="row">
+        <div class="col-sm-1">
+          <label for="{{key}}">{{schema[key].displayName || key}}</label>
+        </div>
+        <div class="col-sm-11">
+          <div class="row">
+            <div class="col-sm-12 custom-object" schema-show object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Array -->
     <span ng-if="value.instance == 'Array' && value.schema">
       <div class="row">
