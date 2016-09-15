@@ -6,6 +6,7 @@
                                  value.instance != 'ObjectID' &&
                                  value.instance != 'Array' &&
                                  value.instance != 'Date' &&
+                                 value.instance != 'ImagesArray' &&
                                  value.instance != 'Image' &&
                                  value.instance != 'wysiwyg' &&
                                  value.instance != 'Mixed' &&
@@ -52,6 +53,30 @@
           <div class="col-sm-11 custom-object" schema-form object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Images Array type -->
+  <div class="form-group" ng-if="value.instance == 'ImagesArray'">
+    <label class="col-sm-2 control-label" for="{{key}}">{{schema[key].displayName || key}}</label>
+
+    <div class="col-sm-3">
+      <div ng-repeat="image in object[key] track by $index">
+        <div class="row">  
+          <div class="col-sm-4">
+            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>
+            </button>
+            <div class="array-img">
+              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType == 'external'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">
+              <img ng-if="image && (!image.hostedType || image.hostedType == 'local')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <file-upload for-files="object[key]" multiple="true" max-file-size="'5MB'">Drop new images here</file-upload>
     </div>
   </div>
 

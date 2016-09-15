@@ -14,6 +14,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance != \'ObjectID\' &&\n' +
     '                                 value.instance != \'Array\' &&\n' +
     '                                 value.instance != \'Date\' &&\n' +
+    '                                 value.instance != \'ImagesArray\' &&\n' +
     '                                 value.instance != \'Image\' &&\n' +
     '                                 value.instance != \'wysiwyg\' &&\n' +
     '                                 value.instance != \'Mixed\' &&\n' +
@@ -60,6 +61,30 @@ module.run(['$templateCache', function($templateCache) {
     '          <div class="col-sm-11 custom-object" schema-form object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>\n' +
     '        </div>\n' +
     '      </div>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <!-- Images Array type -->\n' +
+    '  <div class="form-group" ng-if="value.instance == \'ImagesArray\'">\n' +
+    '    <label class="col-sm-2 control-label" for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '\n' +
+    '    <div class="col-sm-3">\n' +
+    '      <div ng-repeat="image in object[key] track by $index">\n' +
+    '        <div class="row">  \n' +
+    '          <div class="col-sm-4">\n' +
+    '            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>\n' +
+    '            </button>\n' +
+    '            <div class="array-img">\n' +
+    '              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType == \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '              <img ng-if="image && (!image.hostedType || image.hostedType == \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="col-sm-2">\n' +
+    '      <file-upload for-files="object[key]" multiple="true" max-file-size="\'5MB\'">Drop new images here</file-upload>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +

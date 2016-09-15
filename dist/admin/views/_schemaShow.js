@@ -58,6 +58,21 @@ module.run(['$templateCache', function($templateCache) {
     '      </div>\n' +
     '    </span>\n' +
     '\n' +
+    '    <!-- ImagesArray -->\n' +
+    '    <span ng-if="value.instance == \'ImagesArray\'">\n' +
+    '      <div class="row">\n' +
+    '        <div class="col-sm-1">\n' +
+    '          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>\n' +
+    '        </div>\n' +
+    '        <div class="col-sm-11">\n' +
+    '          <div ng-repeat="image in object[key] track by $index" class="array-img padding-right-1x">\n' +
+    '            <img ng-if="image.hostedType && image.hostedType == \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '            <img ng-if="image && (!image.hostedType || image.hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </span>\n' +
+    '\n' +
     '    <!-- Number -->\n' +
     '    <span ng-if="value.instance == \'Number\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
     '\n' +
