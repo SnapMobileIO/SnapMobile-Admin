@@ -96,10 +96,10 @@ module.run(['$templateCache', function($templateCache) {
     '                  </span>\n' +
     '\n' +
     '                  <!-- ImagesArray -->\n' +
-    '                  <span ng-if="value.instance == \'ImagesArray\'">\n' +
+    '                  <span ng-if="value.instance === \'ImagesArray\'">\n' +
     '                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">\n' +
-    '                      <img ng-if="image.hostedType && image.hostedType == \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
-    '                      <img ng-if="image && (!image.hostedType || image.hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                      <img ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                      <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
     '                    </p>\n' +
     '                  </span>\n' +
     '\n' +

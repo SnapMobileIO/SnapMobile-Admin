@@ -65,7 +65,7 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- Images Array type -->\n' +
-    '  <div class="form-group" ng-if="value.instance == \'ImagesArray\'">\n' +
+    '  <div class="form-group" ng-if="value.instance === \'ImagesArray\'">\n' +
     '    <label class="col-sm-2 control-label" for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
     '\n' +
     '    <div class="col-sm-3">\n' +
@@ -75,8 +75,8 @@ module.run(['$templateCache', function($templateCache) {
     '            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>\n' +
     '            </button>\n' +
     '            <div class="array-img">\n' +
-    '              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType == \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
-    '              <img ng-if="image && (!image.hostedType || image.hostedType == \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '              <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
     '            </div>\n' +
     '          </div>\n' +
     '        </div>\n' +
