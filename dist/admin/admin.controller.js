@@ -43,6 +43,14 @@ var AdminController = function () {
     this.toggle = {};
     this.uploadedUrl = "";
 
+    this.tinymceOptions = {
+      selector: 'textarea',
+      plugins: 'link autolink',
+      toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link',
+      default_link_target: '_blank',
+      link_assume_external_targets: true
+    };
+
     // Load the schema for this class
 
     if (this.Admin.className != null) {

@@ -9,18 +9,18 @@ module.run(['$templateCache', function($templateCache) {
     '<div ng-repeat="(key, value) in schema track by $index" ng-if="value.instance && value.instance !== \'Hidden\'" class="custom-form">\n' +
     '\n' +
     '  <!-- Not an Array or an Image -->\n' +
-    '  <div class="form-group" ng-if="value.instance != \'Relationships\' &&\n' +
-    '                                 value.instance != \'Boolean\' &&\n' +
-    '                                 value.instance != \'ObjectID\' &&\n' +
-    '                                 value.instance != \'Array\' &&\n' +
-    '                                 value.instance != \'Date\' &&\n' +
-    '                                 value.instance != \'ImagesArray\' &&\n' +
-    '                                 value.instance != \'Image\' &&\n' +
-    '                                 value.instance != \'wysiwyg\' &&\n' +
-    '                                 value.instance != \'Mixed\' &&\n' +
-    '                                 value.instance != \'CustomObject\' &&\n' +
-    '                                 value.instance != \'Array-No-Commas\' &&\n' +
-    '                                 value.instance != \'File\'">\n' +
+    '  <div class="form-group" ng-if="value.instance !== \'Relationships\' &&\n' +
+    '                                 value.instance !== \'Boolean\' &&\n' +
+    '                                 value.instance !== \'ObjectID\' &&\n' +
+    '                                 value.instance !== \'Array\' &&\n' +
+    '                                 value.instance !== \'Date\' &&\n' +
+    '                                 value.instance !== \'ImagesArray\' &&\n' +
+    '                                 value.instance !== \'Image\' &&\n' +
+    '                                 value.instance !== \'wysiwyg\' &&\n' +
+    '                                 value.instance !== \'Mixed\' &&\n' +
+    '                                 value.instance !== \'CustomObject\' &&\n' +
+    '                                 value.instance !== \'Array-No-Commas\' &&\n' +
+    '                                 value.instance !== \'File\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
@@ -128,7 +128,7 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
-    '    <!-- An Array type without comma separation-->\n' +
+    '  <!-- An Array type without comma separation-->\n' +
     '  <div class="form-group" ng-if="value.instance == \'Array-No-Commas\' && !value.schema">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
@@ -143,7 +143,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '  <!-- Relationship ObjectID type -->\n' +
-    '  <div class="form-group" ng-if="value.instance == \'ObjectID\' && key != \'_id\'" ng-init="ctrl.findRelationshipObjects(schema[key].options.ref, key)">\n' +
+    '  <div class="form-group" ng-if="value.instance == \'ObjectID\' && key !== \'_id\'" ng-init="ctrl.findRelationshipObjects(schema[key].options.ref, key)">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <ui-select ng-model="object[key]" title="Add {{key}}">\n' +
@@ -197,6 +197,7 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '</div>\n' +
+    '0\n' +
     '');
 }]);
 })();
