@@ -6,9 +6,12 @@
                                  value.instance != 'ObjectID' &&
                                  value.instance != 'Array' &&
                                  value.instance != 'Date' &&
+                                 value.instance != 'ImagesArray' &&
                                  value.instance != 'Image' &&
                                  value.instance != 'wysiwyg' &&
                                  value.instance != 'Mixed' &&
+                                 value.instance != 'CustomObject' &&
+                                 value.instance != 'Array-No-Commas' &&
                                  value.instance != 'File'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-10">
@@ -20,7 +23,7 @@
 
   <span ng-if="value.instance == 'wysiwyg'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
-    <textarea ui-tinymce="{}"
+    <textarea ui-tinymce="ctrl.tinymceOptions"
       ng-model="object[key]"></textarea>
   </span>
 
@@ -40,8 +43,46 @@
     </div>
   </div>
 
+  <!-- Custom object type -->
+  <div ng-if="value.instance === 'CustomObject'">
+    <div class="row">
+      <div class="col-sm-2 text-right">
+        <label for="{{key}}">{{schema[key].displayName || key}}</label>
+      </div>
+      <div class="col-sm-10">
+        <div class="row">
+          <div class="col-sm-11 custom-object" schema-form object="object[key]" Admin="admin" schema="value.schema.paths" ctrl="ctrl"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Images Array type -->
+  <div class="form-group" ng-if="value.instance === 'ImagesArray'">
+    <label class="col-sm-2 control-label" for="{{key}}">{{schema[key].displayName || key}}</label>
+
+    <div class="col-sm-3">
+      <div ng-repeat="image in object[key] track by $index">
+        <div class="row">
+          <div class="col-sm-4">
+            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>
+            </button>
+            <div class="array-img">
+              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType === 'external'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">
+              <img ng-if="image && (!image.hostedType || image.hostedType === 'local')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <file-upload for-files="object[key]" multiple="true" max-file-size="'5MB'">Drop new images here</file-upload>
+    </div>
+  </div>
+
   <!-- An array of custom objects type -->
-  <div ng-if="value.instance == 'Array' && value.schema">
+  <div ng-if="value.instance === 'Array' && value.schema">
     <div class="row">
       <div class="col-sm-2 text-right">
         <label for="{{key}}">{{schema[key].displayName || key}}</label>
@@ -70,7 +111,7 @@
   <div class="form-group" ng-if="value.instance == 'Array' && !value.schema">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
-      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" sortable="true" title="Add {{key}}">
+      <ui-select multiple tagging tagging-label="(add)" tagging-tokens="," ng-model="object[key]" sortable="true" title="Add {{key}}">
         <ui-select-match placeholder="Add {{key}}...">{{$item}}</ui-select-match>
         <ui-select-choices repeat="choice in [] | filter:$select.search">
           {{choice}}
@@ -78,6 +119,20 @@
       </ui-select>
     </div>
   </div>
+
+    <!-- An Array type without comma separation-->
+  <div class="form-group" ng-if="value.instance == 'Array-No-Commas' && !value.schema">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <ui-select multiple tagging tagging-label="(add)" tagging-tokens="ENTER" ng-model="object[key]" sortable="true" title="Add {{key}}">
+        <ui-select-match placeholder="Add {{key}}...">{{$item}}</ui-select-match>
+        <ui-select-choices repeat="choice in [] | filter:$select.search">
+          {{choice}}
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+
 
   <!-- Relationship ObjectID type -->
   <div class="form-group" ng-if="value.instance == 'ObjectID' && key != '_id'" ng-init="ctrl.findRelationshipObjects(schema[key].options.ref, key)">
@@ -97,7 +152,7 @@
   <div class="form-group" ng-if="value.instance == 'Relationships'" ng-init="ctrl.findRelationshipObjects(schema[key].relationshipClass, key)">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
-      <ui-select multiple tagging tagging-label="(add)" ng-model="object[key]" title="Add {{key}}">
+      <ui-select multiple tagging tagging-label="(add)" tagging-tokens="," ng-model="object[key]" title="Add {{key}}">
         <ui-select-match placeholder="Add {{key}}...">{{$item[(schema[key].searchBy || 'displayName')]}}</ui-select-match>
         <ui-select-choices repeat="choice._id as choice in ctrl.relationshipObjects[key] | filter: { {{(schema[key].searchBy || 'displayName')}}: $select.search }">
           <div ng-bind-html="choice[(schema[key].searchBy || 'displayName')] | highlight: $select.search"></div>

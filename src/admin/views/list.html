@@ -69,6 +69,9 @@
                   <!-- Array -->
                   <span ng-if="value.instance == 'Array'">{{object[key].join(', ')}}</span>
 
+                  <!-- Array-No-Commas -->
+                  <span ng-if="value.instance == 'Array-No-Commas'">{{object[key].join(', ')}}</span>
+
                   <!-- Number -->
                   <span ng-if="value.instance == 'Number'">{{object[key]}}</span>
 
@@ -85,6 +88,14 @@
                   <span ng-if="value.instance == 'Image'">
                     <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
                     <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
+                  </span>
+
+                  <!-- ImagesArray -->
+                  <span ng-if="value.instance === 'ImagesArray'">
+                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">
+                      <img ng-if="image.hostedType && image.hostedType === 'external'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">
+                      <img ng-if="image && (!image.hostedType || image.hostedType === 'local')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">
+                    </p>
                   </span>
 
                   <!-- File -->
