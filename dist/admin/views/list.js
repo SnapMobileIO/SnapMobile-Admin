@@ -77,6 +77,9 @@ module.run(['$templateCache', function($templateCache) {
     '                  <!-- Array -->\n' +
     '                  <span ng-if="value.instance == \'Array\'">{{object[key].join(\', \')}}</span>\n' +
     '\n' +
+    '                  <!-- Array-No-Commas -->\n' +
+    '                  <span ng-if="value.instance == \'Array-No-Commas\'">{{object[key].join(\', \')}}</span>\n' +
+    '\n' +
     '                  <!-- Number -->\n' +
     '                  <span ng-if="value.instance == \'Number\'">{{object[key]}}</span>\n' +
     '\n' +
@@ -93,6 +96,14 @@ module.run(['$templateCache', function($templateCache) {
     '                  <span ng-if="value.instance == \'Image\'">\n' +
     '                    <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                    <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- ImagesArray -->\n' +
+    '                  <span ng-if="value.instance === \'ImagesArray\'">\n' +
+    '                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">\n' +
+    '                      <img ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                      <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                    </p>\n' +
     '                  </span>\n' +
     '\n' +
     '                  <!-- File -->\n' +

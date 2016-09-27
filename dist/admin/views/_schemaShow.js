@@ -6,107 +6,130 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/_schemaShow.html',
-    '<ul class="list-group custom-form">\n' +
-    '  <li class="list-group-item" ng-repeat="(key, value) in schema track by $index" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
+    '<div class="container-fluid" ng-init="ctrl.findAll()">\n' +
+    '  <div class="page-header">\n' +
+    '    <h1>{{ctrl.Admin.schema.displayName || ctrl.Admin.className}}</h1>\n' +
+    '    <div class="actions">\n' +
+    '      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>\n' +
+    '      <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>\n' +
+    '      <a ng-click="ctrl.importToggle = !ctrl.importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="ctrl.importToggle"> Hide import</span><span ng-hide="ctrl.importToggle"> Import from CSV</span></a>\n' +
+    '      <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
     '\n' +
-    '    <!-- String or ID -->\n' +
-    '    <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
-    '\n' +
-    '    <!-- ObjectID that isn\'t the object ID -->\n' +
-    '    <span ng-if="value.instance == \'ObjectID\' && key != \'_id\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <a ui-sref="admin-show({\n' +
-    '                    className: schema[key].options.ref,\n' +
-    '                    id: (object[key]._id || object[key])\n' +
-    '                  })">{{(object[key][schema[key].displayKey] || object[key] )}}</a>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Mixed -->\n' +
-    '    <span ng-if="value.instance == \'Mixed\'">\n' +
-    '      <pre>{{object[key] | json}}</pre>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Array -->\n' +
-    '    <span ng-if="value.instance == \'Array\' && value.schema">\n' +
-    '      <div class="row">\n' +
-    '          <div class="col-sm-1">\n' +
-    '            <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>\n' +
-    '          </div>\n' +
-    '          <div class="col-sm-11">\n' +
-    '            <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
-    '              <div class="row">\n' +
-    '                <div ng-repeat="customObject in [value.schema.paths] track by $index">\n' +
-    '                  <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>\n' +
-    '                </div>\n' +
-    '              </div>\n' +
+    '  <div class="row">\n' +
+    '    <div class="col-lg-12">\n' +
+    '      <div class="panel">\n' +
+    '        <div class="panel-body table-responsive">\n' +
+    '          <div ng-if="ctrl.importToggle" class="col-md-12">\n' +
+    '            <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="\'text/csv\'" pattern="\'text/csv\'" max-file-size="\'100MB\'">Drop csv file here</file-upload>\n' +
+    '            <div class="pull-right">\n' +
+    '              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary" ng-disabled="ctrl.importLoading"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>\n' +
+    '              <div ng-if="ctrl.importLoading"><i class="fa fa-spinner fa-spin"></i> Loading...</div>\n' +
     '            </div>\n' +
     '          </div>\n' +
+    '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +
+    '          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>\n' +
+    '          <table class="table table-hover">\n' +
+    '            <thead>\n' +
+    '              <tr>\n' +
+    '                <th class="wordwrap-none">\n' +
+    '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
+    '                </th>\n' +
+    '                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema" class="wordwrap-none text-muted">\n' +
+    '                  <a ng-click="ctrl.updateSort(key)">\n' +
+    '                    {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}\n' +
+    '                    <i ng-class="ctrl.toggle[key] ? \'fa fa-caret-up\' : \'fa fa-caret-down\'"></i>\n' +
+    '                  </a>\n' +
+    '                </th>\n' +
+    '                <th></th>\n' +
+    '                <th></th>\n' +
+    '                <th></th>\n' +
+    '              </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '              <tr ng-repeat="object in ctrl.objects track by $index">\n' +
+    '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
+    '\n' +
+    '                <!-- Relationship -->\n' +
+    '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
+    '                  <span ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</span>\n' +
+    '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
+    '                    <a ui-sref="admin-show({\n' +
+    '                                  className: ctrl.Admin.schema[key].options.ref,\n' +
+    '                                  id: (object[key]._id || object[key])\n' +
+    '                                })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- Relationships -->\n' +
+    '                  <span ng-if="value.instance == \'Relationships\'">\n' +
+    '                    <span ng-repeat="object in object[key] track by $index">\n' +
+    '                      <a ui-sref="admin-show({\n' +
+    '                          className: ctrl.Admin.schema[key].relationshipClass,\n' +
+    '                          id: (object._id || object)\n' +
+    '                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
+    '                    </span>\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- Mixed / Object -->\n' +
+    '                  <span ng-if="value.instance == \'Mixed\'"><i class="text-muted">Mixed</i></span>\n' +
+    '\n' +
+    '                  <!-- Array -->\n' +
+    '                  <span ng-if="value.instance == \'Array\'">{{object[key].join(\', \')}}</span>\n' +
+    '\n' +
+    '                  <!-- Array-No-Commas -->\n' +
+    '                  <span ng-if="value.instance == \'Array-No-Commas\'">{{object[key].join(\', \')}}</span>\n' +
+    '\n' +
+    '                  <!-- Number -->\n' +
+    '                  <span ng-if="value.instance == \'Number\'">{{object[key]}}</span>\n' +
+    '\n' +
+    '                  <!-- Date -->\n' +
+    '                  <span ng-if="value.instance == \'Date\'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
+    '\n' +
+    '                  <!-- Boolean -->\n' +
+    '                  <span ng-if="value.instance == \'Boolean\'">\n' +
+    '                    <i ng-if="object[key]" class="fa fa-check-circle"></i>\n' +
+    '                    <i ng-if="!object[key]" class="fa fa-times-circle"></i>\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- Image -->\n' +
+    '                  <span ng-if="value.instance == \'Image\'">\n' +
+    '                    <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                    <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- ImagesArray -->\n' +
+    '                  <span ng-if="value.instance === \'ImagesArray\'">\n' +
+    '                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">\n' +
+    '                      <img ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                      <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '                    </p>\n' +
+    '                  </span>\n' +
+    '\n' +
+    '                  <!-- File -->\n' +
+    '                  <span ng-if="value.instance == \'File\'">\n' +
+    '                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
+    '                  </span>\n' +
+    '                </td>\n' +
+    '\n' +
+    '                <td>\n' +
+    '                  <button ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</button>\n' +
+    '                </td>\n' +
+    '                <td>\n' +
+    '                  <button ng-click="ctrl.remove(object)" class="btn btn-default btn-sm">Delete</button>\n' +
+    '                </td>\n' +
+    '                <td>\n' +
+    '                  <button ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</button>\n' +
+    '                </td>\n' +
+    '              </tr>\n' +
+    '            </tbody>\n' +
+    '          </table>\n' +
+    '          <uib-pagination total-items="ctrl.totalObjects" items-per-page="ctrl.itemsPerPage" ng-model="ctrl.currentPage" max-size="5" class="pagination" boundary-links="true" force-ellipses="true" ng-change="ctrl.pageChanged()"></uib-pagination>\n' +
+    '        </div>\n' +
     '      </div>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Number -->\n' +
-    '    <span ng-if="value.instance == \'Number\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
-    '\n' +
-    '    <!-- Date -->\n' +
-    '    <span ng-if="value.instance == \'Date\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
-    '\n' +
-    '    <!-- Children -->\n' +
-    '    <span ng-if="key == \'children\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <span ng-repeat="classType in value track by $index">\n' +
-    '        <a ui-sref="admin-list({\n' +
-    '            className: classType,\n' +
-    '            filter: object._id,\n' +
-    '            filterClass: Admin.className\n' +
-    '          })" class="text-muted">{{ classType }}</a><span ng-if="!$last">,</span>\n' +
-    '      </span>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- wysiwyg -->\n' +
-    '\n' +
-    '    <span ng-if="value.instance == \'wysiwyg\'">\n' +
-    '    <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '    <div ng-bind-html="ctrl.renderHtml(object[key])"></div>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Array -->\n' +
-    '    <span ng-if="key != \'children\' && value.instance == \'Array\' && !value.schema"><strong>{{schema[key].displayName || key}}:</strong> {{object[key].join(\', \')}}</span>\n' +
-    '\n' +
-    '    <!-- Relationships -->\n' +
-    '    <span ng-if="value.instance == \'Relationships\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <span ng-repeat="object in object[key] track by $index">\n' +
-    '        <a ui-sref="admin-show({\n' +
-    '            className: schema[key].relationshipClass,\n' +
-    '            id: (object._id || object)\n' +
-    '          })" class="text-muted">{{object[schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
-    '      </span>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Image -->\n' +
-    '    <span ng-if="value.instance == \'Image\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- File -->\n' +
-    '    <span ng-if="value.instance == \'File\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong><br>\n' +
-    '      <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><strong>Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
-    '      <br>\n' +
-    '      <span ng-if="object[key].type" class="text-wordwrap"><strong>Type:</strong> {{object[key].type}}</span>\n' +
-    '      <br>\n' +
-    '      <span ng-if="object[key].size" class="text-wordwrap"><strong>size: </strong> {{object[key].size}}</span>\n' +
-    '    </span>\n' +
-    '\n' +
-    '    <!-- Boolean -->\n' +
-    '    <span ng-if="value.instance == \'Boolean\'">\n' +
-    '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <i ng-if="object[key]" class="fa fa-check-circle"></i>\n' +
-    '      <i ng-if="!object[key]" class="fa fa-times-circle"></i>\n' +
-    '    </span>\n' +
-    '  </li>\n' +
-    '</ul>');
+    '    </div>\n' +
+    '  </div>\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
