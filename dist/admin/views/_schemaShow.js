@@ -158,7 +158,6 @@ module.run(['$templateCache', function($templateCache) {
     '    </span>\n' +
     '  </li>\n' +
     '</ul>\n' +
-    '0\n' +
     '');
 }]);
 })();

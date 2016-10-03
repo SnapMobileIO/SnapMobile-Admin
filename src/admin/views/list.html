@@ -43,65 +43,68 @@
               <tr ng-repeat="object in ctrl.objects track by $index">
                 <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>
 
-                <!-- Relationship -->
                 <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg' && !value.schema">
-                  <span ng-if="value.instance == 'String' || key == '_id'">{{object[key]}}</span>
-                  <span ng-if="key != '_id' && value.instance == 'ObjectID'">
+                  
+                  <!-- String -->
+                  <div class="truncate" ng-if="value.instance == 'String' || key == '_id'">{{object[key]}}</div>
+                  
+                  <!-- Relationship -->
+                  <div class="truncate" ng-if="key != '_id' && value.instance == 'ObjectID'">
                     <a ui-sref="admin-show({
                                   className: ctrl.Admin.schema[key].options.ref,
                                   id: (object[key]._id || object[key])
                                 })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>
-                  </span>
+                  </div>
 
                   <!-- Relationships -->
-                  <span ng-if="value.instance == 'Relationships'">
+                  <div class="truncate" ng-if="value.instance == 'Relationships'">
                     <span ng-repeat="object in object[key] track by $index">
                       <a ui-sref="admin-show({
                           className: ctrl.Admin.schema[key].relationshipClass,
                           id: (object._id || object)
                         })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>
                     </span>
-                  </span>
+                  </div>
 
                   <!-- Mixed / Object -->
-                  <span ng-if="value.instance == 'Mixed'"><i class="text-muted">Mixed</i></span>
+                  <div class="truncate" ng-if="value.instance == 'Mixed'"><i class="text-muted">Mixed</i></div>
 
                   <!-- Array -->
-                  <span ng-if="value.instance == 'Array'">{{object[key].join(', ')}}</span>
+                  <div class="truncate" ng-if="value.instance == 'Array'">{{object[key].join(', ')}}</div>
 
                   <!-- Array-No-Commas -->
-                  <span ng-if="value.instance == 'Array-No-Commas'">{{object[key].join(', ')}}</span>
+                  <div class="truncate" ng-if="value.instance == 'Array-No-Commas'">{{object[key].join(', ')}}</div>
 
                   <!-- Number -->
-                  <span ng-if="value.instance == 'Number'">{{object[key]}}</span>
+                  <div class="truncate" ng-if="value.instance == 'Number'">{{object[key]}}</div>
 
                   <!-- Date -->
-                  <span ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+                  <div class="truncate" ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</div>
 
                   <!-- Boolean -->
-                  <span ng-if="value.instance == 'Boolean'">
+                  <div class="truncate" ng-if="value.instance == 'Boolean'">
                     <i ng-if="object[key]" class="fa fa-check-circle"></i>
                     <i ng-if="!object[key]" class="fa fa-times-circle"></i>
-                  </span>
+                  </div>
 
                   <!-- Image -->
-                  <span ng-if="value.instance == 'Image'">
+                  <div class="truncate" ng-if="value.instance == 'Image'">
                     <img ng-if="object[key].hostedType && object[key].hostedType == 'external'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
                     <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == 'local')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">
-                  </span>
+                  </div>
 
                   <!-- ImagesArray -->
-                  <span ng-if="value.instance === 'ImagesArray'">
+                  <div class="truncate" ng-if="value.instance === 'ImagesArray'">
                     <p ng-repeat="image in object[key]" class="array-img padding-right-1x">
                       <img ng-if="image.hostedType && image.hostedType === 'external'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">
                       <img ng-if="image && (!image.hostedType || image.hostedType === 'local')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">
                     </p>
-                  </span>
+                  </div>
 
                   <!-- File -->
-                  <span ng-if="value.instance == 'File'">
+                  <div class="truncate" ng-if="value.instance == 'File'">
                     <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>
-                  </span>
+                  </div>
                 </td>
 
                 <td>

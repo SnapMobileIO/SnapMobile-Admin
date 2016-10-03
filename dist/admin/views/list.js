@@ -51,65 +51,68 @@ module.run(['$templateCache', function($templateCache) {
     '              <tr ng-repeat="object in ctrl.objects track by $index">\n' +
     '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
     '\n' +
-    '                <!-- Relationship -->\n' +
     '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
-    '                  <span ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</span>\n' +
-    '                  <span ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
+    '                  \n' +
+    '                  <!-- String -->\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</div>\n' +
+    '                  \n' +
+    '                  <!-- Relationship -->\n' +
+    '                  <div class="truncate" ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
     '                    <a ui-sref="admin-show({\n' +
     '                                  className: ctrl.Admin.schema[key].options.ref,\n' +
     '                                  id: (object[key]._id || object[key])\n' +
     '                                })">{{(object[key][ctrl.Admin.schema[key].displayKey] || object[key])}}</a>\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '\n' +
     '                  <!-- Relationships -->\n' +
-    '                  <span ng-if="value.instance == \'Relationships\'">\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Relationships\'">\n' +
     '                    <span ng-repeat="object in object[key] track by $index">\n' +
     '                      <a ui-sref="admin-show({\n' +
     '                          className: ctrl.Admin.schema[key].relationshipClass,\n' +
     '                          id: (object._id || object)\n' +
     '                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
     '                    </span>\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '\n' +
     '                  <!-- Mixed / Object -->\n' +
-    '                  <span ng-if="value.instance == \'Mixed\'"><i class="text-muted">Mixed</i></span>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Mixed\'"><i class="text-muted">Mixed</i></div>\n' +
     '\n' +
     '                  <!-- Array -->\n' +
-    '                  <span ng-if="value.instance == \'Array\'">{{object[key].join(\', \')}}</span>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Array\'">{{object[key].join(\', \')}}</div>\n' +
     '\n' +
     '                  <!-- Array-No-Commas -->\n' +
-    '                  <span ng-if="value.instance == \'Array-No-Commas\'">{{object[key].join(\', \')}}</span>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Array-No-Commas\'">{{object[key].join(\', \')}}</div>\n' +
     '\n' +
     '                  <!-- Number -->\n' +
-    '                  <span ng-if="value.instance == \'Number\'">{{object[key]}}</span>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Number\'">{{object[key]}}</div>\n' +
     '\n' +
     '                  <!-- Date -->\n' +
-    '                  <span ng-if="value.instance == \'Date\'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Date\'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</div>\n' +
     '\n' +
     '                  <!-- Boolean -->\n' +
-    '                  <span ng-if="value.instance == \'Boolean\'">\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Boolean\'">\n' +
     '                    <i ng-if="object[key]" class="fa fa-check-circle"></i>\n' +
     '                    <i ng-if="!object[key]" class="fa fa-times-circle"></i>\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '\n' +
     '                  <!-- Image -->\n' +
-    '                  <span ng-if="value.instance == \'Image\'">\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'Image\'">\n' +
     '                    <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                    <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '\n' +
     '                  <!-- ImagesArray -->\n' +
-    '                  <span ng-if="value.instance === \'ImagesArray\'">\n' +
+    '                  <div class="truncate" ng-if="value.instance === \'ImagesArray\'">\n' +
     '                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">\n' +
     '                      <img ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
     '                      <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
     '                    </p>\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '\n' +
     '                  <!-- File -->\n' +
-    '                  <span ng-if="value.instance == \'File\'">\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'File\'">\n' +
     '                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
-    '                  </span>\n' +
+    '                  </div>\n' +
     '                </td>\n' +
     '\n' +
     '                <td>\n' +
