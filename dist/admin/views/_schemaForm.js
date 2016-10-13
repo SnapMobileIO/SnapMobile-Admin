@@ -73,11 +73,11 @@ module.run(['$templateCache', function($templateCache) {
     '      <div ng-repeat="image in object[key] track by $index">\n' +
     '        <div class="row">\n' +
     '          <div class="col-sm-4">\n' +
-    '            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>\n' +
+    '            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)">\n' +
+    '              <i class="fa fa-times-circle text-danger"></i>\n' +
     '            </button>\n' +
     '            <div class="array-img">\n' +
-    '              <img class="col-sm-4" ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
-    '              <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '              <img ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}" style="width: 100%">\n' +
     '            </div>\n' +
     '          </div>\n' +
     '        </div>\n' +
@@ -172,9 +172,10 @@ module.run(['$templateCache', function($templateCache) {
     '  <!--  An Image type -->\n' +
     '  <div class="form-group" ng-if="value.instance == \'Image\'">\n' +
     '    <label class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
-    '    <div class="col-sm-2" ng-if="object[key]">\n' +
-    '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '    <div class="col-sm-2 text-center" ng-if="object[key]">\n' +
+    '      <img ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '      <br>\n' +
+    '      <a ng-click="object[key] = null">Remove Image</a>\n' +
     '    </div>\n' +
     '    <div class="col-sm-2">\n' +
     '      <file-upload for-file="object[key]" multiple="false" max-file-size="\'5MB\'">Drop new image here</file-upload>\n' +

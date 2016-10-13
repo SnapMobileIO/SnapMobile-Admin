@@ -84,8 +84,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '        <div class="col-sm-11">\n' +
     '          <div ng-repeat="image in object[key] track by $index" class="array-img padding-right-1x">\n' +
-    '            <img ng-if="image.hostedType && image.hostedType === \'external\'" ng-src="{{image.styles.thumb_square}}" style="width: 100%">\n' +
-    '            <img ng-if="image && (!image.hostedType || image.hostedType === \'local\')" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square}}" style="width: 100%">\n' +
+    '            <img ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}" style="width: 100%">\n' +
     '          </div>\n' +
     '        </div>\n' +
     '      </div>\n' +
@@ -136,8 +135,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- Image -->\n' +
     '    <span ng-if="value.instance == \'Image\'">\n' +
     '      <strong>{{schema[key].displayName || key}}:</strong>\n' +
-    '      <img ng-if="object[key].hostedType && object[key].hostedType == \'external\'" ng-src="{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
-    '      <img ng-if="object[key] && (!object[key].hostedType || object[key].hostedType == \'local\')" ng-src="{{Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '      <img ng-src="{{admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}" style="max-width: 200px; max-height: 200px;">\n' +
     '    </span>\n' +
     '\n' +
     '    <!-- File -->\n' +
