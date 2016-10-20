@@ -73,7 +73,7 @@ module.run(['$templateCache', function($templateCache) {
     '      <div ng-repeat="image in object[key] track by $index">\n' +
     '        <div class="row">\n' +
     '          <div class="col-sm-4">\n' +
-    '            <button ng-if="image.styles" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)">\n' +
+    '            <button ng-if="image.stylegits" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)">\n' +
     '              <i class="fa fa-times-circle text-danger"></i>\n' +
     '            </button>\n' +
     '            <div class="array-img">\n' +
@@ -90,7 +90,7 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- An array of custom objects type -->\n' +
-    '  <div ng-if="value.instance === \'Array\' && value.schema">\n' +
+    '  <div ng-if="value.instance === \'Array\' || value.instance === \'EmbeddedSchema\' && value.schema">\n' +
     '    <div class="row">\n' +
     '      <div class="col-sm-2 text-right">\n' +
     '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +

@@ -40,6 +40,24 @@ module.run(['$templateCache', function($templateCache) {
     '      </div>\n' +
     '    </div>\n' +
     '\n' +
+    '    <!-- An array of custom objects type -->\n' +
+    '    <div ng-if="value.instance === \'Array\' || value.instance === \'EmbeddedSchema\' && value.schema">\n' +
+    '      <div class="row">\n' +
+    '        <div class="col-sm-1">\n' +
+    '          <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '        </div>\n' +
+    '        <div class="col-sm-11">\n' +
+    '          <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
+    '            <div class="row">\n' +
+    '              <div ng-repeat="customObject in [value.schema.paths] track by $index">\n' +
+    '                <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="customObject" ctrl="ctrl"></div>\n' +
+    '              </div>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '\n' +
     '    <!-- Array -->\n' +
     '    <span ng-if="value.instance == \'Array\' && value.schema">\n' +
     '      <div class="row">\n' +
