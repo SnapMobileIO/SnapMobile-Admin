@@ -19,6 +19,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance !== \'wysiwyg\' &&\n' +
     '                                 value.instance !== \'Mixed\' &&\n' +
     '                                 value.instance !== \'CustomObject\' &&\n' +
+    '                                 value.instance !== \'EmbeddedSchema\' &&\n' +
     '                                 value.instance !== \'Array-No-Commas\' &&\n' +
     '                                 value.instance !== \'File\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
@@ -89,7 +90,7 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
-    '  <!-- An array of custom objects type -->\n' +
+    '  <!-- An array of custom objects type or embedded schema -->\n' +
     '  <div ng-if="value.instance === \'Array\' || value.instance === \'EmbeddedSchema\' && value.schema">\n' +
     '    <div class="row">\n' +
     '      <div class="col-sm-2 text-right">\n' +

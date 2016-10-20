@@ -75,7 +75,7 @@ module.run(['$templateCache', function($templateCache) {
     '                  </div>\n' +
     '\n' +
     '                  <!-- Embedded Schema --> \n' +
-    '                  <div ng-if="value.instance === \\\'EmbeddedSchema\\\'">\n' +
+    '                  <div ng-if="value.instance === \'EmbeddedSchema\'">\n' +
     '                      <div class="col-sm-11">\n' +
     '                        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
     '                          <div class="row">\n' +

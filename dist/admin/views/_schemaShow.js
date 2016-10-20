@@ -40,7 +40,7 @@ module.run(['$templateCache', function($templateCache) {
     '      </div>\n' +
     '    </div>\n' +
     '\n' +
-    '    <!-- An array of custom objects type -->\n' +
+    '    <!-- An array of custom objects type or embedded schema -->\n' +
     '    <div ng-if="value.instance === \'Array\' || value.instance === \'EmbeddedSchema\' && value.schema">\n' +
     '      <div class="row">\n' +
     '        <div class="col-sm-1">\n' +
