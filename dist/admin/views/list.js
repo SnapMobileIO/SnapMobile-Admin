@@ -36,7 +36,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <th class="wordwrap-none">\n' +
     '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
     '                </th>\n' +
-    '                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema" class="wordwrap-none text-muted">\n' +
+    '                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\'" class="wordwrap-none text-muted">\n' +
     '                  <a ng-click="ctrl.updateSort(key)">\n' +
     '                    {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}\n' +
     '                    <i ng-class="ctrl.toggle[key] ? \'fa fa-caret-up\' : \'fa fa-caret-down\'"></i>\n' +
@@ -51,7 +51,7 @@ module.run(['$templateCache', function($templateCache) {
     '              <tr ng-repeat="object in ctrl.objects track by $index">\n' +
     '                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>\n' +
     '\n' +
-    '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\' && !value.schema">\n' +
+    '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\'">\n' +
     '                  \n' +
     '                  <!-- String -->\n' +
     '                  <div class="truncate" ng-if="value.instance == \'String\' || key == \'_id\'">{{object[key]}}</div>\n' +
@@ -72,6 +72,20 @@ module.run(['$templateCache', function($templateCache) {
     '                          id: (object._id || object)\n' +
     '                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>\n' +
     '                    </span>\n' +
+    '                  </div>\n' +
+    '\n' +
+    '                  <!-- Embedded Schema --> \n' +
+    '                  <div ng-if="value.instance === \'EmbeddedSchema\'">\n' +
+    '                      <div class="col-sm-11">\n' +
+    '                        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">\n' +
+    '                          <div class="row">\n' +
+    '                            <div ng-repeat="embeddedObject in [value.schema.paths] track by $index">\n' +
+    '                              <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="embeddedObject" ctrl="ctrl"></div>\n' +
+    '                            </div>\n' +
+    '                          </div>\n' +
+    '                        </div>\n' +
+    '                      </div>\n' +
+    '                    </div>\n' +
     '                  </div>\n' +
     '\n' +
     '                  <!-- Mixed / Object -->\n' +
