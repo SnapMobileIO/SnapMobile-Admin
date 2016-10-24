@@ -83,7 +83,7 @@
   </div>
 
   <!-- An array of custom objects type or embedded schema -->
-  <div ng-if="value.instance === 'Array' || value.instance === 'EmbeddedSchema' && value.schema">
+  <div ng-if="(value.instance === 'Array' || value.instance === 'EmbeddedSchema') && value.schema">
     <div class="row">
       <div class="col-sm-2 text-right">
         <label for="{{key}}">{{schema[key].displayName || key}}</label>

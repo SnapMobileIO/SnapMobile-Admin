@@ -91,7 +91,7 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- An array of custom objects type or embedded schema -->\n' +
-    '  <div ng-if="value.instance === \'Array\' || value.instance === \'EmbeddedSchema\' && value.schema">\n' +
+    '  <div ng-if="(value.instance === \'Array\' || value.instance === \'EmbeddedSchema\') && value.schema">\n' +
     '    <div class="row">\n' +
     '      <div class="col-sm-2 text-right">\n' +
     '        <label for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
