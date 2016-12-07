@@ -21,6 +21,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance !== \'CustomObject\' &&\n' +
     '                                 value.instance !== \'EmbeddedSchema\' &&\n' +
     '                                 value.instance !== \'Array-No-Commas\' &&\n' +
+    '                                 value.instance !== \'FilesArray\' &&\n' +
     '                                 value.instance !== \'File\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
@@ -198,6 +199,29 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
+    '  <!-- Files Array type -->\n' +
+    '  <div class="form-group" ng-if="value.instance == \'FilesArray\'">\n' +
+    '    <label class="col-sm-2 control-label" for="{{key}}">{{schema[key].displayName || key}}</label>\n' +
+    '    <div class="col-sm-3">\n' +
+    '      <div ng-repeat="file in object[key] track by $index">\n' +
+    '        <div class="row">\n' +
+    '          <div class="col-sm-4">\n' +
+    '            <button ng-if="file" type="submit" class="btn btn-link pull-right padding-top-none col-sm-1" ng-click="object[key].splice($index, 1)"><i class="fa fa-times-circle text-danger"></i>\n' +
+    '            </button>\n' +
+    '            <div>\n' +
+    '              <p ng-if="file.name && file.url" class="text-wordwrap"><strong>File Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a></p>\n' +
+    '              <p ng-if="file.type" class="text-wordwrap">File Type: {{file.type}}</p>\n' +
+    '              <p ng-if="file.size" class="text-wordwrap">File Size: {{file.size}}</p>\n' +
+    '            </div>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="col-sm-2">\n' +
+    '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="true" max-file-size="\'5000MB\'">Drop new files here</file-upload>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
     '</div>\n' +
     '');
 }]);

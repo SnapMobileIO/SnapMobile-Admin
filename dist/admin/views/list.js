@@ -125,6 +125,13 @@ module.run(['$templateCache', function($templateCache) {
     '                  <div class="truncate" ng-if="value.instance == \'File\'">\n' +
     '                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>\n' +
     '                  </div>\n' +
+    '\n' +
+    '                  <!-- FilesArray -->\n' +
+    '                  <div class="truncate" ng-if="value.instance === \'FilesArray\'">\n' +
+    '                    <p ng-repeat="file in object[key]">\n' +
+    '                      <span ng-if="file.name && file.url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a></span>\n' +
+    '                    </p>\n' +
+    '                  </div>\n' +
     '                </td>\n' +
     '\n' +
     '                <td>\n' +
