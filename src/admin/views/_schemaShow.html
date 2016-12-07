@@ -100,6 +100,24 @@
       </div>
     </span>
 
+    <!-- FilesArray -->
+    <span ng-if="value.instance === 'FilesArray'">
+      <div class="row">
+        <div class="col-sm-1">
+          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>
+        </div>
+        <div class="col-sm-11">
+          <div ng-repeat="file in object[key] track by $index">
+            <span ng-if="file.name && file.url" class="text-wordwrap"><strong>Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a></span>
+            <br>
+            <span ng-if="file.type" class="text-wordwrap"><strong>Type:</strong> {{file.type}}</span>
+            <br>
+            <span ng-if="file.size" class="text-wordwrap"><strong>size: </strong> {{file.size}}</span>
+          </div>
+        </div>
+      </div>
+    </span>
+
     <!-- Number -->
     <span ng-if="value.instance == 'Number'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>
 
