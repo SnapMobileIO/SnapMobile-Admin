@@ -108,6 +108,24 @@ module.run(['$templateCache', function($templateCache) {
     '      </div>\n' +
     '    </span>\n' +
     '\n' +
+    '    <!-- FilesArray -->\n' +
+    '    <span ng-if="value.instance === \'FilesArray\'">\n' +
+    '      <div class="row">\n' +
+    '        <div class="col-sm-1">\n' +
+    '          <strong class="text-wordwrap">{{schema[key].displayName || key}}:</strong>\n' +
+    '        </div>\n' +
+    '        <div class="col-sm-11">\n' +
+    '          <div ng-repeat="file in object[key] track by $index">\n' +
+    '            <span ng-if="file.name && file.url" class="text-wordwrap"><strong>Name:</strong> <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a></span>\n' +
+    '            <br>\n' +
+    '            <span ng-if="file.type" class="text-wordwrap"><strong>Type:</strong> {{file.type}}</span>\n' +
+    '            <br>\n' +
+    '            <span ng-if="file.size" class="text-wordwrap"><strong>size: </strong> {{file.size}}</span>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </div>\n' +
+    '    </span>\n' +
+    '\n' +
     '    <!-- Number -->\n' +
     '    <span ng-if="value.instance == \'Number\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
     '\n' +
