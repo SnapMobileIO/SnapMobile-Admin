@@ -219,7 +219,7 @@ module.run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <div class="col-sm-2">\n' +
-    '      <file-upload for-file="object[key]" accept="\'*\'" pattern="\'*\'" multiple="true" max-file-size="\'5000MB\'">Drop new files here</file-upload>\n' +
+    '      <file-upload for-files="object[key]" accept="\'*\'" pattern="\'*\'" multiple="true" max-file-size="\'5000MB\'">Drop new files here</file-upload>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '</div>\n' +
