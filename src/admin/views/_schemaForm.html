@@ -10,6 +10,7 @@
                                  value.instance !== 'Image' &&
                                  value.instance !== 'wysiwyg' &&
                                  value.instance !== 'Mixed' &&
+                                 value.instance !== 'SubDocument' &&
                                  value.instance !== 'CustomObject' &&
                                  value.instance !== 'EmbeddedSchema' &&
                                  value.instance !== 'Array-No-Commas' &&
@@ -42,6 +43,14 @@
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
       <input type="checkbox" ng-model="object[key]" id="{{key}}">
+    </div>
+  </div>
+
+  <!-- SubDocument type -->
+  <div class="form-group" ng-if="value.instance == 'SubDocument'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <p class="color-subtle">{{object[key][schema[key].displayKey]}}</p>
     </div>
   </div>
 
