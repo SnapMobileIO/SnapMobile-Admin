@@ -3,6 +3,7 @@
     <h1>{{ctrl.object[ctrl.Admin.schema.displayKey] || 'Object'}}</h1>
     <div class="actions">
       <a ui-sref="admin-edit({ className: ctrl.Admin.className, id:ctrl.object._id })" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> Edit</a>
+      <a ng-click="ctrl.duplicate(ctrl.object._id)" class="btn btn-default"><i class="fa fa-files-o"></i> Duplicate</a>
     </div>
   </div>
 

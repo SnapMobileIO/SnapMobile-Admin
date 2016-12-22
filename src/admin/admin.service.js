@@ -10,6 +10,8 @@ class Admin {
 
     this.className;
     this.schema;
+
+    this.duplicateObject = {};
   }
 
   loadSchema(id) {
