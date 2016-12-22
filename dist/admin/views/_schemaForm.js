@@ -18,6 +18,7 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance !== \'Image\' &&\n' +
     '                                 value.instance !== \'wysiwyg\' &&\n' +
     '                                 value.instance !== \'Mixed\' &&\n' +
+    '                                 value.instance !== \'SubDocument\' &&\n' +
     '                                 value.instance !== \'CustomObject\' &&\n' +
     '                                 value.instance !== \'EmbeddedSchema\' &&\n' +
     '                                 value.instance !== \'Array-No-Commas\' &&\n' +
@@ -50,6 +51,14 @@ module.run(['$templateCache', function($templateCache) {
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
     '      <input type="checkbox" ng-model="object[key]" id="{{key}}">\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <!-- SubDocument type -->\n' +
+    '  <div class="form-group" ng-if="value.instance == \'SubDocument\'">\n' +
+    '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
+    '    <div class="col-sm-8">\n' +
+    '      <p class="color-subtle">{{object[key][schema[key].displayKey]}}</p>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
