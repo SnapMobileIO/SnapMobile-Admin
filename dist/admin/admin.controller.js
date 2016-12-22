@@ -146,6 +146,21 @@ var AdminController = function () {
     }
 
     /**
+     * Create a blank object or duplicate an existing object
+     * to be used in the new form
+     */
+
+  }, {
+    key: 'new',
+    value: function _new() {
+      // Create a blank object or duplicate an existing object
+      this.object = this.Admin.duplicateObject || {};
+
+      // Clear the duplicate object so it doesn't stick around
+      this.Admin.duplicateObject = {};
+    }
+
+    /**
      * Creates a new admin
      */
 
@@ -184,6 +199,23 @@ var AdminController = function () {
           console.error(error);
         });
       }
+    }
+
+    /**
+     * Duplicates a document by pre-populating creation form
+     */
+
+  }, {
+    key: 'duplicate',
+    value: function duplicate() {
+      this.Admin.duplicateObject = this.object;
+
+      // Remove properties that should not be duplicated
+      delete this.Admin.duplicateObject._id;
+      delete this.Admin.duplicateObject.createdAt;
+      delete this.Admin.duplicateObject.updatedAt;
+
+      this.$state.go('admin-new', { className: this.Admin.className });
     }
 
     /**

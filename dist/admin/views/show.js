@@ -11,6 +11,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <h1>{{ctrl.object[ctrl.Admin.schema.displayKey] || \'Object\'}}</h1>\n' +
     '    <div class="actions">\n' +
     '      <a ui-sref="admin-edit({ className: ctrl.Admin.className, id:ctrl.object._id })" class="btn btn-default"><i class="fa fa-pencil-square-o"></i> Edit</a>\n' +
+    '      <a ng-click="ctrl.duplicate(ctrl.object._id)" class="btn btn-default"><i class="fa fa-files-o"></i> Duplicate</a>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +

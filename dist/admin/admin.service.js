@@ -19,6 +19,8 @@ var Admin = function () {
 
     this.className;
     this.schema;
+
+    this.duplicateObject = {};
   }
 
   _createClass(Admin, [{

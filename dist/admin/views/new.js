@@ -6,7 +6,7 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('app/admin/views/new.html',
-    '<div class="container-fluid">\n' +
+    '<div class="container-fluid" ng-init="ctrl.new()">\n' +
     '  <div class="page-header">\n' +
     '    <h1>Create Object</h1>\n' +
     '  </div>\n' +
