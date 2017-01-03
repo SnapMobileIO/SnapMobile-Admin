@@ -9,8 +9,8 @@ module.run(['$templateCache', function($templateCache) {
     '<ul class="list-group custom-form">\n' +
     '  <li class="list-group-item" ng-repeat="(key, value) in schema track by $index" ng-if="key !== \'displayName\' && key !== \'displayKey\' && value.instance !== \'Hidden\'">\n' +
     '\n' +
-    '    <!-- String or ID -->\n' +
-    '    <span ng-if="value.instance == \'String\' || key == \'_id\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
+    '    <!-- String, ID or CustomSelect-->\n' +
+    '    <span ng-if="value.instance == \'String\' || key == \'_id\'|| value.instance === \'CustomSelect\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>\n' +
     '\n' +
     '    <!-- ObjectID that isn\'t the object ID -->\n' +
     '    <span ng-if="value.instance == \'ObjectID\' && key != \'_id\'">\n' +

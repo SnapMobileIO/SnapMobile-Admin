@@ -23,7 +23,8 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance !== \'EmbeddedSchema\' &&\n' +
     '                                 value.instance !== \'Array-No-Commas\' &&\n' +
     '                                 value.instance !== \'FilesArray\' &&\n' +
-    '                                 value.instance !== \'File\'">\n' +
+    '                                 value.instance !== \'File\' &&\n' +
+    '                                 value.instance !== \'CustomSelect\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
@@ -31,7 +32,6 @@ module.run(['$templateCache', function($templateCache) {
     '  </div>\n' +
     '\n' +
     '  <!-- wysiwyg -->\n' +
-    '\n' +
     '  <span ng-if="value.instance == \'wysiwyg\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <textarea ui-tinymce="ctrl.tinymceOptions"\n' +
@@ -229,6 +229,20 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '    <div class="col-sm-2">\n' +
     '      <file-upload for-files="object[key]" accept="\'*\'" pattern="\'*\'" multiple="true" max-file-size="\'5000MB\'">Drop new files here</file-upload>\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <!-- Custom select options-->\n' +
+    '  <div class="form-group" ng-if="value.instance === \'CustomSelect\'">\n' +
+    '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
+    '    <div class="col-sm-8">\n' +
+    '      <ui-select ng-model="object[key]" title="Add {{key}}">\n' +
+    '        <ui-select-match>{{$select.selected}}</ui-select-match>\n' +
+    '        <ui-select-choices repeat="choice in value.selectOptions | filter: $select.search">\n' +
+    '          {{choice}}\n' +
+    '        </ui-select-choices>\n' +
+    '      </ui-select>\n' +
+    '      <a ng-click="object[key]=null">Clear</a>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '</div>\n' +
