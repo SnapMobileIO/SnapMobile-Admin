@@ -15,7 +15,8 @@
                                  value.instance !== 'EmbeddedSchema' &&
                                  value.instance !== 'Array-No-Commas' &&
                                  value.instance !== 'FilesArray' &&
-                                 value.instance !== 'File'">
+                                 value.instance !== 'File' &&
+                                 value.instance !== 'CustomSelect'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-10">
       <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">
@@ -23,7 +24,6 @@
   </div>
 
   <!-- wysiwyg -->
-
   <span ng-if="value.instance == 'wysiwyg'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <textarea ui-tinymce="ctrl.tinymceOptions"
@@ -221,6 +221,20 @@
 
     <div class="col-sm-2">
       <file-upload for-files="object[key]" accept="'*'" pattern="'*'" multiple="true" max-file-size="'5000MB'">Drop new files here</file-upload>
+    </div>
+  </div>
+
+  <!-- Custom select options-->
+  <div class="form-group" ng-if="value.instance === 'CustomSelect'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-8">
+      <ui-select ng-model="object[key]" title="Add {{key}}">
+        <ui-select-match>{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="choice in value.selectOptions | filter: $select.search">
+          {{choice}}
+        </ui-select-choices>
+      </ui-select>
+      <a ng-click="object[key]=null">Clear</a>
     </div>
   </div>
 </div>
