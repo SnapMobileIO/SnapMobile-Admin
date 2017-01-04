@@ -46,7 +46,7 @@
   <!-- Sidebar -->
   <div class="sidebar-wrapper">
     <ul class="sidebar-nav">
-      <li role="separator" class="divider">Navigation</li>
+      <li role="separator" class="divider">Navigation ------------------</li>
       <li ng-repeat="item in ctrl.sidebarItems track by $index">
         <a ng-click="ctrl.goToUrl(item)" ng-class="{'active': ctrl.Admin.className == item.class}">
           <i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}
