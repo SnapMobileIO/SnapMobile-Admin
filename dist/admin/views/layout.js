@@ -54,7 +54,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <!-- Sidebar -->\n' +
     '  <div class="sidebar-wrapper">\n' +
     '    <ul class="sidebar-nav">\n' +
-    '      <li role="separator" class="divider">Navigation</li>\n' +
+    '      <li role="separator" class="divider">Navigation ----------------</li>\n' +
     '      <li ng-repeat="item in ctrl.sidebarItems track by $index">\n' +
     '        <a ng-click="ctrl.goToUrl(item)" ng-class="{\'active\': ctrl.Admin.className == item.class}">\n' +
     '          <i class="fa fa-{{ item.icon }} fa=fw"></i>&nbsp;&nbsp; {{ item.title }}\n' +
