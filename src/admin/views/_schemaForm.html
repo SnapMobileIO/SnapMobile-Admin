@@ -50,7 +50,7 @@
   <div class="form-group" ng-if="value.instance == 'SubDocument'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-8">
-      <p class="color-subtle">{{object[key][schema[key].displayKey]}}</p>
+      <p class="color-subtle">{{schema[key].displayKey ? object[key][schema[key].displayKey] : object[key]}}</p>
     </div>
   </div>
 

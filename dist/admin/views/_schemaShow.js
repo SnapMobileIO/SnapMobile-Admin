@@ -133,7 +133,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <span ng-if="value.instance == \'Date\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</span>\n' +
     '\n' +
     '    <!-- SubDocument -->\n' +
-    '    <span ng-if="value.instance == \'SubDocument\'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key][schema[key].displayKey]}}</span>\n' +
+    '    <span ng-if="value.instance == \'SubDocument\'"><strong>{{schema[key].displayName || key}}:</strong> {{schema[key].displayKey ? object[key][schema[key].displayKey] : object[key]}}</span>\n' +
     '\n' +
     '    <!-- Children -->\n' +
     '    <span ng-if="key == \'children\'">\n' +

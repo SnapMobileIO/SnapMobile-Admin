@@ -96,7 +96,7 @@
                   <div class="truncate" ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</div>
 
                   <!-- SubDocument -->
-                  <div class="truncate" ng-if="value.instance == 'SubDocument'">{{object[key][ctrl.Admin.schema[key].displayKey]}}</div>
+                  <div class="truncate" ng-if="value.instance == 'SubDocument'">{{ctrl.Admin.schema[key].displayKey ? object[key][ctrl.Admin.schema[key].displayKey] : object[key]}}</div>
 
                   <!-- Boolean -->
                   <div class="truncate" ng-if="value.instance == 'Boolean'">
