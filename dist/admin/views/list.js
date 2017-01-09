@@ -104,7 +104,7 @@ module.run(['$templateCache', function($templateCache) {
     '                  <div class="truncate" ng-if="value.instance == \'Date\'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy \'at\' h:mma"}}</div>\n' +
     '\n' +
     '                  <!-- SubDocument -->\n' +
-    '                  <div class="truncate" ng-if="value.instance == \'SubDocument\'">{{object[key][ctrl.Admin.schema[key].displayKey]}}</div>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'SubDocument\'">{{ctrl.Admin.schema[key].displayKey ? object[key][ctrl.Admin.schema[key].displayKey] : object[key]}}</div>\n' +
     '\n' +
     '                  <!-- Boolean -->\n' +
     '                  <div class="truncate" ng-if="value.instance == \'Boolean\'">\n' +

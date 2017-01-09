@@ -58,7 +58,7 @@ module.run(['$templateCache', function($templateCache) {
     '  <div class="form-group" ng-if="value.instance == \'SubDocument\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-8">\n' +
-    '      <p class="color-subtle">{{object[key][schema[key].displayKey]}}</p>\n' +
+    '      <p class="color-subtle">{{schema[key].displayKey ? object[key][schema[key].displayKey] : object[key]}}</p>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +
