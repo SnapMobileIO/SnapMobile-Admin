@@ -130,13 +130,13 @@
                 </td>
 
                 <td>
-                  <button ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</button>
+                  <a ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</a>
                 </td>
                 <td>
                   <button ng-click="ctrl.remove(object)" class="btn btn-default btn-sm">Delete</button>
                 </td>
                 <td>
-                  <button ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</button>
+                  <a ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</a>
                 </td>
               </tr>
             </tbody>
