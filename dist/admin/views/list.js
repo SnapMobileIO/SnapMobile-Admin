@@ -138,13 +138,13 @@ module.run(['$templateCache', function($templateCache) {
     '                </td>\n' +
     '\n' +
     '                <td>\n' +
-    '                  <button ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</button>\n' +
+    '                  <a ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</a>\n' +
     '                </td>\n' +
     '                <td>\n' +
     '                  <button ng-click="ctrl.remove(object)" class="btn btn-default btn-sm">Delete</button>\n' +
     '                </td>\n' +
     '                <td>\n' +
-    '                  <button ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</button>\n' +
+    '                  <a ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</a>\n' +
     '                </td>\n' +
     '              </tr>\n' +
     '            </tbody>\n' +
