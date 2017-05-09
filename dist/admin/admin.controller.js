@@ -191,6 +191,16 @@ var AdminController = function () {
       var _this6 = this;
 
       if (this.object) {
+
+        // Remove hidden and mixed instance types to prevent malformed server request
+        for (var key in this.Admin.schema) {
+          if (this.Admin.schema.hasOwnProperty(key)) {
+            if (this.Admin.schema[key].instance === 'Hidden' || this.Admin.schema[key].instance === 'Mixed') {
+              delete this.object[key];
+            }
+          }
+        }
+
         this.Admin.update(this.object).then(function (response) {
           _this6.$state.go('admin-show', { className: _this6.Admin.className, id: _this6.object._id });
           _this6.FlashMessage.success('Successfully updated');
