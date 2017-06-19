@@ -101,6 +101,7 @@ var AdminController = function () {
       this.params = params || this.query || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
       this.Admin.query(this.params).then(function (response) {
         _this3.totalObjects = response.data.itemCount;
+        _this3.objects = [];
         _this3.objects = response.data.items;
       }, function (error) {
         _this3.FlashMessage.errors(error);

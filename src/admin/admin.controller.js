@@ -84,6 +84,7 @@ class AdminController {
     this.Admin.query(this.params)
       .then(response => {
         this.totalObjects = response.data.itemCount;
+        this.objects = [];
         this.objects = response.data.items;
       }, (error) => {
         this.FlashMessage.errors(error);
