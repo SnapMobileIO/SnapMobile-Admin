@@ -2,7 +2,7 @@
   <li class="list-group-item" ng-repeat="(key, value) in schema track by $index" ng-if="key !== 'displayName' && key !== 'displayKey' && value.instance !== 'Hidden'">
 
     <!-- String, ID or CustomSelect-->
-    <span ng-if="value.instance == 'String' || key == '_id'|| value.instance === 'CustomSelect'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>
+    <span ng-if="value.instance == 'String' || key == '_id'|| value.instance === 'CustomSelect' || value.instance === 'ReadOnly'"><strong>{{schema[key].displayName || key}}:</strong> {{object[key]}}</span>
 
     <!-- ObjectID that isn't the object ID -->
     <span ng-if="value.instance == 'ObjectID' && key != '_id'">

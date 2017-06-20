@@ -46,7 +46,7 @@
                 <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg'">
                   
                   <!-- String or CustomSelect-->
-                  <div class="truncate" ng-if="value.instance == 'String' || key == '_id' || value.instance === 'CustomSelect'">{{object[key]}}</div>
+                  <div class="truncate" ng-if="value.instance == 'String' || key == '_id' || value.instance === 'CustomSelect' || value.instance === 'ReadOnly'">{{object[key]}}</div>
                   
                   <!-- Relationship -->
                   <div class="truncate" ng-if="key != '_id' && value.instance == 'ObjectID'">

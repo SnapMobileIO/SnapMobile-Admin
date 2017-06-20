@@ -54,7 +54,7 @@ module.run(['$templateCache', function($templateCache) {
     '                <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\'">\n' +
     '                  \n' +
     '                  <!-- String or CustomSelect-->\n' +
-    '                  <div class="truncate" ng-if="value.instance == \'String\' || key == \'_id\' || value.instance === \'CustomSelect\'">{{object[key]}}</div>\n' +
+    '                  <div class="truncate" ng-if="value.instance == \'String\' || key == \'_id\' || value.instance === \'CustomSelect\' || value.instance === \'ReadOnly\'">{{object[key]}}</div>\n' +
     '                  \n' +
     '                  <!-- Relationship -->\n' +
     '                  <div class="truncate" ng-if="key != \'_id\' && value.instance == \'ObjectID\'">\n' +
