@@ -2,13 +2,19 @@
 
 require('angular-ui-tinymce');
 
+require('angular-loading-bar');
+
 var _admin = require('./admin.controller');
 
 var _admin2 = require('./admin.service');
 
 require('angular-recursion');
 
-var app = angular.module('adminApp', ['ui.router', 'ui.tinymce', 'RecursionHelper']);
+var app = angular.module('adminApp', ['ui.router', 'ui.tinymce', 'RecursionHelper', 'angular-loading-bar']);
+
+app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+  cfpLoadingBarProvider.includeSpinner = false;
+}]);
 
 app.service('Admin', _admin2.Admin);
 app.controller('AdminController', _admin.AdminController);

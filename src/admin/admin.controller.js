@@ -84,6 +84,7 @@ class AdminController {
     this.Admin.query(this.params)
       .then(response => {
         this.totalObjects = response.data.itemCount;
+        this.objects = [];
         this.objects = response.data.items;
       }, (error) => {
         this.FlashMessage.errors(error);
@@ -137,17 +138,30 @@ class AdminController {
    * Creates a new admin
    */
   add() {
-    this.Admin.create(this.object)
-      .then(response => {
-        this.objects.unshift(response.data);
-        this.object = {};
-        this.findAll();
-        this.$state.go('admin-list', { className: this.Admin.className });
-        this.FlashMessage.success('Successfully created');
-      }, (error) => {
-        this.FlashMessage.errors(error);
-        console.error(error);
-      });
+    if (this.object) {
+      // Remove hidden and mixed instance types to prevent malformed server request
+      for (const key in this.Admin.schema) {
+        if (this.Admin.schema.hasOwnProperty(key)) {
+          if (this.Admin.schema[key].instance === 'Hidden' ||
+              this.Admin.schema[key].instance === 'Mixed' ||
+              this.Admin.schema[key].instance === 'ReadOnly') {
+            delete this.object[key];
+          }
+        }
+      }
+
+      this.Admin.create(this.object)
+        .then(response => {
+          this.objects.unshift(response.data);
+          this.object = {};
+          this.findAll();
+          this.$state.go('admin-list', { className: this.Admin.className });
+          this.FlashMessage.success('Successfully created');
+        }, (error) => {
+          this.FlashMessage.errors(error);
+          console.error(error);
+        });
+    }
   }
 
   /**
@@ -160,7 +174,8 @@ class AdminController {
       for (const key in this.Admin.schema) {
         if (this.Admin.schema.hasOwnProperty(key)) {
           if (this.Admin.schema[key].instance === 'Hidden' ||
-              this.Admin.schema[key].instance === 'Mixed') {
+              this.Admin.schema[key].instance === 'Mixed' ||
+              this.Admin.schema[key].instance === 'ReadOnly') {
             delete this.object[key];
           }
         }

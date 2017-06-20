@@ -24,10 +24,19 @@ module.run(['$templateCache', function($templateCache) {
     '                                 value.instance !== \'Array-No-Commas\' &&\n' +
     '                                 value.instance !== \'FilesArray\' &&\n' +
     '                                 value.instance !== \'File\' &&\n' +
-    '                                 value.instance !== \'CustomSelect\'">\n' +
+    '                                 value.instance !== \'CustomSelect\' &&\n' +
+    '                                 value.instance !== \'ReadOnly\'">\n' +
     '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
     '    <div class="col-sm-10">\n' +
     '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">\n' +
+    '    </div>\n' +
+    '  </div>\n' +
+    '\n' +
+    '  <!-- Not an Array or an Image -->\n' +
+    '  <div class="form-group" ng-if="value.instance === \'ReadOnly\'">\n' +
+    '    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>\n' +
+    '    <div class="col-sm-10">\n' +
+    '      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control" disabled>\n' +
     '    </div>\n' +
     '  </div>\n' +
     '\n' +

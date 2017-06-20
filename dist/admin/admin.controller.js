@@ -101,6 +101,7 @@ var AdminController = function () {
       this.params = params || this.query || { limit: this.itemsPerPage, skip: this.params.skip, sort: this.params.sort };
       this.Admin.query(this.params).then(function (response) {
         _this3.totalObjects = response.data.itemCount;
+        _this3.objects = [];
         _this3.objects = response.data.items;
       }, function (error) {
         _this3.FlashMessage.errors(error);
@@ -169,16 +170,27 @@ var AdminController = function () {
     value: function add() {
       var _this5 = this;
 
-      this.Admin.create(this.object).then(function (response) {
-        _this5.objects.unshift(response.data);
-        _this5.object = {};
-        _this5.findAll();
-        _this5.$state.go('admin-list', { className: _this5.Admin.className });
-        _this5.FlashMessage.success('Successfully created');
-      }, function (error) {
-        _this5.FlashMessage.errors(error);
-        console.error(error);
-      });
+      if (this.object) {
+        // Remove hidden and mixed instance types to prevent malformed server request
+        for (var key in this.Admin.schema) {
+          if (this.Admin.schema.hasOwnProperty(key)) {
+            if (this.Admin.schema[key].instance === 'Hidden' || this.Admin.schema[key].instance === 'Mixed' || this.Admin.schema[key].instance === 'ReadOnly') {
+              delete this.object[key];
+            }
+          }
+        }
+
+        this.Admin.create(this.object).then(function (response) {
+          _this5.objects.unshift(response.data);
+          _this5.object = {};
+          _this5.findAll();
+          _this5.$state.go('admin-list', { className: _this5.Admin.className });
+          _this5.FlashMessage.success('Successfully created');
+        }, function (error) {
+          _this5.FlashMessage.errors(error);
+          console.error(error);
+        });
+      }
     }
 
     /**
@@ -195,7 +207,7 @@ var AdminController = function () {
         // Remove hidden and mixed instance types to prevent malformed server request
         for (var key in this.Admin.schema) {
           if (this.Admin.schema.hasOwnProperty(key)) {
-            if (this.Admin.schema[key].instance === 'Hidden' || this.Admin.schema[key].instance === 'Mixed') {
+            if (this.Admin.schema[key].instance === 'Hidden' || this.Admin.schema[key].instance === 'Mixed' || this.Admin.schema[key].instance === 'ReadOnly') {
               delete this.object[key];
             }
           }

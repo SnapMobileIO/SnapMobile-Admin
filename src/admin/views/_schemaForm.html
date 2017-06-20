@@ -16,10 +16,19 @@
                                  value.instance !== 'Array-No-Commas' &&
                                  value.instance !== 'FilesArray' &&
                                  value.instance !== 'File' &&
-                                 value.instance !== 'CustomSelect'">
+                                 value.instance !== 'CustomSelect' &&
+                                 value.instance !== 'ReadOnly'">
     <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
     <div class="col-sm-10">
       <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control">
+    </div>
+  </div>
+
+  <!-- Read Only -->
+  <div class="form-group" ng-if="value.instance === 'ReadOnly'">
+    <label for="{{key}}" class="col-sm-2 control-label">{{schema[key].displayName || key}}</label>
+    <div class="col-sm-10">
+      <input type="text" ng-if="!parent" ng-model="object[key]" id="{{key}}" placeholder="{{key}}" class="form-control" disabled>
     </div>
   </div>
 

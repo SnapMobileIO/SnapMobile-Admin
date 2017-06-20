@@ -12,6 +12,7 @@
   "author": "Jack Cable",
   "license": "ISC",
   "dependencies": {
+    "angular-loading-bar": "^0.9.0",
     "angular-recursion": "^1.0.5",
     "angular-ui-tinymce": "0.0.16",
     "snapmobile-adminserver": "git+https://37327d5496e19922f3042f023495176af24ba924:x-oauth-basic@github.com/SnapMobileIO/SnapMobile-AdminServer.git",
