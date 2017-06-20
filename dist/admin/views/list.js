@@ -114,13 +114,13 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '                  <!-- Image -->\n' +
     '                  <div class="truncate" ng-if="value.instance == \'Image\'">\n' +
-    '                    <img ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}" style="max-width: 200px; max-height: 200px;">\n' +
+    '                    <img ng-if="object[key].styles.thumb_square || object[key].url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}" style="max-width: 200px; max-height: 200px;">\n' +
     '                  </div>\n' +
     '\n' +
     '                  <!-- ImagesArray -->\n' +
     '                  <div class="truncate" ng-if="value.instance === \'ImagesArray\'">\n' +
     '                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">\n' +
-    '                      <img ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}" style="width: 100%">\n' +
+    '                      <img ng-if="image.styles.thumb_square || image.url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}" style="width: 100%">\n' +
     '                    </p>\n' +
     '                  </div>\n' +
     '\n' +
