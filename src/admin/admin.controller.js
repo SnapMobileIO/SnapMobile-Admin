@@ -63,12 +63,20 @@ class AdminController {
 
   /**
    * Get all objects from a collection and add to option
+   * This uses the filter url strategy to search based on a term
    * @param  {String} className Class name to retrieve objects
    * @param  {String} key       Key name of the object
    */
-  findRelationshipObjects(className, key) {
-    let params = { className: className, limit: 10000};
-    this.Admin.query(params)
+  findRelationshipObjects(className, searchTerm, key, searchBy) {
+    const filters = [
+      {field: searchBy, operator: 'like', value: searchTerm},
+      {field: searchBy, operator: 'like', value: searchTerm},
+    ];
+    const query = this.Filter.buildQuery(filters);
+    query.className = className;
+    query.limit = 10;
+
+    this.Admin.query(query)
       .then((response) => {
         this.relationshipObjects[key] = response.data.items;
       });
