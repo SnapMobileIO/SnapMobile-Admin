@@ -2,10 +2,20 @@
   <div class="page-header">
     <h1>{{ctrl.Admin.schema.displayName || ctrl.Admin.className}}</h1>
     <div class="actions">
-      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary"><i class="fa fa-plus"></i> Create</a>
-      <a ng-click="ctrl.exportToCsv()" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>
-      <a ng-click="ctrl.importToggle = !ctrl.importToggle" class="btn btn-default"><i class="fa fa-file-o" aria-hidden="true"></i> <span ng-show="ctrl.importToggle"> Hide import</span><span ng-hide="ctrl.importToggle"> Import from CSV</span></a>
-      <a ng-click="filterToggle = !filterToggle" class="btn btn-default"><i class="fa fa-filter"></i><span ng-show="filterToggle"> Hide Filter</span><span ng-hide="filterToggle"> Show Filter</span></a>
+      <a ui-sref="admin-new({ className: ctrl.Admin.className })" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Create</a>
+      <a ng-click="ctrl.exportToCsv()" class="btn btn-default">
+        <i class="fa fa-file-o" aria-hidden="true"></i> Export to CSV</a>
+      <a ng-click="ctrl.importToggle = !ctrl.importToggle" class="btn btn-default">
+        <i class="fa fa-file-o" aria-hidden="true"></i>
+        <span ng-show="ctrl.importToggle"> Hide import</span>
+        <span ng-hide="ctrl.importToggle"> Import from CSV</span>
+      </a>
+      <a ng-click="filterToggle = !filterToggle" class="btn btn-default">
+        <i class="fa fa-filter"></i>
+        <span ng-show="filterToggle"> Hide Filter</span>
+        <span ng-hide="filterToggle"> Show Filter</span>
+      </a>
     </div>
   </div>
 
@@ -16,19 +26,24 @@
           <div ng-if="ctrl.importToggle" class="col-md-12">
             <file-upload for-file="ctrl.uploadedUrl" multiple="false" accept="'text/csv'" pattern="'text/csv'" max-file-size="'100MB'">Drop csv file here</file-upload>
             <div class="pull-right">
-              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary" ng-disabled="ctrl.importLoading"><i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
-              <div ng-if="ctrl.importLoading"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+              <a ng-click="ctrl.importFromCsv()" class="margin-top btn btn-primary" ng-disabled="ctrl.importLoading">
+                <i class="fa fa-file-o" aria-hidden="true"></i> Import</a>
+              <div ng-if="ctrl.importLoading">
+                <i class="fa fa-spinner fa-spin"></i> Loading...</div>
             </div>
           </div>
-          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>
+          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)"
+            items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>
           <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>
+          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeAll()">Delete all ({{ctrl.totalObjects}}) Items</button>
           <table class="table table-hover">
             <thead>
               <tr>
                 <th class="wordwrap-none">
                   <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>
                 </th>
-                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg'" class="wordwrap-none text-muted">
+                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg'"
+                  class="wordwrap-none text-muted">
                   <a ng-click="ctrl.updateSort(key)">
                     {{ctrl.Admin.schema[key].displayName || ctrl.Admin.schema[key].path}}
                     <i ng-class="ctrl.toggle[key] ? 'fa fa-caret-up' : 'fa fa-caret-down'"></i>
@@ -41,13 +56,15 @@
             </thead>
             <tbody>
               <tr ng-repeat="object in ctrl.objects track by $index">
-                <td><input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)"></td>
+                <td>
+                  <input type="checkbox" ng-model="object.Selected" ng-click="ctrl.toggleSelection(object._id)">
+                </td>
 
                 <td ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg'">
-                  
+
                   <!-- String or CustomSelect-->
                   <div class="truncate" ng-if="value.instance == 'String' || key == '_id' || value.instance === 'CustomSelect' || value.instance === 'ReadOnly'">{{object[key]}}</div>
-                  
+
                   <!-- Relationship -->
                   <div class="truncate" ng-if="key != '_id' && value.instance == 'ObjectID'">
                     <a ui-sref="admin-show({
@@ -62,88 +79,98 @@
                       <a ui-sref="admin-show({
                           className: ctrl.Admin.schema[key].relationshipClass,
                           id: (object._id || object)
-                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a><span ng-if="!$last">,</span>
+                        })" class="text-muted">{{object[ctrl.Admin.schema[key].displayKey] || object._id || object}}</a>
+                      <span ng-if="!$last">,</span>
                     </span>
                   </div>
 
-                  <!-- Embedded Schema --> 
+                  <!-- Embedded Schema -->
                   <div ng-if="value.instance === 'EmbeddedSchema'">
-                      <div class="col-sm-11">
-                        <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
-                          <div class="row">
-                            <div ng-repeat="embeddedObject in [value.schema.paths] track by $index">
-                              <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="embeddedObject" ctrl="ctrl"></div>
-                            </div>
+                    <div class="col-sm-11">
+                      <div ng-repeat="(dataIndex, dataObject) in object[key] track by $index" class="custom-object">
+                        <div class="row">
+                          <div ng-repeat="embeddedObject in [value.schema.paths] track by $index">
+                            <div class="col-sm-12" schema-show object="object[key][dataIndex]" Admin="admin" schema="embeddedObject" ctrl="ctrl"></div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <!-- Mixed / Object -->
-                  <div class="truncate" ng-if="value.instance == 'Mixed'"><i class="text-muted">Mixed</i></div>
-
-                  <!-- Array -->
-                  <div class="truncate" ng-if="value.instance == 'Array'">{{object[key].join(', ')}}</div>
-
-                  <!-- Array-No-Commas -->
-                  <div class="truncate" ng-if="value.instance == 'Array-No-Commas'">{{object[key].join(', ')}}</div>
-
-                  <!-- Number -->
-                  <div class="truncate" ng-if="value.instance == 'Number'">{{object[key]}}</div>
-
-                  <!-- Date -->
-                  <div class="truncate" ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</div>
-
-                  <!-- SubDocument -->
-                  <div class="truncate" ng-if="value.instance == 'SubDocument'">{{ctrl.Admin.schema[key].displayKey ? object[key][ctrl.Admin.schema[key].displayKey] : object[key]}}</div>
-
-                  <!-- Boolean -->
-                  <div class="truncate" ng-if="value.instance == 'Boolean'">
-                    <i ng-if="object[key]" class="fa fa-check-circle"></i>
-                    <i ng-if="!object[key]" class="fa fa-times-circle"></i>
-                  </div>
-
-                  <!-- Image -->
-                  <div class="truncate" ng-if="value.instance == 'Image'">
-                    <img ng-if="object[key].styles.thumb_square || object[key].url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}" style="max-width: 200px; max-height: 200px;">
-                  </div>
-
-                  <!-- ImagesArray -->
-                  <div class="truncate" ng-if="value.instance === 'ImagesArray'">
-                    <p ng-repeat="image in object[key]" class="array-img padding-right-1x">
-                      <img ng-if="image.styles.thumb_square || image.url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}" style="width: 100%">
-                    </p>
-                  </div>
-
-                  <!-- File -->
-                  <div class="truncate" ng-if="value.instance == 'File'">
-                    <span ng-if="object[key].name && object[key].url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a></span>
-                  </div>
-
-                  <!-- FilesArray -->
-                  <div class="truncate" ng-if="value.instance === 'FilesArray'">
-                    <p ng-repeat="file in object[key]">
-                      <span ng-if="file.name && file.url" class="text-wordwrap"><a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a></span>
-                    </p>
-                  </div>
-                </td>
-
-                <td>
-                  <a ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</a>
-                </td>
-                <td>
-                  <button ng-click="ctrl.remove(object)" class="btn btn-default btn-sm">Delete</button>
-                </td>
-                <td>
-                  <a ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <uib-pagination total-items="ctrl.totalObjects" items-per-page="ctrl.itemsPerPage" ng-model="ctrl.currentPage" max-size="5" class="pagination" boundary-links="true" force-ellipses="true" ng-change="ctrl.pageChanged()"></uib-pagination>
         </div>
+
+        <!-- Mixed / Object -->
+        <div class="truncate" ng-if="value.instance == 'Mixed'">
+          <i class="text-muted">Mixed</i>
+        </div>
+
+        <!-- Array -->
+        <div class="truncate" ng-if="value.instance == 'Array'">{{object[key].join(', ')}}</div>
+
+        <!-- Array-No-Commas -->
+        <div class="truncate" ng-if="value.instance == 'Array-No-Commas'">{{object[key].join(', ')}}</div>
+
+        <!-- Number -->
+        <div class="truncate" ng-if="value.instance == 'Number'">{{object[key]}}</div>
+
+        <!-- Date -->
+        <div class="truncate" ng-if="value.instance == 'Date'" class="wordwrap-none">{{object[key] | date:"MM/dd/yyyy 'at' h:mma"}}</div>
+
+        <!-- SubDocument -->
+        <div class="truncate" ng-if="value.instance == 'SubDocument'">{{ctrl.Admin.schema[key].displayKey ? object[key][ctrl.Admin.schema[key].displayKey] : object[key]}}</div>
+
+        <!-- Boolean -->
+        <div class="truncate" ng-if="value.instance == 'Boolean'">
+          <i ng-if="object[key]" class="fa fa-check-circle"></i>
+          <i ng-if="!object[key]" class="fa fa-times-circle"></i>
+        </div>
+
+        <!-- Image -->
+        <div class="truncate" ng-if="value.instance == 'Image'">
+          <img ng-if="object[key].styles.thumb_square || object[key].url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].styles.thumb_square || object[key].url}}"
+            style="max-width: 200px; max-height: 200px;">
+        </div>
+
+        <!-- ImagesArray -->
+        <div class="truncate" ng-if="value.instance === 'ImagesArray'">
+          <p ng-repeat="image in object[key]" class="array-img padding-right-1x">
+            <img ng-if="image.styles.thumb_square || image.url" ng-src="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{image.styles.thumb_square || image.url}}"
+              style="width: 100%">
+          </p>
+        </div>
+
+        <!-- File -->
+        <div class="truncate" ng-if="value.instance == 'File'">
+          <span ng-if="object[key].name && object[key].url" class="text-wordwrap">
+            <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{object[key].url}}" target="_blank">{{object[key].name}}</a>
+          </span>
+        </div>
+
+        <!-- FilesArray -->
+        <div class="truncate" ng-if="value.instance === 'FilesArray'">
+          <p ng-repeat="file in object[key]">
+            <span ng-if="file.name && file.url" class="text-wordwrap">
+              <a ng-href="{{ctrl.Admin.constant.AWS_S3_BASE_URL}}/{{file.url}}" target="_blank">{{file.name}}</a>
+            </span>
+          </p>
+        </div>
+        </td>
+
+        <td>
+          <a ui-sref="admin-show({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">View</a>
+        </td>
+        <td>
+          <button ng-click="ctrl.remove(object)" class="btn btn-default btn-sm">Delete</button>
+        </td>
+        <td>
+          <a ui-sref="admin-edit({ className: ctrl.Admin.className, id: object._id })" class="btn btn-default btn-sm">Edit</a>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        <uib-pagination total-items="ctrl.totalObjects" items-per-page="ctrl.itemsPerPage" ng-model="ctrl.currentPage" max-size="5"
+          class="pagination" boundary-links="true" force-ellipses="true" ng-change="ctrl.pageChanged()"></uib-pagination>
       </div>
     </div>
   </div>
+</div>
 </div>

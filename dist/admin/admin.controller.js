@@ -289,6 +289,32 @@ var AdminController = function () {
     }
 
     /**
+      * Removes all objects
+      */
+
+  }, {
+    key: 'removeAll',
+    value: function removeAll() {
+      var _this11 = this;
+      if (this.$window.confirm('Are you sure? This action cannot be undone.')) {
+        _this11.Admin.query({ limit: _this11.totalObjects }).then(function (response) {
+          _this11.objects = [];
+          _this11.objects = response.data.items;
+          var todelete = _this11.objects.map(function (object) {
+            return object._id;
+          });
+          _this11.Admin.deleteMultiple(todelete).then(function (response) {
+            _this11.selectedItems = [];
+            _this11.findAll();
+            _this11.FlashMessage.success('Successfully deleted');
+          }, function (error) {
+            console.error(error);
+          });
+        });
+      }
+    }
+    
+    /**
      * Updates and reruns findAll() to sort objects based on key and asc / desc
      * The toggle state is tracked so that the UI can be udpated
      * @param  {String} key The key to sort by
