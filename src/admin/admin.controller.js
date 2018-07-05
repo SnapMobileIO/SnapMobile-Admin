@@ -250,6 +250,29 @@ class AdminController {
   }
 
   /**
+   * Removes all objects
+   */
+  
+  removeAll() {
+    if (this.$window.confirm('Are you sure? This action cannot be undone.')) {
+      this.Admin.query({limit: this.totalObjects}).then(function (response) {
+        this.objects = [];
+        this.objects = response.data.items;
+        var todelete = this.objects.map(function (object) {
+          return object._id;
+        });
+        this.Admin.deleteMultiple(todelete).then(function (response) {
+          this.selectedItems = [];
+          this.findAll();
+          this.FlashMessage.success('Successfully deleted');
+        }, function (error) {
+            console.error(error);
+        }); 
+      });
+    }
+  }
+  
+  /**
    * Updates and reruns findAll() to sort objects based on key and asc / desc
    * The toggle state is tracked so that the UI can be udpated
    * @param  {String} key The key to sort by

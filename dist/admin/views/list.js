@@ -30,6 +30,7 @@ module.run(['$templateCache', function($templateCache) {
     '          </div>\n' +
     '          <filter-query ng-if="ctrl.Admin.schema && filterToggle" filters="ctrl.filters" schema="ctrl.Admin.schema" find-all="ctrl.findAll(queryObject)" items-per-page="ctrl.itemsPerPage" skip="ctrl.skip" sort="ctrl.sort"></filter-query>\n' +
     '          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeMultiple(ctrl.selectedItems)">Delete ({{ctrl.selectedItems.length}}) Items</button>\n' +
+    '          <button ng-if="ctrl.selectedItems.length" class="btn btn-danger" ng-click="ctrl.removeAll()">Delete all ({{ctrl.totalObjects}}) Items</button>\n' +
     '          <table class="table table-hover">\n' +
     '            <thead>\n' +
     '              <tr>\n' +
