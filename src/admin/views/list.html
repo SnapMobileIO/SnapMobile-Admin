@@ -40,7 +40,7 @@
             <thead>
               <tr>
                 <th class="wordwrap-none">
-                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>
+                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-change="ctrl.toggleAllSelection()"></input>
                 </th>
                 <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== 'Hidden' && value.instance !== 'wysiwyg'"
                   class="wordwrap-none text-muted">
