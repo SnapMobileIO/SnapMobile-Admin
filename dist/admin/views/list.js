@@ -35,7 +35,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <thead>\n' +
     '              <tr>\n' +
     '                <th class="wordwrap-none">\n' +
-    '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-click="ctrl.toggleAllSelection()"></input>\n' +
+    '                  <input type="checkbox" ng-model="ctrl.selectedAll" ng-change="ctrl.toggleAllSelection()"></input>\n' +
     '                </th>\n' +
     '                <th ng-repeat="(key, value) in ctrl.Admin.schema track by $index" ng-if="value.instance !== \'Hidden\' && value.instance !== \'wysiwyg\'" class="wordwrap-none text-muted">\n' +
     '                  <a ng-click="ctrl.updateSort(key)">\n' +
